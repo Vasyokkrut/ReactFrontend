@@ -1,0 +1,45 @@
+.BtnFullPicture {
+  background-color:#ffffff;
+	border-radius:28px;
+  border:1px solid #2d57d4;
+  margin: 1rem .5rem;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-size:16px;
+	padding: 1rem 2rem;
+  text-decoration:none;
+  transition-duration: 0.2s;
+  outline: none;
+}
+
+.BtnFullPicture:hover {
+	background-color: #008CBA;
+  color: white;
+}
+
+.button {
+  background-color: #211588;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 1rem;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  outline: none;
+}
+
+.button1 {
+  background-color: white;
+  color: black;
+  border: 2px solid #05359c;
+}
+
+.button1:hover {
+  background-color: #008CBA;
+  color: white;
+}

@@ -1,0 +1,13 @@
+.PostItemDark {
+  background-color: #6e6e6e;
+}
+
+.PostItemLight {
+  background-color: #c6d1ec;
+}
+
+.PostItem {
+  padding: 20px;
+  margin-top: 2rem;
+  border-radius: 18px;
+}
