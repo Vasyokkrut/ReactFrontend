@@ -21,7 +21,7 @@ function Buttons({item, itemFolder, handleDeleteClick}) {
             <a
                 style={{font:'1rem Arial'}}
                 className='BtnFullPicture'
-                href={`https://vasyokkrut.dev/downloadPicture/${item.fileName}`}
+                href={`/downloadPicture/${item.fileName}`}
             >
                 Download
             </a>
