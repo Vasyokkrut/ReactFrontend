@@ -11,9 +11,9 @@ function LoginFormPopup(props) {
                 <button
                     className='button button1'
                     onClick={() => {
-                            props.userLogout()
-                            localStorage.removeItem('LoginData')
-                            localStorage.removeItem('JWTToken')
+                        localStorage.removeItem('LoginData')
+                        localStorage.removeItem('JWTToken')
+                        props.userLogout()
                         }
                     }
                 >
@@ -34,7 +34,7 @@ function LoginFormPopup(props) {
     )
 }
 
-const mapActionsToProps = (dispatch) => {
+const mapActionsToProps = dispatch => {
     return {
       changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch),
       userLogout: bindActionCreators(userLogout,dispatch)
