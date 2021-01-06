@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { changePopUpDisplay } from '../../Store/actions.js'
 import './styles.css'
 
 function NavbarHeader(props) {
@@ -15,10 +18,40 @@ function NavbarHeader(props) {
                 Vasyokkrut
               </Link>
             </div>
-            <div>{props.isLoggedin?props.userName:'You could log in'}</div>
+
+            {props.isLoggedin
+              ? // if user logged in
+              <div>
+                {props.userName}
+              </div>
+
+              : // if user doesn't logged in
+              <div>
+                You could&ensp;
+                <span
+                  className='loginButton'
+                  onClick={props.changePopUpDisplay}
+                >
+                  log in
+                </span>
+              </div>}
           </div>
         </header>
     )
 }
 
-export default NavbarHeader
+const mapStateToProps = store => {
+  return {
+    theme: store.theme,
+    isLoggedin: store.isLoggedin,
+    userName: store.userName
+  }
+}
+  
+const mapActionsToProps = dispatch => {
+  return {
+    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(NavbarHeader)

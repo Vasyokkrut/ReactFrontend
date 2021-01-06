@@ -41,11 +41,7 @@ class MainComponent extends React.Component {
     return(
       <React.Fragment>
         <noscript>You have to enable JS</noscript>
-        <NavbarHeader
-          theme={this.props.theme}
-          isLoggedin={this.props.isLoggedin}
-          userName={this.props.userName}
-        />
+        <NavbarHeader />
         <PopUp />
         <div className='Flexible main-component'>
           <LeftList TextColor={this.TextColor} />
