@@ -24,3 +24,59 @@
   background-color: rgb(0, 70, 160);
   color: #fff;
 }
+
+.username {
+  height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  padding: 0 1rem;
+}
+
+.dropdown-dark:hover {
+  background-color: #555555;
+}
+
+.dropdown-light:hover {
+  background-color: #a7bdeb;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  border-radius: 0 0 3px 3px;
+  padding: .25rem 0rem;
+}
+
+.dropdown-content-dark {
+  background-color: #818181;
+}
+
+.dropdown-content-light {
+  background-color: #a7bdeb;
+  border: #555555 solid 1px;
+}
+
+.dropdown-option {
+  cursor: pointer;
+  padding: .2rem 1rem;
+}
+
+.dropdown-option-dark:hover {
+  background-color: #aaa;
+}
+
+.dropdown-option-light:hover {
+  background-color: #c6d1ec;
+}
