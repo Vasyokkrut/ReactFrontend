@@ -1,6 +1,5 @@
 import React from 'react'
 import {useCookies} from 'react-cookie'
-import './styles.css'
 
 function ChangeThemeBtn(props) {
     let [cookie, setCookie] = useCookies()
