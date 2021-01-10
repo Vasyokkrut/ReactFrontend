@@ -7,15 +7,13 @@ import axios from 'axios'
 import PostsList from './MiddleList.jsx'
 import PopUp from './registerPopUp/popUp.jsx'
 import NavbarHeader from './navbarHeader/navbarHeader.jsx'
-import universalCookie from 'universal-cookie'
 import {changeTheme, addPost, userLogin, addUserPost}
   from '../Store/actions.js'
 
 class MainComponent extends React.Component {
 
   async componentDidMount() {
-    let cookie = new universalCookie()
-    if(cookie.get('theme')==='light') this.props.changeTheme()
+    if(localStorage.getItem('theme')==='light') this.props.changeTheme()
     let LoginData = localStorage.getItem('LoginData')
     if(LoginData!==null) {
       let JWTToken = localStorage.getItem('JWTToken')

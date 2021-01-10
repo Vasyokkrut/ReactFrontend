@@ -1,26 +1,18 @@
 import React from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { useCookies } from 'react-cookie'
 import { bindActionCreators } from 'redux'
 import { changePopUpDisplay, userLogout, changeTheme } from '../../Store/actions.js'
 
 function Dropdown(props) {
-  let [cookie, setCookie] = useCookies()
-  function setThemeCookie() {
-    let cookieSettings = {
-      path:'/',
-      expires: new Date(`December 17, ${(new Date()).getFullYear()+100} 03:24:00`)
-    }
-    if(cookie.theme===undefined) {
-      setCookie('theme', props.theme, cookieSettings)
-    }
-    setCookie('theme', props.theme==='dark'?'light':'dark', cookieSettings)
+  function changeTheme() {
+    localStorage.setItem('theme', props.theme==='dark'?'light':'dark')
+    props.changeTheme()
   }
 
   let dropdownOptionClass = classNames('dropdown-option', `dropdown-option-${props.theme}`)
-  let dropdowncontentClass = classNames('dropdown-content', `dropdown-content-${props.theme}`)
-  let dropdownClassName = classNames('dropdown', `dropdown-${props.theme}`)
+  let dropdownContentClass = classNames('dropdown-content', `dropdown-content-${props.theme}`)
+  let dropdownClassName = classNames('dropdown', {[`dropdown-${props.theme}`]:props.isLoggedin})
 
   if (props.isLoggedin) {
     return(
@@ -28,10 +20,10 @@ function Dropdown(props) {
         <div className='username'>
           {props.userName}
         </div>
-        <div className={dropdowncontentClass}>
+        <div className={dropdownContentClass}>
           <div
             className={dropdownOptionClass}
-            onClick={() => {props.changeTheme(); setThemeCookie()}}
+            onClick={changeTheme}
           >
             change&nbsp;theme
           </div>
@@ -51,14 +43,26 @@ function Dropdown(props) {
     )
   } else {
     return (
-      <div>
-        You could&ensp;
-        <span
-          className='loginButton'
-          onClick={props.changePopUpDisplay}
-        >
-          log in
-        </span>
+      <div className={dropdownClassName} >
+        <div className='loginContainer' >
+          <div>
+            You could&ensp;
+            <span
+              className='loginButton'
+              onClick={props.changePopUpDisplay}
+            >
+              log in
+            </span>
+          </div>
+        </div>
+        <div className={dropdownContentClass}>
+          <div
+            className={dropdownOptionClass}
+            onClick={changeTheme}
+          >
+            change&nbsp;theme
+          </div>
+        </div>
       </div>
     )
   }
