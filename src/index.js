@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import { CookiesProvider } from 'react-cookie'
 import { Switch, Route } from 'react-router-dom'
 
 import { mainReducer } from './Store/reducers.js'
@@ -15,19 +14,17 @@ let store = createStore(mainReducer)
 
 function MainApp() {
   return (
-    <CookiesProvider>
-      <BrowserRouter>
-        <Provider store={store}>
-          <Switch>
-            <Route path='/api/getImage' component={FullPicture} />
-            <Route path='/api/getUserImage' component={FullPicture} />
-            <Route path='/'>
-              <MainComponent />
-            </Route>
-          </Switch>
-        </Provider>
-      </BrowserRouter>
-    </CookiesProvider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <Switch>
+          <Route path='/api/getImage' component={FullPicture} />
+          <Route path='/api/getUserImage' component={FullPicture} />
+          <Route path='/'>
+            <MainComponent />
+          </Route>
+        </Switch>
+      </Provider>
+    </BrowserRouter>
   )
 }
 
