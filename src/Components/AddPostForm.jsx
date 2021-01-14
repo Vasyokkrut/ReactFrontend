@@ -48,7 +48,7 @@ function AddPostForm(props) {
             <div className='Flexible'>
                 <div>
                     <div className='Flexible'>
-                        <label className='button button1' style={{font:'1rem Arial'}}>
+                        <label className='button button1'>
                             {Picture===null?'Choose picture':'Rechoose picture'}
                             <input id='InputField' type='file' onInput={handlePictureInput} />
                         </label>

@@ -9,7 +9,7 @@
 }
 
 .navbar {
-  width: 74rem;
+  width: 76rem;
   display: flex;
   height: 100%;
   align-items: center;
@@ -42,7 +42,6 @@
   position: relative;
   display: inline-block;
   cursor: default;
-  padding: 0 1rem;
 }
 
 .dropdown-dark:hover {

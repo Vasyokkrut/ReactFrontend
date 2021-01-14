@@ -15,12 +15,10 @@ function Buttons({item, itemFolder, handleDeleteClick}) {
                 rel='noopener noreferrer'
                 target='_blank'
                 href= {itemFolder}
-                style={{font:'1rem Arial'}}
             >
                 Open full image
             </a>
             <a
-                style={{font:'1rem Arial'}}
                 className='BtnFullPicture'
                 href={`/downloadPicture/${item.fileName}`}
             >
