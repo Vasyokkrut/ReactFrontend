@@ -44,17 +44,22 @@ function AddPostForm(props) {
     }
 
     return(
-        <React.Fragment>
+        <>
             <div className='Flexible'>
                 <div>
                     <div className='Flexible'>
                         <label className='button button1'>
-                            {Picture===null?'Choose picture':'Rechoose picture'}
-                            <input id='InputField' type='file' onInput={handlePictureInput} />
+                            {Picture===null?'Create Post':'Rechoose picture'}
+                            <input
+                                id='InputField'
+                                accept='image/*'
+                                type='file'
+                                onInput={handlePictureInput}
+                            />
                         </label>
                     </div>
                     {Picture!==null?
-                        <React.Fragment>
+                        <>
                             <div style={{color:props.TextColor, fontSize:'1.2rem', textAlign:'center'}}>
                                 Picture is choosen!<br />
                                 You can upload it<br />
@@ -75,12 +80,12 @@ function AddPostForm(props) {
                                     Upload Picture
                                 </button>
                             </div>
-                        </React.Fragment>
+                        </>
                         :null
                     }
                 </div>
             </div>
-        </React.Fragment>
+        </>
     )
 }
 
