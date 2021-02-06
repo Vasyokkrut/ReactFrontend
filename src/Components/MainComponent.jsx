@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import React from 'react'
 import axios from 'axios'
-import PostsList from './MiddleList.jsx'
+import MiddleList from './MiddleList.jsx'
 import PopUp from './registerPopUp/popUp.jsx'
 import NavbarHeader from './navbarHeader/navbarHeader.jsx'
 import {changeTheme, addPost, userLogin, addUserPost}
@@ -43,7 +43,7 @@ class MainComponent extends React.Component {
         <PopUp />
         <div className='Flexible main-component'>
           <LeftList TextColor={this.TextColor} />
-          <PostsList />
+          <MiddleList />
           <RightList TextColor={this.TextColor} />
         </div>
       </React.Fragment>

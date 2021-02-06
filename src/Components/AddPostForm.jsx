@@ -44,7 +44,6 @@ function AddPostForm(props) {
     }
 
     return(
-        <>
             <div className='Flexible'>
                 <div>
                     <div className='Flexible'>
@@ -85,7 +84,6 @@ function AddPostForm(props) {
                     }
                 </div>
             </div>
-        </>
     )
 }
 

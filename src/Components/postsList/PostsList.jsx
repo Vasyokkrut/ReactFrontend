@@ -1,21 +1,15 @@
 import React from 'react';
-import Post from './PostItem.jsx'
+import PostItems from './PostItems.jsx'
 import AddPostForm from '../AddPostForm.jsx'
 import './styles.css'
 
-function MainList({TextColor}) {
+function PostsList({TextColor}) {
     return(
         <div>
-            <AddPostForm
-                TextColor={TextColor}
-            />
-            <div>
-                <Post
-                    TextColor={TextColor}
-                />
-            </div>
+            <AddPostForm TextColor={TextColor} />
+            <PostItems TextColor={TextColor} />
         </div>
     )
 }
 
-export default MainList
+export default PostsList

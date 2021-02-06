@@ -15,17 +15,32 @@ function LeftList(props) {
             <nav>
                 <ul className='LeftList List'>
                     <li className={linkClassName}>
-                        <a className={itemClassName} rel='noreferrer noopener' target='_blank' href='https://ru.reactjs.org/docs/react-component.html'>
+                        <a
+                            className={itemClassName}
+                            rel='noreferrer noopener'
+                            target='_blank'
+                            href='https://ru.reactjs.org/docs/react-component.html'
+                        >
                             <span className='LinkText'><span style={{paddingLeft:'.4rem'}}>React Component</span></span>
                         </a>
                     </li>
                     <li className={linkClassName}>
-                        <a className={itemClassName} rel='noopener noreferrer' target='_blank' href='https://ru.reactjs.org/docs/fragments.html'>
+                        <a
+                            className={itemClassName}
+                            rel='noopener noreferrer'
+                            target='_blank'
+                            href='https://ru.reactjs.org/docs/fragments.html'
+                        >
                             <span className='LinkText'><span style={{paddingLeft:'.4rem'}}>React Fragment</span></span>
                         </a>
                     </li>
                     <li className={linkClassName}>
-                        <a className={itemClassName} rel='noopener noreferrer' target='_blank' href='https://ru.reactjs.org/docs/hooks-intro.html'>
+                        <a
+                            className={itemClassName}
+                            rel='noopener noreferrer'
+                            target='_blank'
+                            href='https://ru.reactjs.org/docs/hooks-intro.html'
+                        >
                             <span className='LinkText'><span style={{paddingLeft:'.4rem'}}>React Hooks</span></span>
                         </a>
                     </li>

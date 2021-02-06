@@ -1,12 +1,12 @@
 import React from 'react';
 import WelcomePage from './WelcomePage.jsx'
 import { Switch, Route } from 'react-router-dom'
-import MainList from './postsList/PostsList.jsx'
+import PostsList from './postsList/PostsList.jsx'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { changeTheme } from '../Store/actions.js'
 
-class PostsList extends React.Component {
+class MiddleList extends React.Component {
 
   render() {
     this.TextColor=this.props.theme==='dark'?'white':'black'
@@ -20,7 +20,7 @@ class PostsList extends React.Component {
         <main>
           <Switch>
             <Route path='/upload'>
-              <MainList
+              <PostsList
                 TextColor={this.TextColor}
               />
             </Route>
@@ -52,4 +52,4 @@ const mapActionsToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(PostsList)
+export default connect(mapStateToProps, mapActionsToProps)(MiddleList)
