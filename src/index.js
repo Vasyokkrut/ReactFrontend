@@ -5,10 +5,10 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { Switch, Route } from 'react-router-dom'
 
-import { mainReducer } from './Store/reducers.js'
-import MainComponent from './Components/MainComponent.jsx'
-import FullPicture from './Components/FullPicture.jsx'
 import './globalStyles.css'
+import { mainReducer } from './Store/reducers.js'
+import FullPicture from './Components/FullPicture.jsx'
+import MainComponent from './Components/MainComponent.jsx'
 
 let store = createStore(mainReducer)
 
@@ -19,9 +19,7 @@ function MainApp() {
         <Switch>
           <Route path='/api/getImage' component={FullPicture} />
           <Route path='/api/getUserImage' component={FullPicture} />
-          <Route path='/'>
-            <MainComponent />
-          </Route>
+          <Route path='/' component={MainComponent} />
         </Switch>
       </Provider>
     </BrowserRouter>

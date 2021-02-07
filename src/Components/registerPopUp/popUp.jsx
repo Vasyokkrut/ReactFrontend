@@ -3,7 +3,7 @@ import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {changePopUpDisplay, addUserPost, userLogin} from '../../Store/actions.js'
+import {changePopUpDisplay, userLogin} from '../../Store/actions.js'
 import './styles.css'
 
 function PopUp(props) {
@@ -44,11 +44,6 @@ function PopUp(props) {
             axios.post('/login', data)
             .then(async res => {
                 let JWTToken = res.data.JWTToken
-                let a = await axios.get(`/api/getUserImages`, {headers:{Authorization: JWTToken}})
-                let images=a.data.images
-                for(let i=0;i<images.length;i++) {
-                    props.addUserPost(images[i])
-                }
                 props.userLogin({username:loginState[0], JWTToken: JWTToken})
                 localStorage.setItem('LoginData', JSON.stringify({login:loginState[0].trim(), password:loginState[1].trim()}))
                 localStorage.setItem('JWTToken', JWTToken)
@@ -158,9 +153,8 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = dispatch => {
     return {
-        changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch),
         userLogin: bindActionCreators(userLogin, dispatch),
-        addUserPost: bindActionCreators(addUserPost, dispatch)
+        changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
     }
 }
 

@@ -10,7 +10,7 @@ function WelcomePage(props) {
         <Link
           style={{color:props.TextColor, textAlign:'center', padding:'2rem'}}
           className={className}
-          to='/upload'
+          to='/publicPosts'
         >
           Upload your own<br/>
           picture here!

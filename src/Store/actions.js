@@ -4,7 +4,7 @@ export const changeTheme = () => {
   }
 }
 
-export const deletePost = (pictureName) => {
+export const deletePost = pictureName => {
   return {
     type:'ACTION_DELETE_PICTURE',
     payload:{
@@ -13,7 +13,7 @@ export const deletePost = (pictureName) => {
   }
 }
 
-export const deleteUserPost = (pictureName) => {
+export const deleteUserPost = pictureName => {
   return {
     type:'ACTION_DELETE_USER_PICTURE',
     payload:{
@@ -22,14 +22,28 @@ export const deleteUserPost = (pictureName) => {
   }
 }
 
-export const addUserPost = (newPost) => {
+export const setUserPosts = posts => {
+  return {
+    type:'ACTION_SET_USERPOSTS',
+    payload:posts
+  }
+}
+
+export const setPosts = posts => {
+  return {
+    type:'ACTION_SET_POSTS',
+    payload:posts
+  }
+}
+
+export const addUserPost = newPost => {
   return {
     type:'ACTION_ADD_USER_POST',
     payload:newPost
   }
 }
 
-export const addPost = (newPost) => {
+export const addPost = newPost => {
   return {
     type:'ACTION_ADD_POST',
     payload:newPost

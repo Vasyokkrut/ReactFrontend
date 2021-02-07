@@ -27,6 +27,16 @@ export const mainReducer = (state=initialState, action) => {
           ...state,
           posts:[action.payload, ...state.posts]
         }
+      case 'ACTION_SET_POSTS':
+        return {
+          ...state,
+          posts:action.payload
+        }
+      case 'ACTION_SET_USERPOSTS':
+        return {
+          ...state,
+          userPosts:action.payload
+        }
       case 'ACTION_ADD_USER_POST':
         return {
           ...state,
@@ -49,7 +59,6 @@ export const mainReducer = (state=initialState, action) => {
           ...state,
           isLoggedin:false,
           userName:null,
-          userPosts:[],
           userJWTToken:null
         }
       default:

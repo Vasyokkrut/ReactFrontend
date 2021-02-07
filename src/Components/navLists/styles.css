@@ -46,5 +46,9 @@
 .LinkText {
   position: absolute;
   width: 100%;
-  height: 2rem;
+}
+
+.List {
+  font-size: 1.4rem;
+  margin: 0;
 }

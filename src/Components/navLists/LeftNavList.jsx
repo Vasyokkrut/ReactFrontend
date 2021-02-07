@@ -4,12 +4,12 @@ import './styles.css'
 
 function LeftList(props) {
     let itemClassName=classnames('UsefulLink', props.TextColor==='black'?'UsefulLinkDark':'UsefulLinkLight')
-    let listClassName=classnames(props.TextColor==='black'?'lightBox':'darkBox', 'LeftBox', 'Box')
+    let boxClassName=classnames(props.TextColor==='black'?'lightBox':'darkBox', 'LeftBox', 'Box')
     let linkClassName=classnames(props.TextColor==='black'?'lightLinkText':'darkLinkText')
     return(
-        <div className={listClassName}>
+        <div className={boxClassName}>
             <div style={{color:props.TextColor, fontSize:'1.7rem'}}>
-                React useful links:
+                Post Lists:
             </div>
             <hr style={{ height:'2px', color:'#666', borderWidth:'0' , backgroundColor:'#666'}} />
             <nav>
@@ -17,31 +17,21 @@ function LeftList(props) {
                     <li className={linkClassName}>
                         <a
                             className={itemClassName}
-                            rel='noreferrer noopener'
-                            target='_blank'
-                            href='https://ru.reactjs.org/docs/react-component.html'
+                            href={`/userPosts/${props.userName}`}
                         >
-                            <span className='LinkText'><span style={{paddingLeft:'.4rem'}}>React Component</span></span>
+                            <span className='LinkText'>
+                                <span style={{paddingLeft:'.4rem'}}>{props.userName} Posts</span>
+                            </span>
                         </a>
                     </li>
                     <li className={linkClassName}>
                         <a
                             className={itemClassName}
-                            rel='noopener noreferrer'
-                            target='_blank'
-                            href='https://ru.reactjs.org/docs/fragments.html'
+                            href='/publicPosts'
                         >
-                            <span className='LinkText'><span style={{paddingLeft:'.4rem'}}>React Fragment</span></span>
-                        </a>
-                    </li>
-                    <li className={linkClassName}>
-                        <a
-                            className={itemClassName}
-                            rel='noopener noreferrer'
-                            target='_blank'
-                            href='https://ru.reactjs.org/docs/hooks-intro.html'
-                        >
-                            <span className='LinkText'><span style={{paddingLeft:'.4rem'}}>React Hooks</span></span>
+                            <span className='LinkText'>
+                                <span style={{paddingLeft:'.4rem'}}>Public Posts</span>
+                            </span>
                         </a>
                     </li>
                 </ul>
