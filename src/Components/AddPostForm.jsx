@@ -91,9 +91,10 @@ const mapStateToProps = store => {
     return {
         isLoggedin: store.isLoggedin,
         userName: store.userName,
-        JWTToken: store.userJWTToken
+        JWTToken: store.userJWTToken,
+        TextColor: store.theme==='dark'?'white':'black'
     }
-  }
+}
 
 const mapActionsToProps = dispatch => {
     return {

@@ -1,55 +1,39 @@
 import React from 'react';
-import WelcomePage from './WelcomePage.jsx'
-import { Switch, Route } from 'react-router-dom'
-import PostsList from './postsList/PostsList.jsx'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { changeTheme } from '../Store/actions.js'
+import { Switch, Route } from 'react-router-dom'
 
-class MiddleList extends React.Component {
+import WelcomePage from './WelcomePage.jsx'
+import PostsList from './postsList/PostsList.jsx'
 
-  render() {
-    this.TextColor=this.props.theme==='dark'?'white':'black'
-    return(
-      <div className='PostsList'>
-        <div>
-          <div style={{color:this.TextColor}} className='TextNode AccName'>
-            {this.props.isLoggedin?`${this.props.userName} posts`:'Public posts'}
-          </div>
+function MiddleList(props) {
+  return(
+    <div className='PostsList'>
+      <div>
+        <div style={{color:props.TextColor}} className='TextNode AccName'>
+          {props.isLoggedin?`${props.userName} posts`:'Public posts'}
         </div>
-        <main>
-          <Switch>
-            <Route path='/upload'>
-              <PostsList
-                TextColor={this.TextColor}
-              />
-            </Route>
-            <Route path='/'>
-              <WelcomePage
-                TextColor={this.TextColor}
-              />
-            </Route>
-          </Switch>
-        </main>
       </div>
-    )
-  }
+      <main>
+        <Switch>
+          <Route path='/upload' component={PostsList} />
+          <Route path='/'>
+            <WelcomePage
+              TextColor={props.TextColor}
+            />
+          </Route>
+        </Switch>
+      </main>
+    </div>
+  )
 }
 
 const mapStateToProps = store => {
   return {
     isLoggedin:store.isLoggedin,
-    userPosts: store.userPosts,
     theme: store.theme,
-    posts: store.posts,
-    userName: store.userName
+    userName: store.userName,
+    TextColor: store.theme==='dark'?'white':'black'
   }
 }
 
-const mapActionsToProps = dispatch => {
-  return {
-    changeTheme: bindActionCreators(changeTheme, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(MiddleList)
+export default connect(mapStateToProps, null)(MiddleList)

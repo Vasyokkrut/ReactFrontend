@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import classnames from 'classnames'
+import { Link } from 'react-router-dom'
 
 function WelcomePage(props) {
   let className = classnames('WelcomeLink', 'Flexible', props.TextColor==='white'?'WhiteLink':'DarkLink')
