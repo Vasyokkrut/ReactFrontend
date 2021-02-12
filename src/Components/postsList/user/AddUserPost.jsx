@@ -42,7 +42,7 @@ function AddPostForm(props) {
         <div className='Flexible'>
             <div>
                 <div className='Flexible'>
-                    <label className='button button1'>
+                    <label className='UploadBtn'>
                         {Picture===null?'Create Post':'Rechoose picture'}
                         <input
                             id='InputField'
@@ -54,7 +54,7 @@ function AddPostForm(props) {
                 </div>
                 {Picture!==null?
                     <>
-                        <div style={{color:props.TextColor, fontSize:'1.2rem', textAlign:'center'}}>
+                        <div style={{fontSize:'1.2rem', textAlign:'center'}}>
                             Picture is choosen!<br />
                             You can upload it<br />
                             using form below
@@ -68,7 +68,7 @@ function AddPostForm(props) {
                         />
                         <div className='Flexible'>
                             <button
-                                className="button button1"
+                                className="UploadBtn"
                                 onClick={handleUpload}
                             >
                                 Upload Picture
@@ -84,10 +84,9 @@ function AddPostForm(props) {
 
 const mapStateToProps = store => {
     return {
-        isLoggedin: store.isLoggedin,
         userName: store.userName,
-        JWTToken: store.userJWTToken,
-        TextColor: store.theme==='dark'?'white':'black'
+        isLoggedin: store.isLoggedin,
+        JWTToken: store.userJWTToken
     }
 }
 

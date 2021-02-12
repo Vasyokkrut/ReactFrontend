@@ -1,38 +1,57 @@
 import React from 'react'
 import classnames from 'classnames'
-import './styles.css'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+
+import { changePopUpDisplay, setUserPosts } from '../../Store/actions.js'
 
 function LeftList(props) {
-    let itemClassName=classnames('UsefulLink', props.TextColor==='black'?'UsefulLinkDark':'UsefulLinkLight')
-    let boxClassName=classnames(props.TextColor==='black'?'lightBox':'darkBox', 'LeftBox', 'Box')
-    let linkClassName=classnames(props.TextColor==='black'?'lightLinkText':'darkLinkText')
+
+    let linkClassName=classnames(props.theme==='light'?'lightLinkText':'darkLinkText')
+    let boxClassName=classnames(props.theme==='light'?'lightBox':'darkBox', 'LeftBox', 'Box')
+    let itemClassName=classnames('UsefulLink', props.theme==='light'?'UsefulLinkDark':'UsefulLinkLight')
+
     return(
         <div className={boxClassName}>
-            <div style={{color:props.TextColor, fontSize:'1.7rem'}}>
+            <div style={{fontSize:'2rem'}}>
                 Post Lists:
             </div>
             <hr style={{ height:'2px', color:'#666', borderWidth:'0' , backgroundColor:'#666'}} />
             <nav>
                 <ul className='LeftList List'>
                     <li className={linkClassName}>
+                        {
+                        props.userName !== null
+                        ?
                         <a
                             className={itemClassName}
                             href={`/userPosts/${props.userName}`}
                         >
                             <span className='LinkText'>
-                                <span style={{paddingLeft:'.4rem'}}>{props.userName} Posts</span>
+                                <span style={{paddingLeft:'.4rem'}}>My Posts</span>
                             </span>
                         </a>
+                        :
+                        <span
+                            className={itemClassName}
+                            onClick={props.changePopUpDisplay}
+                        >
+                            <span className='LinkText'>
+                                <span style={{paddingLeft:'.4rem'}}>My Posts</span>
+                            </span>
+                        </span>
+                        }
                     </li>
                     <li className={linkClassName}>
-                        <a
+                        <Link
                             className={itemClassName}
-                            href='/publicPosts'
+                            to='/publicPosts'
                         >
                             <span className='LinkText'>
                                 <span style={{paddingLeft:'.4rem'}}>Public Posts</span>
                             </span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </nav>
@@ -40,4 +59,18 @@ function LeftList(props) {
     )
 }
 
-export default LeftList
+const mapStateToProps = store => {
+    return {
+        theme: store.theme,
+        userName: store.userName
+    }
+}
+
+const mapActionsToProps = dispatch => {
+    return {
+        setUserPosts: bindActionCreators(setUserPosts, dispatch),
+        changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(LeftList)

@@ -1,7 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React from 'react'
 
-import '../styles.css'
 import AddUserPost from './AddUserPost.jsx'
 import UserPostItems from './UserPostItems.jsx'
 
@@ -9,7 +7,7 @@ function UserPostsList(props) {
     let URLUserName = props.match.params.URLUserName
     return(
         <div>
-            <div style={{color:props.TextColor}} className='TextNode AccName'>
+            <div className='TextNode AccName'>
                 {`${URLUserName} posts`}
             </div>
             <AddUserPost URLUserName={URLUserName} />
@@ -18,10 +16,4 @@ function UserPostsList(props) {
     )
 }
 
-const mapStateToProps = store => {
-    return {
-        TextColor: store.theme==='dark'?'white':'black'
-    }
-}
-
-export default connect(mapStateToProps, null)(UserPostsList)
+export default UserPostsList

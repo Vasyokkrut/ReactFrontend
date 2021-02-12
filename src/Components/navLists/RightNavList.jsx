@@ -3,46 +3,77 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import './styles.css'
-import {changeTheme, userLogout, changePopUpDisplay} from '../../Store/actions.js'
+import { changeTheme, userLogout, changePopUpDisplay } from '../../Store/actions.js'
 
 function RightList(props) {
 
-    let itemClassName=classnames('UsefulLink', props.TextColor==='black'?'UsefulLinkDark':'UsefulLinkLight')
-    let boxClassName=classnames(props.TextColor==='black'?'lightBox':'darkBox', 'RightBox', 'Box')
-    let linkClassName=classnames(props.TextColor==='black'?'lightLinkText':'darkLinkText')
+    let itemClassName=classnames('UsefulLink')
+    let linkClassName=classnames(props.theme==='light'?'lightLinkText':'darkLinkText')
+    let boxClassName=classnames(props.theme==='light'?'lightBox':'darkBox', 'RightBox', 'Box')
+
+    function changeTheme() {
+        localStorage.setItem('theme', props.theme==='dark'?'light':'dark')
+        props.changeTheme()
+    }
+
+    function userLogout() {
+        localStorage.removeItem('JWTToken')
+        localStorage.removeItem('LoginData')
+        props.userLogout()
+    }
+
     return(
         <div className={boxClassName}>
-            <div style={{color:props.TextColor, fontSize:'1.7rem'}}>
+            <div style={{fontSize:'2rem'}}>
                 Settings:
             </div>
             <hr style={{ height:'2px', color:'#666', borderWidth:'0' , backgroundColor:'#666'}} />
             <nav>
                 <ul className='RightList List'>
+                    {
+                    !props.isLoggedin
+                    ?
                     <li className={linkClassName}>
-                        <a
+                        <span
                             className={itemClassName}
-                            rel='noreferrer noopener'
-                            target='_blank'
-                            href='https://learn.javascript.ru/promise'
+                            onClick={props.changePopUpDisplay}
                         >
                             <span className='LinkText'>
-                                <span style={{paddingLeft:'.4rem'}}>login logout</span>
+                                <span style={{paddingLeft:'.4rem'}}>login</span>
                             </span>
-                        </a>
+                        </span>
                     </li>
+                    :
+                    null
+                    }
+
                     <li className={linkClassName}>
-                        <a
+                        <span
                             className={itemClassName}
-                            rel='noopener noreferrer'
-                            target='_blank'
-                            href='https://learn.javascript.ru/function-basics'
+                            onClick={changeTheme}
                         >
                             <span className='LinkText'>
                                 <span style={{paddingLeft:'.4rem'}}>change theme</span>
                             </span>
-                        </a>
+                        </span>
                     </li>
+
+                    {
+                    props.isLoggedin
+                    ?
+                    <li className={linkClassName}>
+                        <span
+                            className={itemClassName}
+                            onClick={userLogout}
+                        >
+                            <span className='LinkText'>
+                                <span style={{paddingLeft:'.4rem'}}>logout</span>
+                            </span>
+                        </span>
+                    </li>
+                    :
+                    null
+                    }
                 </ul>
             </nav>
         </div>
@@ -51,14 +82,15 @@ function RightList(props) {
 
 const mapStateToProps = store => {
     return {
-      isLoggedin:store.isLoggedin
+        theme: store.theme,
+        isLoggedin: store.isLoggedin
     }
 }
 
 const mapActionsToProps = dispatch => {
     return {
-        changeTheme: bindActionCreators(changeTheme, dispatch),
         userLogout: bindActionCreators(userLogout, dispatch),
+        changeTheme: bindActionCreators(changeTheme, dispatch),
         changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
     }
 }

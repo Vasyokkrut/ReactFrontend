@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 function FullPicture(props) {
   document.getElementsByTagName('html')[0].style.height='100%'

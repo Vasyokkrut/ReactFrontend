@@ -2,13 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import './navLists/styles.css'
+import './postsList/styles.css'
 import MiddleList from './MiddleList.jsx'
 import PopUp from './registerPopUp/popUp.jsx'
 import LeftList from './navLists/LeftNavList.jsx'
 import RightList from './navLists/RightNavList.jsx'
 import NavbarHeader from './navbarHeader/navbarHeader.jsx'
-import {changeTheme, setPosts, userLogin, addUserPost}
-  from '../Store/actions.js'
+import { changeTheme, userLogin } from '../Store/actions.js'
 
 class MainComponent extends React.Component {
 
@@ -22,6 +23,10 @@ class MainComponent extends React.Component {
       this.props.userLogin({username:LoginData.login, JWTToken: JWTToken})
     }
   }
+  
+  shouldComponentUpdate () {
+    return true
+  }
 
   render(){
     document.body.className = this.props.theme
@@ -31,9 +36,9 @@ class MainComponent extends React.Component {
         <NavbarHeader />
         <PopUp />
         <div className='Flexible main-component'>
-          <LeftList TextColor={this.props.TextColor} userName={this.props.userName} />
+          <LeftList />
           <MiddleList />
-          <RightList TextColor={this.props.TextColor} isLoggedin={this.props.isLoggedin} />
+          <RightList />
         </div>
       </React.Fragment>
     )
@@ -42,19 +47,14 @@ class MainComponent extends React.Component {
   
 const mapStateToProps = store => {
   return {
-    theme: store.theme,
-    isLoggedin: store.isLoggedin,
-    userName: store.userName,
-    TextColor: store.theme==='dark'?'white':'black'
+    theme: store.theme
   }
 }
   
 const mapActionsToProps = dispatch => {
   return {
-    changeTheme: bindActionCreators(changeTheme, dispatch),
-    setPosts: bindActionCreators(setPosts, dispatch),
     userLogin: bindActionCreators(userLogin, dispatch),
-    addUserPost: bindActionCreators(addUserPost, dispatch)
+    changeTheme: bindActionCreators(changeTheme, dispatch)
   }
 }
 

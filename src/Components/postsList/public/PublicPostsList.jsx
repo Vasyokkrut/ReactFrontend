@@ -1,14 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React from 'react'
 
-import '../styles.css'
 import AddPublicPost from './AddPublicPost.jsx'
 import PublicPostItems from './PublicPostItems.jsx'
 
-function PublicPostsList(props) {
+function PublicPostsList() {
     return(
         <div>
-            <div style={{color:props.TextColor}} className='TextNode AccName'>
+            <div className='TextNode AccName'>
                 Public posts
             </div>
             <AddPublicPost/>
@@ -17,10 +15,4 @@ function PublicPostsList(props) {
     )
 }
 
-const mapStateToProps = store => {
-    return {
-        TextColor: store.theme==='dark'?'white':'black'
-    }
-}
-
-export default connect(mapStateToProps, null)(PublicPostsList)
+export default PublicPostsList

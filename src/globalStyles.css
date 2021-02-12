@@ -9,15 +9,18 @@
 
 .light {
   background-color: #a7bdeb;
+  color: black;
 }
 
 .dark {
   background-color: #222226;
+  color: white;
 }
 
 body {
   margin: 0;
   padding: 0;
+  overflow-y: scroll;
 }
 
 .main-component {
@@ -116,9 +119,11 @@ input[type="file"] {
 }
 
 .WelcomeLink {
-  text-decoration: none;
-  font-size: 4rem;
   width: 30rem;
+  padding: 2rem;
+  font-size: 4rem;
+  text-align: center;
+  text-decoration: none;
 }
 
 .TextNode {
@@ -151,4 +156,14 @@ li {
 
 .MainLink:hover {
   background-color: rgba(0, 0, 0, .2);
+}
+
+.postPicture {
+  max-height: 400px;
+  max-width: 600px;
+}
+
+.PictureContainer {
+  height: 400px;
+  align-items: center;
 }

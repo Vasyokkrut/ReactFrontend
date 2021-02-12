@@ -5,22 +5,32 @@ import Buttons from '../../buttons/functionalButtons'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { deletePost, deleteUserPost, setPosts } from '../../../Store/actions.js'
+import { setPosts } from '../../../Store/actions.js'
 
 class PublicPostItems extends React.Component {
 
-    async componentDidMount() {
-        let publicPosts = await axios.get('/api/getImages')
-        publicPosts = publicPosts.data.images
-        this.props.setPosts(publicPosts.reverse())
+    constructor(props) {
+        super(props)
+        this.state = {isDataLoaded: false}
+
+        axios.get('/api/getImages')
+            .then(publicPosts => {
+                publicPosts = publicPosts.data.images
+                if (publicPosts.length) {
+                    props.setPosts(publicPosts.reverse())
+                }
+                this.setState({isDataLoaded: true})
+            })
     }
 
     render() {
-        let PostClassName = classNames('PostItem', this.props.TextColor==='white'?'PostItemDark':'PostItemLight')
+        let PostClassName = classNames('PostItem', this.props.theme==='dark'?'PostItemDark':'PostItemLight')
 
-        if(this.props.publicPosts.length===0) {
+        if(this.state.isDataLoaded === false) return null
+
+        if(!this.props.publicPosts.length) {
             return (
-                <div className='EmptyPost' style={{color:this.props.TextColor}}>
+                <div className='EmptyPost'>
                     Upload your own picture<br />
                     using button above!
                 </div>
@@ -32,14 +42,15 @@ class PublicPostItems extends React.Component {
                 let itemName=`/api/getImage/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
-                        <div style={{color:this.props.TextColor}} className='Item Flexible'>
-                            <h1>{item.name}</h1>
+                        <div className='PostText'>
+                            <span>{item.name}</span>
                         </div>
                         <Picture itemName={itemName} />
                         <Buttons
                             itemFolder={itemName}
                             item={item}
                             handleDeleteClick={() => {alert('you cannot delete public posts')}}
+                            isDeleteAvailable={false}
                         />
                     </div>
                 )
@@ -50,16 +61,14 @@ class PublicPostItems extends React.Component {
 
 const mapStateToProps = store => {
     return {
-        publicPosts: store.posts,
-        TextColor: store.theme==='dark'?'white':'black'
+        theme: store.theme,
+        publicPosts: store.posts
     }
 }
 
 const mapActionsToProps = dispatch => {
     return {
-        setPosts: bindActionCreators(setPosts, dispatch),
-        deletePost: bindActionCreators(deletePost, dispatch),
-        deleteUserPost: bindActionCreators(deleteUserPost, dispatch)
+        setPosts: bindActionCreators(setPosts, dispatch)
     }
 }
 

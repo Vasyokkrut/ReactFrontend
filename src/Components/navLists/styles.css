@@ -1,9 +1,11 @@
 .darkLinkText:hover {
   background-color: #6e6e6e;
+  cursor: pointer;
 }
 
 .lightLinkText:hover {
   background-color: #a2b8e4;
+  cursor: pointer;
 }
 
 .UsefulLinkDark {

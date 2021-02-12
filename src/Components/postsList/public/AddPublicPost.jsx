@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+
 import { addPost } from '../../../Store/actions.js'
 
 function AddPostForm(props) {
@@ -38,7 +39,7 @@ function AddPostForm(props) {
         <div className='Flexible'>
             <div>
                 <div className='Flexible'>
-                    <label className='button button1'>
+                    <label className='UploadBtn'>
                         {Picture===null?'Create Post':'Rechoose picture'}
                         <input
                             id='InputField'
@@ -50,7 +51,7 @@ function AddPostForm(props) {
                 </div>
                 {Picture!==null?
                     <>
-                        <div style={{color:props.TextColor, fontSize:'1.2rem', textAlign:'center'}}>
+                        <div style={{fontSize:'1.2rem', textAlign:'center'}}>
                             Picture is choosen!<br />
                             You can upload it<br />
                             using form below
@@ -64,7 +65,7 @@ function AddPostForm(props) {
                         />
                         <div className='Flexible'>
                             <button
-                                className="button button1"
+                                className="UploadBtn"
                                 onClick={handleUpload}
                             >
                                 Upload Picture
@@ -78,16 +79,10 @@ function AddPostForm(props) {
     )
 }
 
-const mapStateToProps = store => {
-    return {
-        TextColor: store.theme==='dark'?'white':'black'
-    }
-}
-
 const mapActionsToProps = dispatch => {
     return {
         addPost: bindActionCreators(addPost, dispatch)
     }
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(AddPostForm)
+export default connect(null, mapActionsToProps)(AddPostForm)

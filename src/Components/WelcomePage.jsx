@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 import classnames from 'classnames'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 function WelcomePage(props) {
-  let className = classnames('WelcomeLink', 'Flexible', props.TextColor==='white'?'WhiteLink':'DarkLink')
+  let className = classnames('WelcomeLink', 'Flexible', props.theme === 'dark'?'WhiteLink':'DarkLink')
   return(
     <div className='MainLink'>
       <div className='Flexible'>
         <Link
-          style={{color:props.TextColor, textAlign:'center', padding:'2rem'}}
           className={className}
           to='/publicPosts'
         >
@@ -20,4 +20,10 @@ function WelcomePage(props) {
   )
 }
 
-export default WelcomePage
+const mapStateToProps = store => {
+  return {
+    theme: store.theme
+  }
+}
+
+export default connect(mapStateToProps, null)(WelcomePage)

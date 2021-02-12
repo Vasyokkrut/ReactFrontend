@@ -10,6 +10,12 @@ function Dropdown(props) {
     props.changeTheme()
   }
 
+  function userLogout() {
+    localStorage.removeItem('JWTToken')
+    localStorage.removeItem('LoginData')
+    props.userLogout()
+  }
+
   let dropdownOptionClass = classNames('dropdown-option', `dropdown-option-${props.theme}`)
   let dropdownContentClass = classNames('dropdown-content', `dropdown-content-${props.theme}`)
   let dropdownClassName = classNames('dropdown', {[`dropdown-${props.theme}`]:props.isLoggedin})
@@ -29,12 +35,7 @@ function Dropdown(props) {
           </div>
           <div
             className={dropdownOptionClass}
-            onClick={() => {
-              localStorage.removeItem('LoginData')
-              localStorage.removeItem('JWTToken')
-              props.userLogout()
-              }
-            }
+            onClick={userLogout}
           >
             exit&nbsp;from&nbsp;account
           </div>
@@ -53,14 +54,6 @@ function Dropdown(props) {
             >
               log in
             </span>
-          </div>
-        </div>
-        <div className={dropdownContentClass}>
-          <div
-            className={dropdownOptionClass}
-            onClick={changeTheme}
-          >
-            change&nbsp;theme
           </div>
         </div>
       </div>

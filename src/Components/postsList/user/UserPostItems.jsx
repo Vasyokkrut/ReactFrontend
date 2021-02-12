@@ -1,21 +1,28 @@
 import React from 'react'
 import axios from 'axios'
-import Picture from '../../Picture'
-import Buttons from '../../buttons/functionalButtons'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { deleteUserPost, setUserPosts } from '../../../Store/actions.js'
+
+import Picture from '../../Picture'
+import Buttons from '../../buttons/functionalButtons'
+import { deleteUserPost, setUserPosts, userLogout } from '../../../Store/actions.js'
 
 class PostItems extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {isDataLoaded: false}
+    }
 
     async componentDidMount() {
         try {
             let posts = await axios.get(`/api/getUserImages/${this.props.URLUserName}`)
             posts = posts.data.images
             this.props.setUserPosts(posts.reverse())
+            this.setState({isDataLoaded: true})
         } catch {
-            console.log('oops')
+            this.props.setUserPosts(null)
+            this.setState({isDataLoaded: true})
         }
     }
 
@@ -40,29 +47,45 @@ class PostItems extends React.Component {
     }
 
     render() {
-        let PostClassName = classNames('PostItem', this.props.TextColor==='white'?'PostItemDark':'PostItemLight')
-        if(this.props.userPosts.length===0) {
+        let PostClassName = classNames('PostItem', this.props.theme==='dark'?'PostItemDark':'PostItemLight')
+
+        // show nothing unless data is loaded to prevent flicker
+        if(this.state.isDataLoaded === false) return null
+
+        // if user doesn't exist this message will be displayed
+        if(this.props.userPosts === null) {
             return (
-                <div className='EmptyPost' style={{color:this.props.TextColor}}>
+                <div className='EmptyPost'>
+                    User Doesn't exist
+                </div>
+            )
+        }
+
+        // if user has not any posts this message will be displayed
+        if(this.props.userPosts.length === 0) {
+            return (
+                <div className='EmptyPost'>
                     Upload your own picture<br />
                     using button above!
                 </div>
             )
         }
 
+        // if user has posts they will be displayed
         return(
             this.props.userPosts.map(item => {
                 let itemName=`/api/getUserImage/${this.props.URLUserName}/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
-                        <div style={{color:this.props.TextColor}} className='Item Flexible'>
-                            <h1>{item.name}</h1>
+                        <div className='PostText'>
+                            <span>{item.name}</span>
                         </div>
                         <Picture itemName={itemName} />
                         <Buttons
                             itemFolder={itemName}
                             item={item}
                             handleDeleteClick={this.handleDeleteClick.bind(this)}
+                            isDeleteAvailable={this.props.URLUserName === this.props.userName}
                         />
                     </div>
                 )
@@ -73,18 +96,19 @@ class PostItems extends React.Component {
 
 const mapStateToProps = store => {
     return {
+        theme: store.theme,
         isLoggedin: store.isLoggedin,
         userName: store.userName,
         userPosts: store.userPosts,
-        JWTToken: store.userJWTToken,
-        TextColor: store.theme==='dark'?'white':'black'
+        JWTToken: store.userJWTToken
     }
 }
 
 const mapActionsToProps = dispatch => {
     return {
-        deleteUserPost: bindActionCreators(deleteUserPost, dispatch),
-        setUserPosts: bindActionCreators(setUserPosts, dispatch)
+        userLogout: bindActionCreators(userLogout, dispatch),
+        setUserPosts: bindActionCreators(setUserPosts, dispatch),
+        deleteUserPost: bindActionCreators(deleteUserPost, dispatch)
     }
 }
 
