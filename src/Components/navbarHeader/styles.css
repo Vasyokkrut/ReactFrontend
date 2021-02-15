@@ -1,11 +1,11 @@
 .darkHeader {
-  background-color: rgb(51, 51, 51);
-  color: #fff;
+  background-color: #333;
+  color: white;
 }
 
 .lightHeader {
-  background-color: #c6d1ec;
-  color: #000;
+  background-color: whitesmoke;
+  color: black;
 }
 
 .navbar {
@@ -46,11 +46,11 @@
 }
 
 .dropdown-dark:hover {
-  background-color: #555555;
+  background-color: #555;
 }
 
 .dropdown-light:hover {
-  background-color: #a7bdeb;
+  background-color: #ebebeb;
 }
 
 .dropdown:hover .dropdown-content {
@@ -70,8 +70,8 @@
 }
 
 .dropdown-content-light {
-  background-color: #a7bdeb;
-  border: #555555 solid 1px;
+  background-color: whitesmoke;
+  border: #e0e0e0 solid 1px;
 }
 
 .dropdown-option {
@@ -84,5 +84,5 @@
 }
 
 .dropdown-option-light:hover {
-  background-color: #c6d1ec;
+  background-color: #ddd;
 }

@@ -1,7 +1,27 @@
 import React from 'react'
+
 import './styles.css'
 
-function Buttons({item, itemFolder, handleDeleteClick, isDeleteAvailable}) {
+// There are three buttons which appear under a picture
+// They allow user to download, open and delete pictures
+// Delete button doesn't appear on public posts and on foreign user's posts
+function Buttons({item, itemURL, handleDeleteClick, isDeleteAvailable}) {
+
+    // Since react dev server and backend server in development mode are different servers
+    // and react doesn't proxying href attribute for <a> tag
+    // we should explicitly add backend server hostname to href in development mode
+    // In production mode there will be only one server
+
+    let downloadHref = `/downloadPicture/${item.fileName}`
+
+    if (process.env.NODE_ENV === 'development') {
+        downloadHref = 'http://localhost:5000' + downloadHref
+    }
+
+    if (process.env.NODE_ENV === 'development') {
+        itemURL = 'http://localhost:5000' + itemURL
+    }
+
     return(
         <div className='Flexible'>
             {isDeleteAvailable ? (
@@ -11,21 +31,18 @@ function Buttons({item, itemFolder, handleDeleteClick, isDeleteAvailable}) {
                 >
                     Delete this image
                 </button>
-            ) : (
-                null
-            )
-            }
+            ) : null}
             <a
                 className='BtnFullPicture'
                 rel='noopener noreferrer'
                 target='_blank'
-                href= {itemFolder}
+                href={itemURL}
             >
                 Open full image
             </a>
             <a
                 className='BtnFullPicture'
-                href={`/downloadPicture/${item.fileName}`}
+                href={downloadHref}
             >
                 Download
             </a>

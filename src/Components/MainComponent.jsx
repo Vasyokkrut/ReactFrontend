@@ -14,24 +14,20 @@ import { changeTheme, userLogin } from '../Store/actions.js'
 class MainComponent extends React.Component {
 
   async componentDidMount() {
-    if(localStorage.getItem('theme')==='light') this.props.changeTheme()
+    if(localStorage.getItem('theme') === 'light') this.props.changeTheme()
 
     let LoginData = localStorage.getItem('LoginData')
-    if(LoginData!==null) {
+    if(LoginData !== null) {
       let JWTToken = localStorage.getItem('JWTToken')
       LoginData = JSON.parse(LoginData)
       this.props.userLogin({username:LoginData.login, JWTToken: JWTToken})
     }
   }
-  
-  shouldComponentUpdate () {
-    return true
-  }
 
   render(){
     document.body.className = this.props.theme
     return(
-      <React.Fragment>
+      <>
         <noscript>You have to enable JS</noscript>
         <NavbarHeader />
         <PopUp />
@@ -40,7 +36,7 @@ class MainComponent extends React.Component {
           <MiddleList />
           <RightList />
         </div>
-      </React.Fragment>
+      </>
     )
   }
 }

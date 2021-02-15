@@ -1,5 +1,5 @@
 .BtnFullPicture {
-  background-color:#ffffff;
+  background-color:whitesmoke;
 	border-radius:28px;
   border:1px solid #05359c;
   margin: 1rem .5rem;
@@ -19,7 +19,7 @@
 }
 
 .UploadBtn {
-  background-color: white;
+  background-color: whitesmoke;
   border: 2px solid #05359c;
   color: black;
   padding: 16px 32px;

@@ -1,23 +1,26 @@
 import React from 'react'
 import axios from 'axios'
-import Picture from '../../Picture'
-import Buttons from '../../buttons/functionalButtons'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+
+import Picture from '../../Picture'
 import { setPosts } from '../../../Store/actions.js'
+import Buttons from '../../buttons/functionalButtons'
 
 class PublicPostItems extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {isDataLoaded: false}
+    }
 
+    componentDidMount() {
         axios.get('/api/getImages')
             .then(publicPosts => {
                 publicPosts = publicPosts.data.images
                 if (publicPosts.length) {
-                    props.setPosts(publicPosts.reverse())
+                    this.props.setPosts(publicPosts.reverse())
                 }
                 this.setState({isDataLoaded: true})
             })
@@ -39,15 +42,15 @@ class PublicPostItems extends React.Component {
 
         return(
             this.props.publicPosts.map(item => {
-                let itemName=`/api/getImage/${item._id}`
+                let itemURL = `/api/getImage/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
                         <div className='PostText'>
                             <span>{item.name}</span>
                         </div>
-                        <Picture itemName={itemName} />
+                        <Picture itemURL={itemURL} />
                         <Buttons
-                            itemFolder={itemName}
+                            itemURL={itemURL}
                             item={item}
                             handleDeleteClick={() => {alert('you cannot delete public posts')}}
                             isDeleteAvailable={false}

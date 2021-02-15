@@ -1,9 +1,10 @@
 .PostItemDark {
-  background-color: #6e6e6e;
+  background-color: #333;
 }
 
 .PostItemLight {
-  background-color: #c6d1ec;
+  background-color: whitesmoke;
+  border: 1px solid #e0e0e0;
 }
 
 .PostItem {

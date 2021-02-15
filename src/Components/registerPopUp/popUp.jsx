@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
 import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
+import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
-import {changePopUpDisplay, userLogin} from '../../Store/actions.js'
+
 import './styles.css'
+import {changePopUpDisplay, userLogin} from '../../Store/actions.js'
 
 function PopUp(props) {
     let [loginState, setLoginState] = useState(['','','','',''])
@@ -75,7 +76,7 @@ function PopUp(props) {
     if(props.hidden) return null
 
     return(
-        <React.Fragment>
+        <>
             <div className={overlayClassname} onClick={closePopup}></div>
             <div className='popupWindow' >
                 <div onClick={closePopup} style={{height:'3rem'}}></div>
@@ -139,7 +140,7 @@ function PopUp(props) {
                 </div>
                 <div onClick={closePopup} style={{height:'100%'}}></div>
             </div>
-        </React.Fragment>
+        </>
     )
 }
 

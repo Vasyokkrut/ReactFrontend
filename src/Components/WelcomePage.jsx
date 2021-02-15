@@ -3,8 +3,8 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-function WelcomePage(props) {
-  let className = classnames('WelcomeLink', 'Flexible', props.theme === 'dark'?'WhiteLink':'DarkLink')
+function WelcomePage({theme}) {
+  let className = classnames('WelcomeLink', 'Flexible', theme === 'dark'?'WhiteLink':'DarkLink')
   return(
     <div className='MainLink'>
       <div className='Flexible'>

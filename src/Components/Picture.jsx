@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Picture({itemName}) {
+function Picture({itemURL}) {
 
   return(
     <div className='Flexible PictureContainer'>
       <img
-        src={itemName}
+        src={itemURL}
         alt='There is a beautiful car'
         className='postPicture'
       />

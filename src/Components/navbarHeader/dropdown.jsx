@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+
 import { changePopUpDisplay, userLogout, changeTheme } from '../../Store/actions.js'
 
 function Dropdown(props) {
@@ -10,7 +11,7 @@ function Dropdown(props) {
     props.changeTheme()
   }
 
-  function userLogout() {
+  function logout() {
     localStorage.removeItem('JWTToken')
     localStorage.removeItem('LoginData')
     props.userLogout()
@@ -35,7 +36,7 @@ function Dropdown(props) {
           </div>
           <div
             className={dropdownOptionClass}
-            onClick={userLogout}
+            onClick={logout}
           >
             exit&nbsp;from&nbsp;account
           </div>

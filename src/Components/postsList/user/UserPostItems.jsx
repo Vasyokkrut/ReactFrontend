@@ -27,23 +27,20 @@ class PostItems extends React.Component {
     }
 
     handleDeleteClick(fileName) {
-        if(this.props.isLoggedin){
-            axios.delete(
-                '/api/deleteUserImage',
-                {
-                    data:{
-                        delete:fileName,
-                        userName:this.props.userName
-                    },
-                    headers:{
-                        'Authorization': this.props.JWTToken
-                    } 
-                }
-            )
-            .then(res => {if(res.data.deleted===true) this.props.deleteUserPost(fileName) })
-        } else {
-            alert('you aren\'t signed in!')
-        }
+        axios.delete(
+            '/api/deleteUserImage',
+            {
+                data:{
+                    delete:fileName,
+                    userName:this.props.userName
+                },
+                headers:{
+                    'Authorization': this.props.JWTToken
+                } 
+            }
+        )
+        .then(res => {if(res.data.deleted === true) this.props.deleteUserPost(fileName) })
+        .catch(() => {alert('whoops, we cant delete this post')})
     }
 
     render() {
@@ -74,15 +71,15 @@ class PostItems extends React.Component {
         // if user has posts they will be displayed
         return(
             this.props.userPosts.map(item => {
-                let itemName=`/api/getUserImage/${this.props.URLUserName}/${item._id}`
+                let itemURL=`/api/getUserImage/${this.props.URLUserName}/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
                         <div className='PostText'>
                             <span>{item.name}</span>
                         </div>
-                        <Picture itemName={itemName} />
+                        <Picture itemURL={itemURL} />
                         <Buttons
-                            itemFolder={itemName}
+                            itemURL={itemURL}
                             item={item}
                             handleDeleteClick={this.handleDeleteClick.bind(this)}
                             isDeleteAvailable={this.props.URLUserName === this.props.userName}
