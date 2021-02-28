@@ -6,23 +6,41 @@ import { bindActionCreators } from 'redux'
 
 import Picture from '../../Picture'
 import Buttons from '../../buttons/functionalButtons'
-import { deleteUserPost, setUserPosts, userLogout } from '../../../Store/actions.js'
+import { deleteUserPost, setUserPosts } from '../../../Store/actions.js'
 
 class PostItems extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {isDataLoaded: false}
+        this.state = {isDataLoaded: false, URLUserName: props.URLUserName}
     }
 
     async componentDidMount() {
         try {
-            let posts = await axios.get(`/api/getUserImages/${this.props.URLUserName}`)
-            posts = posts.data.images
+            const user = await axios.get(`/api/getUserInfo/${this.props.URLUserName}`)
+            const {posts, userName} = user.data
+            this.props.setUserName(userName)
             this.props.setUserPosts(posts.reverse())
-            this.setState({isDataLoaded: true})
+            this.setState({...this.state, isDataLoaded: true})
         } catch {
             this.props.setUserPosts(null)
-            this.setState({isDataLoaded: true})
+            this.setState({...this.state, isDataLoaded: true})
+        }
+    }
+
+    async componentDidUpdate(prevProps) {
+        if (prevProps.URLUserName !== this.props.URLUserName) {
+            this.props.setUserName(null)
+            this.setState({...this.state, isDataLoaded: false})
+            try {
+                const user = await axios.get(`/api/getUserInfo/${this.props.URLUserName}`)
+                const {posts, userName} = user.data
+                this.props.setUserName(userName)
+                this.props.setUserPosts(posts.reverse())
+                this.setState({isDataLoaded: true, URLUserName: this.props.URLUserName})
+            } catch {
+                this.props.setUserPosts(null)
+                this.setState({isDataLoaded: true, URLUserName: this.props.URLUserName})
+            }
         }
     }
 
@@ -40,11 +58,14 @@ class PostItems extends React.Component {
             }
         )
         .then(res => {if(res.data.deleted === true) this.props.deleteUserPost(fileName) })
-        .catch(() => {alert('whoops, we cant delete this post')})
+        .catch(() => {alert('whoops, we cannot delete this post')})
     }
 
     render() {
-        let PostClassName = classNames('PostItem', this.props.theme==='dark'?'PostItemDark':'PostItemLight')
+        let PostClassName = classNames(
+            'PostItem',
+            this.props.theme === 'dark' ? 'PostItemDark' : 'PostItemLight'
+        )
 
         // show nothing unless data is loaded to prevent flicker
         if(this.state.isDataLoaded === false) return null
@@ -71,18 +92,18 @@ class PostItems extends React.Component {
         // if user has posts they will be displayed
         return(
             this.props.userPosts.map(item => {
-                let itemURL=`/api/getUserImage/${this.props.URLUserName}/${item._id}`
+                let pictureURL=`/api/getUserImage/${this.state.URLUserName}/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
                         <div className='PostText'>
                             <span>{item.name}</span>
                         </div>
-                        <Picture itemURL={itemURL} />
+                        <Picture pictureURL={pictureURL} />
                         <Buttons
-                            itemURL={itemURL}
+                            pictureURL={pictureURL}
                             item={item}
                             handleDeleteClick={this.handleDeleteClick.bind(this)}
-                            isDeleteAvailable={this.props.URLUserName === this.props.userName}
+                            isDeleteAvailable={this.props.URLUserName.toLowerCase() === this.props.userName?.toLowerCase()}
                         />
                     </div>
                 )
@@ -103,7 +124,6 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = dispatch => {
     return {
-        userLogout: bindActionCreators(userLogout, dispatch),
         setUserPosts: bindActionCreators(setUserPosts, dispatch),
         deleteUserPost: bindActionCreators(deleteUserPost, dispatch)
     }

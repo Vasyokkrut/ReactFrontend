@@ -1,5 +1,6 @@
 .PostItemDark {
   background-color: #333;
+  border: 1px solid #333;
 }
 
 .PostItemLight {
@@ -16,4 +17,11 @@
   font-size: 2rem;
   padding: 1rem 0;
   text-align: center;
+}
+
+.AccName {
+  text-align: center;
+  overflow: hidden;
+  font-size: 5rem;
+  height: 6rem;
 }

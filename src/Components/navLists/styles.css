@@ -28,12 +28,14 @@
 
 .darkBox {
   background-color:#333;
+  border: 1px solid #333;
 }
 
 .Box {
   position: sticky;
   padding: .5rem;
   width: 14rem;
+  margin-top: 1rem;
   top: 4rem;
   border-radius: .5rem;
 }
@@ -54,4 +56,17 @@
 .List {
   font-size: 1.4rem;
   margin: 0;
+}
+
+.Separate-Line {
+  height: 2px;
+  border-style: none;
+}
+
+.Separate-Line-Dark {
+  background-color: #666;
+}
+
+.Separate-Line-Light {
+  background-color: #ccc;
 }

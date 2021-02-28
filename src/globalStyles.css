@@ -44,41 +44,9 @@ header {
   z-index: 9;
 }
 
-.popUpDark {
-  background-color: #a7bdeb;
-  color:black;
-}
-
-.popUpLight {
-  background-color: #222226;
-  color:whitesmoke;
-}
-
 .Flexible {
   display:flex;
   justify-content: center;
-}
-
-.or-register {
-  margin: .5 0;
-}
-
-.or-register::before {
-  content: "";
-  background-color: #5d5e61;
-  margin-top: 2rem;
-  margin-right: 1rem;
-  height: 2px;
-  width: 10rem;
-}
-
-.or-register::after {
-  content: "";
-  background-color: #5d5e61;
-  margin-top: 2rem;
-  margin-left: 1rem;
-  height: 2px;
-  width: 10rem;
 }
 
 .PictureInput {
@@ -125,10 +93,6 @@ input[type="file"] {
   text-decoration: none;
 }
 
-.TextNode {
-    font-size: 5rem;
-}
-
 ul {
   padding-left: 0;
   margin-left: 0;
@@ -139,11 +103,6 @@ li {
   padding:.3rem;
   border-radius: 6px;
   padding-left: 0;
-}
-
-.AccName {
-  text-align: center;
-  overflow: hidden;
 }
 
 .MainLink {

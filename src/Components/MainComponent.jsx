@@ -13,8 +13,13 @@ import { changeTheme, userLogin } from '../Store/actions.js'
 
 class MainComponent extends React.Component {
 
+  constructor(props) {
+    super(props)
+    document.body.className = props.theme
+    if(localStorage.getItem('theme') === 'light') props.changeTheme()
+  }
+
   async componentDidMount() {
-    if(localStorage.getItem('theme') === 'light') this.props.changeTheme()
 
     let LoginData = localStorage.getItem('LoginData')
     if(LoginData !== null) {
@@ -24,8 +29,13 @@ class MainComponent extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.theme !== this.props.theme) {
+      document.body.className = this.props.theme
+    }
+  }
+
   render(){
-    document.body.className = this.props.theme
     return(
       <>
         <noscript>You have to enable JS</noscript>

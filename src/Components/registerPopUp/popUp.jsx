@@ -40,7 +40,7 @@ function PopUp(props) {
     function onClickHandle() {
         //checking if user is logging into website
         //by checking first and second fields
-        if(loginState[0].trim()&&loginState[1].trim()) {
+        if(loginState[0].trim() && loginState[1].trim()) {
             let data = {login:loginState[0].trim(), password:loginState[1].trim()}
             axios.post('/login', data)
             .then(async res => {
@@ -57,7 +57,7 @@ function PopUp(props) {
             .catch(() => alert('wrong login or password'))
         //checking if user is making account
         //by checking third forth and fifth fields
-        } else if(loginState[2].trim()&&loginState[3].trim()&&loginState[3]===loginState[4]) {
+        } else if(loginState[2].trim() && loginState[3].trim() && loginState[3]===loginState[4]) {
             let data = {login:loginState[2].trim(), password:loginState[3].trim()}
             axios.post('/register', data )
             .then(res => {
@@ -80,7 +80,7 @@ function PopUp(props) {
             <div className={overlayClassname} onClick={closePopup}></div>
             <div className='popupWindow' >
                 <div onClick={closePopup} style={{height:'3rem'}}></div>
-                <div className={`${popupClassname} ${props.background==='dark'?'popUpLight':'popUpDark'}`} style={{zIndex:999}}>
+                <div className={`${popupClassname} ${props.background === 'dark'?'popUpDark':'popUpLight'}`} style={{zIndex:99}}>
                     <div className='Flexible' >sign in</div>
                     <div>
                         <input
@@ -102,7 +102,7 @@ function PopUp(props) {
                             value={loginState[1]}
                         />
                     </div>
-                    <div className='or-register' style={{display:'flex', justifyContent:'center'}}>or</div>
+                    <div className='or-register Flexible'>or</div>
                     <div className='Flexible'>sign up</div>
                     <div>
                         <input

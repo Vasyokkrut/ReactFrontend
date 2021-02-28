@@ -5,7 +5,7 @@ import './styles.css'
 // There are three buttons which appear under a picture
 // They allow user to download, open and delete pictures
 // Delete button doesn't appear on public posts and on foreign user's posts
-function Buttons({item, itemURL, handleDeleteClick, isDeleteAvailable}) {
+function Buttons({item, pictureURL, handleDeleteClick, isDeleteAvailable}) {
 
     // Since react dev server and backend server in development mode are different servers
     // and react doesn't proxying href attribute for <a> tag
@@ -19,7 +19,7 @@ function Buttons({item, itemURL, handleDeleteClick, isDeleteAvailable}) {
     }
 
     if (process.env.NODE_ENV === 'development') {
-        itemURL = 'http://localhost:5000' + itemURL
+        pictureURL = 'http://localhost:5000' + pictureURL
     }
 
     return(
@@ -36,7 +36,7 @@ function Buttons({item, itemURL, handleDeleteClick, isDeleteAvailable}) {
                 className='BtnFullPicture'
                 rel='noopener noreferrer'
                 target='_blank'
-                href={itemURL}
+                href={pictureURL}
             >
                 Open full image
             </a>

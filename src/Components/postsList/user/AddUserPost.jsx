@@ -35,8 +35,8 @@ function AddPostForm(props) {
             }
         }
     }
-    
-    if (!props.isLoggedin || props.userName !== props.URLUserName) return null
+
+    if (!props.isLoggedin || props.userName.toLowerCase() !== props.URLUserName.toLowerCase()) return null
 
     return(
         <div className='Flexible'>

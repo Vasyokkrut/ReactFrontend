@@ -1,18 +1,35 @@
 import React from 'react'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
 import { changeTheme, userLogout, changePopUpDisplay } from '../../Store/actions.js'
 
 function RightList(props) {
 
-    let itemClassName=classnames('UsefulLink')
-    let linkClassName=classnames(props.theme==='light'?'lightLinkText':'darkLinkText')
-    let boxClassName=classnames(props.theme==='light'?'lightBox':'darkBox', 'RightBox', 'Box')
+    const linkClassName = classnames(
+        props.theme === 'light'?'lightLinkText':'darkLinkText'
+    )
+    
+    const boxClassName = classnames(
+        'Box',
+        'RightBox',
+        props.theme === 'light'?'lightBox':'darkBox'
+    )
+
+    const itemClassName = classnames(
+        'UsefulLink',
+        props.theme === 'light'?'UsefulLinkDark':'UsefulLinkLight'
+    )
+
+    const separateLineClassName = classnames(
+        'Separate-Line',
+        props.theme === 'dark' ? 'Separate-Line-Dark' : 'Separate-Line-Light'
+    )
 
     function changeTheme() {
-        localStorage.setItem('theme', props.theme==='dark'?'light':'dark')
+        localStorage.setItem('theme', props.theme === 'dark'?'light':'dark')
         props.changeTheme()
     }
 
@@ -27,25 +44,9 @@ function RightList(props) {
             <div style={{fontSize:'2rem'}}>
                 Settings:
             </div>
-            <hr style={{ height:'2px', color:'#666', borderWidth:'0' , backgroundColor:'#666'}} />
+            <hr className={separateLineClassName} />
             <nav>
                 <ul className='RightList List'>
-                    {
-                    !props.isLoggedin
-                    ?
-                    <li className={linkClassName}>
-                        <span
-                            className={itemClassName}
-                            onClick={props.changePopUpDisplay}
-                        >
-                            <span className='LinkText'>
-                                <span style={{paddingLeft:'.4rem'}}>login</span>
-                            </span>
-                        </span>
-                    </li>
-                    :
-                    null
-                    }
 
                     <li className={linkClassName}>
                         <span
@@ -53,27 +54,40 @@ function RightList(props) {
                             onClick={changeTheme}
                         >
                             <span className='LinkText'>
-                                <span style={{paddingLeft:'.4rem'}}>change theme</span>
+                                <span style={{paddingLeft:'.4rem'}}>Change theme</span>
                             </span>
                         </span>
                     </li>
 
                     {
-                    props.isLoggedin
-                    ?
-                    <li className={linkClassName}>
-                        <span
-                            className={itemClassName}
-                            onClick={userLogout}
-                        >
-                            <span className='LinkText'>
-                                <span style={{paddingLeft:'.4rem'}}>logout</span>
-                            </span>
-                        </span>
-                    </li>
-                    :
-                    null
+                        props.isLoggedin
+                        ?
+                        <>
+                            <li className={linkClassName}>
+                                <Link
+                                    className={itemClassName}
+                                    to='/accountSettings'
+                                >
+                                    <span className='LinkText'>
+                                        <span style={{paddingLeft:'.4rem'}}>Account Settings</span>
+                                    </span>
+                                </Link>
+                            </li>
+                            <li className={linkClassName}>
+                                <span
+                                    className={itemClassName}
+                                    onClick={userLogout}
+                                >
+                                    <span className='LinkText'>
+                                        <span style={{paddingLeft:'.4rem'}}>Logout</span>
+                                    </span>
+                                </span>
+                            </li>
+                        </>
+                        :
+                        null
                     }
+
                 </ul>
             </nav>
         </div>

@@ -10,11 +10,6 @@ import Buttons from '../../buttons/functionalButtons'
 
 class PublicPostItems extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {isDataLoaded: false}
-    }
-
     componentDidMount() {
         axios.get('/api/getImages')
             .then(publicPosts => {
@@ -22,14 +17,17 @@ class PublicPostItems extends React.Component {
                 if (publicPosts.length) {
                     this.props.setPosts(publicPosts.reverse())
                 }
-                this.setState({isDataLoaded: true})
+                this.props.setIsDataLoaded(true)
             })
     }
 
     render() {
-        let PostClassName = classNames('PostItem', this.props.theme==='dark'?'PostItemDark':'PostItemLight')
+        let PostClassName = classNames(
+            'PostItem',
+            this.props.theme==='dark'?'PostItemDark':'PostItemLight'
+        )
 
-        if(this.state.isDataLoaded === false) return null
+        if(this.props.isDataLoaded === false) return null
 
         if(!this.props.publicPosts.length) {
             return (
@@ -42,15 +40,15 @@ class PublicPostItems extends React.Component {
 
         return(
             this.props.publicPosts.map(item => {
-                let itemURL = `/api/getImage/${item._id}`
+                let pictureURL = `/api/getImage/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
                         <div className='PostText'>
                             <span>{item.name}</span>
                         </div>
-                        <Picture itemURL={itemURL} />
+                        <Picture pictureURL={pictureURL} />
                         <Buttons
-                            itemURL={itemURL}
+                            pictureURL={pictureURL}
                             item={item}
                             handleDeleteClick={() => {alert('you cannot delete public posts')}}
                             isDeleteAvailable={false}
