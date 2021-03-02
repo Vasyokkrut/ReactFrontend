@@ -17,7 +17,7 @@ function PublicPostsList() {
                     <AddPublicPost/>
                 </>
                 :
-                <div className='AccName'>Loading...</div>
+                null
             }
             <PublicPostItems
                 setIsDataLoaded={setIsDataLoaded}

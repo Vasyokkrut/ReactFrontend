@@ -11,7 +11,7 @@ import Buttons from '../../buttons/functionalButtons'
 class PublicPostItems extends React.Component {
 
     componentDidMount() {
-        axios.get('/api/getImages')
+        axios.get('/api/getPublicPosts')
             .then(publicPosts => {
                 publicPosts = publicPosts.data.images
                 if (publicPosts.length) {

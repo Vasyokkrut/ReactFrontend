@@ -53,7 +53,7 @@ class PostItems extends React.Component {
                     userName:this.props.userName
                 },
                 headers:{
-                    'Authorization': this.props.JWTToken
+                    Authorization: 'Bearer ' + this.props.JWTToken
                 } 
             }
         )

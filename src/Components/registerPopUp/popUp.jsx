@@ -5,13 +5,13 @@ import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
 
 import './styles.css'
-import {changePopUpDisplay, userLogin} from '../../Store/actions.js'
+import { changePopUpDisplay, userLogin } from '../../Store/actions.js'
 
 function PopUp(props) {
-    let [loginState, setLoginState] = useState(['','','','',''])
-    let [isInputDisabled, setIsInputDisabled] = useState([false, false])
-    let [overlayClassname, setOverlayClassName] = useState(classnames('overlay', 'overlayOpen'))
-    let [popupClassname, setPopupClassName] = useState(classnames('modalWindow', 'modalWindowOpen'))
+    const [loginState, setLoginState] = useState(['','','','',''])
+    const [isInputDisabled, setIsInputDisabled] = useState([false, false])
+    const [overlayClassname, setOverlayClassName] = useState(classnames('overlay', 'overlayOpen'))
+    const [popupClassname, setPopupClassName] = useState(classnames('modalWindow', 'modalWindowOpen'))
 
     function closePopup() {
         setTimeout(() => {
@@ -24,14 +24,14 @@ function PopUp(props) {
     }
 
     function handleInput(e,idx) {
-        let newState=[...loginState]
-        newState[idx]=e.target.value
-        if(idx===0||idx===1){
+        const newState = [...loginState]
+        newState[idx] = e.target.value
+        if(idx === 0||idx === 1){
             setIsInputDisabled([false, true])
         } else {
             setIsInputDisabled([true, false])
         }
-        if(newState[0]===''&&newState[1]===''&&newState[2]===''&&newState[3]===''&&newState[4]==='') {
+        if(newState.every(el => el === '')) {
             setIsInputDisabled([false, false])
         }
         setLoginState(newState)
@@ -41,12 +41,12 @@ function PopUp(props) {
         //checking if user is logging into website
         //by checking first and second fields
         if(loginState[0].trim() && loginState[1].trim()) {
-            let data = {login:loginState[0].trim(), password:loginState[1].trim()}
+            let data = {login:loginState[0], password:loginState[1]}
             axios.post('/login', data)
             .then(async res => {
                 let JWTToken = res.data.JWTToken
                 props.userLogin({username:loginState[0], JWTToken: JWTToken})
-                localStorage.setItem('LoginData', JSON.stringify({login:loginState[0].trim(), password:loginState[1].trim()}))
+                localStorage.setItem('LoginData', JSON.stringify({login:loginState[0]}))
                 localStorage.setItem('JWTToken', JWTToken)
                 closePopup()
                 setTimeout(() => {
@@ -57,8 +57,8 @@ function PopUp(props) {
             .catch(() => alert('wrong login or password'))
         //checking if user is making account
         //by checking third forth and fifth fields
-        } else if(loginState[2].trim() && loginState[3].trim() && loginState[3]===loginState[4]) {
-            let data = {login:loginState[2].trim(), password:loginState[3].trim()}
+        } else if(loginState[2].trim() && loginState[3].trim() && loginState[3] === loginState[4]) {
+            let data = {login:loginState[2], password:loginState[3]}
             axios.post('/register', data )
             .then(res => {
                 if (res.status===208) {

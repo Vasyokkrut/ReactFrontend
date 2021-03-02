@@ -7,8 +7,8 @@ import { bindActionCreators } from 'redux'
 import { addPost } from '../../../Store/actions.js'
 
 function AddPostForm(props) {
-    let [Picture, setPicture] = useState(null)
-    let [Title, setTitle] = useState('')
+    const [Picture, setPicture] = useState(null)
+    const [Title, setTitle] = useState('')
 
     function handlePictureInput(event) {
         setPicture(event.target.files[0])
@@ -25,7 +25,7 @@ function AddPostForm(props) {
             fd.append('title', Title)
             fd.append('userName', props.userName)
 
-            axios.post('/api/uploadPicture', fd)
+            axios.put('/api/uploadPicture', fd)
                 .then(response => {
                     props.addPost(response.data.post)
                     setPicture(null)

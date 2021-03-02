@@ -18,7 +18,7 @@ function UserPostsList(props) {
                     <AddUserPost URLUserName={URLUserName} />
                 </>
                 :
-                <div className='AccName'>Loading...</div>
+                null
             }
             <UserPostItems URLUserName={URLUserName} setUserName={setUserName} />
         </div>

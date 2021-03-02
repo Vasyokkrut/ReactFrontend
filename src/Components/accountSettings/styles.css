@@ -7,7 +7,7 @@
   justify-content: space-between;
 }
 
-.Settings-Button {
+.settings-button {
 	border-radius: 5px;
   margin: 1rem .5rem;
 	width: 10rem;
@@ -20,17 +20,33 @@
   outline: none;
 }
 
-.Settings-Button-Dark {
+.settings-button-Dark {
   background-color: #333;
   color: white;
 }
 
-.Settings-Button-Light {
+.settings-button-Light {
   background-color: whitesmoke;
   color: black;
 }
 
-.Settings-Button:hover {
+.settings-button:hover {
   background-color: #05359c;
   color: white;
+}
+
+.change-nickname > div {
+  display: flex;
+  justify-content: center;
+}
+
+.change-nickname-input {
+  margin: 1rem 0;
+  padding-left: 1rem;
+  width: 80%;
+  height: 2rem;
+  font-size: 1.5rem;
+  outline: none;
+  border-style: none;
+  border-radius: 1rem;
 }
