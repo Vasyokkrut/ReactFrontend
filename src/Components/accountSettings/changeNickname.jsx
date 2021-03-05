@@ -8,41 +8,60 @@ import { userLogin } from '../../Store/actions.js'
 function ChangeNickname({JWTToken, userLogin, currentUserName}) {
 
   const [newNickname, setNewNickname] = useState('')
-  const [isChangeSuccessful, setIsChangeSuccessful] = useState(null)
-  const [statusMessage, setStatusMessage] = useState('')
+  const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
 
-  const statusStyle = {
+  const changingStatusStyle = {
     height: '2rem',
     fontSize: '1.5rem',
-    color: isChangeSuccessful ? 'green' : 'red',
-    visibility: isChangeSuccessful === null ? 'hidden' : 'visible'
+    color: changingStatus.successful ? 'green' : 'red'
   }
 
   function changeNicknameHandler() {
-    if (newNickname.trim() === '') {
-      setIsChangeSuccessful(false)
-      setStatusMessage('new nickname is empty')
+
+    // some checks for new nickname
+    if (newNickname === '') {
+      setChangingStatus({
+        successful: false,
+        message: 'new nickname is empty'
+      })
+      return
+    }
+    if (/\s/.test(newNickname)) {
+      setChangingStatus({
+        successful: false,
+        message: 'nickname cannot contain whitespaces'
+      })
       return
     }
     if (newNickname === currentUserName) {
-      setIsChangeSuccessful(false)
-      setStatusMessage('this nickname is the same')
+      setChangingStatus({
+        successful: false,
+        message: 'this nickname is the same'
+      })
       return
     }
-    setIsChangeSuccessful(null)
-    const data = {newNickname}
+
+    // when user clicked the button this message will appear
+    setChangingStatus({message: 'please wait...', successful: true})
+
+    // set data and configuration for request
+    const data = { newNickname }
     const config = {headers: {Authorization: 'Bearer ' + JWTToken}}
     axios.patch('/api/changeNickname', data, config)
       .then(res => {
         localStorage.setItem('JWTToken', res.data.newJWTToken)
         localStorage.setItem('LoginData', JSON.stringify({login:newNickname}))
         userLogin({username:newNickname, JWTToken: res.data.newJWTToken})
-        setIsChangeSuccessful(true)
-        setStatusMessage('nickname changed successfully')
+        setChangingStatus({
+          successful: true,
+          message: 'nickname changed successfully'
+        })
       })
       .catch(err => {
-        setIsChangeSuccessful(false)
-        setStatusMessage('this user exists yet')
+        setChangingStatus({
+          successful: false,
+          message: 'this user exists yet'
+        })
       })
   }
 
@@ -58,8 +77,8 @@ function ChangeNickname({JWTToken, userLogin, currentUserName}) {
         />
       </div>
       <div>
-        <span style={statusStyle}>
-          {statusMessage}
+        <span style={changingStatusStyle}>
+          {changingStatus.message}
         </span>
       </div>
       <div>

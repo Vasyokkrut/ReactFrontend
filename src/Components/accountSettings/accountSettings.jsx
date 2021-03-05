@@ -8,7 +8,7 @@ import ChangeNickname from './changeNickname.jsx'
 import ChangePassword from './changePassword.jsx'
 
 // this component is part of AccountSettings component
-// and does show selected option by user
+// and is shows selected option by user
 function SelectedOption({selectedOption}) {
   switch (selectedOption) {
     case 'changeNickname':
@@ -23,7 +23,6 @@ function SelectedOption({selectedOption}) {
 }
 
 function AccountSettings({theme, isLoggedin}) {
-  
 
   // this usestate is for define which option will be displayed
   // it will contain one of these options:
@@ -35,12 +34,19 @@ function AccountSettings({theme, isLoggedin}) {
     theme === 'dark' ? 'settings-button-Dark' : 'settings-button-Light'
   )
 
-  if (!isLoggedin) return <div style={{fontSize: '4rem', textAlign: 'center'}} >You aren't logged in</div>
+  // if user didn't log in to website this message will be displayed
+  if (!isLoggedin) {
+    return (
+      <div style={{fontSize: '4rem', textAlign: 'center'}} >
+        You aren't logged in
+      </div>
+    )
+  }
 
   return(
-    <div className='Account-Settings' >
+    <div className='account-settings' >
       <div className='AccName' >account settings</div>
-      <div className='Setting-Item' >
+      <div className='setting-item' >
         <div
           className={settingsButtonClassName}
           onClick={() => setSelectedOption('changeNickname')}

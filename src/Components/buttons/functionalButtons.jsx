@@ -29,7 +29,7 @@ function Buttons({item, pictureURL, handleDeleteClick, isDeleteAvailable}) {
                     onClick={() => handleDeleteClick(item._id)}
                     className='BtnFullPicture'
                 >
-                    Delete this image
+                    Delete this post
                 </button>
             ) : null}
             <a

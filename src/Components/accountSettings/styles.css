@@ -1,8 +1,8 @@
-.Account-Settings {
+.account-settings {
   margin-top: 1rem;
 }
 
-.Setting-Item {
+.setting-item {
   display: flex;
   justify-content: space-between;
 }
