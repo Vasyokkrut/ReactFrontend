@@ -8,7 +8,7 @@ import ChangeNickname from './changeNickname.jsx'
 import ChangePassword from './changePassword.jsx'
 
 // this component is part of AccountSettings component
-// and is shows selected option by user
+// and shows selected option by user
 function SelectedOption({selectedOption}) {
   switch (selectedOption) {
     case 'changeNickname':

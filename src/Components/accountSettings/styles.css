@@ -35,12 +35,12 @@
   color: white;
 }
 
-.change-nickname > div {
+.change-form > div {
   display: flex;
   justify-content: center;
 }
 
-.change-nickname-input {
+.change-form-input {
   margin: 1rem 0;
   padding-left: 1rem;
   width: 80%;
