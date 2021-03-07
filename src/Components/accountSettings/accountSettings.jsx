@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import { connect } from 'react-redux'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './styles.css'
 import DeleteAccount from './deleteAccount.jsx'
@@ -24,14 +24,20 @@ function SelectedOption({selectedOption}) {
 
 function AccountSettings({theme, isLoggedin}) {
 
-  // this usestate is for define which option will be displayed
+  // this useState is for define which option will be displayed
   // it will contain one of these options:
   // null, 'changeNickname', 'changePassword', 'deleteAccount'
   const [selectedOption, setSelectedOption] = useState(null)
 
+  // when user relogins
+  // component should display nothing as default option
+  useEffect(() => {
+    setSelectedOption(null)
+  }, [isLoggedin])
+
   const settingsButtonClassName = classnames(
     'settings-button',
-    theme === 'dark' ? 'settings-button-Dark' : 'settings-button-Light'
+    theme === 'dark' ? 'settings-button-dark' : 'settings-button-light'
   )
 
   // if user didn't log in to website this message will be displayed

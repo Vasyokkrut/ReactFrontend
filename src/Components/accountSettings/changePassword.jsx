@@ -18,6 +18,13 @@ function ChangePassword({ JWTToken }) {
     const allowedSymbols = /^[A-Za-z0-9]+$/
 
     // some checks for new password
+    if (newPassword === '') {
+      setChangingStatus({
+        successful: false,
+        message: 'new password is empty'
+      })
+      return
+    }
     if (/\s/.test(newPassword)) {
       setChangingStatus({
         successful: false,
@@ -32,13 +39,6 @@ function ChangePassword({ JWTToken }) {
       })
       return
     }
-    if (newPassword === '') {
-      setChangingStatus({
-        successful: false,
-        message: 'new password is empty'
-      })
-      return
-    }
 
     // when user clicked the button this message will appear
     setChangingStatus({message: 'please wait...', successful: true})
@@ -46,7 +46,7 @@ function ChangePassword({ JWTToken }) {
     // set data and configuration for request
     const data = { newPassword }
     const config = {headers: {Authorization: 'Bearer ' + JWTToken}}
-    axios.patch('/api/changePassword', data, config)
+    axios.patch('/api/accountSettings/changePassword', data, config)
       .then(res => {
         setChangingStatus({
           successful: true,

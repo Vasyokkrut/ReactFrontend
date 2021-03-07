@@ -21,20 +21,6 @@ function ChangeNickname({ JWTToken, userLogin, currentUserName }) {
     const allowedSymbols = /^[A-Za-z0-9]+$/
 
     // some checks for new nickname
-    if (/\s/.test(newNickname)) {
-      setChangingStatus({
-        successful: false,
-        message: 'nickname cannot contain whitespaces'
-      })
-      return
-    }
-    if (!allowedSymbols.test(newNickname)) {
-      setChangingStatus({
-        successful: false,
-        message: 'only letters and numbers allowed'
-      })
-      return
-    }
     if (newNickname === '') {
       setChangingStatus({
         successful: false,
@@ -49,6 +35,20 @@ function ChangeNickname({ JWTToken, userLogin, currentUserName }) {
       })
       return
     }
+    if (/\s/.test(newNickname)) {
+      setChangingStatus({
+        successful: false,
+        message: 'nickname cannot contain whitespaces'
+      })
+      return
+    }
+    if (!allowedSymbols.test(newNickname)) {
+      setChangingStatus({
+        successful: false,
+        message: 'only letters and numbers allowed'
+      })
+      return
+    }
 
     // when user clicked the button this message will appear
     setChangingStatus({message: 'please wait...', successful: true})
@@ -56,7 +56,7 @@ function ChangeNickname({ JWTToken, userLogin, currentUserName }) {
     // set data and configuration for request
     const data = { newNickname }
     const config = {headers: {Authorization: 'Bearer ' + JWTToken}}
-    axios.patch('/api/changeNickname', data, config)
+    axios.patch('/api/accountSettings/changeNickname', data, config)
       .then(res => {
         
         if (res.data.userExists) {
@@ -110,8 +110,8 @@ function ChangeNickname({ JWTToken, userLogin, currentUserName }) {
 
 const mapStateToProps = store => {
   return {
-    currentUserName: store.userName,
-    JWTToken: store.userJWTToken
+    JWTToken: store.userJWTToken,
+    currentUserName: store.userName
   }
 }
 
