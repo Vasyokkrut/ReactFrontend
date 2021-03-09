@@ -22,8 +22,8 @@ class MainComponent extends React.Component {
   componentDidMount() {
     const userName = localStorage.getItem('userName')
     if (userName) {
-      const userJWT = localStorage.getItem('JWTToken')
-      this.props.userLogin({userName: userName, userJWT: userJWT})
+      const userJWT = localStorage.getItem('userJWT')
+      this.props.userLogin({userName, userJWT})
     }
   }
 

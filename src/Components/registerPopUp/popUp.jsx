@@ -47,7 +47,7 @@ function PopUp(props) {
                 const userJWT = res.data.userJWT
                 props.userLogin({userName: loginState[0], userJWT: userJWT})
                 localStorage.setItem('userName', loginState[0])
-                localStorage.setItem('JWTToken', userJWT)
+                localStorage.setItem('userJWT', userJWT)
                 closePopup()
                 setTimeout(() => {
                     setLoginState(['','','','',''])

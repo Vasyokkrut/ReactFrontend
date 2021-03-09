@@ -34,7 +34,7 @@ function RightList(props) {
     }
 
     function userLogout() {
-        localStorage.removeItem('JWTToken')
+        localStorage.removeItem('userJWT')
         localStorage.removeItem('userName')
         props.userLogout()
     }

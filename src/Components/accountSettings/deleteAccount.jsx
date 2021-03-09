@@ -15,8 +15,8 @@ function DeleteAccount({darkTheme, userJWT, userLogout}) {
   function deleteHandler() {
     const config = {headers: {Authorization: 'Bearer ' + userJWT}}
     axios.delete('/api/accountSettings/deleteAccount', config)
-      .then(res => {
-        localStorage.removeItem('JWTToken')
+      .then(() => {
+        localStorage.removeItem('userJWT')
         localStorage.removeItem('userName')
         userLogout()
       })

@@ -5,9 +5,9 @@ import { bindActionCreators } from 'redux'
 
 import { userLogin } from '../../Store/actions.js'
 
-function ChangeNickname({ userJWT, userLogin, currentUserName }) {
+function ChangeUserName({ userJWT, userLogin, currentUserName }) {
 
-  const [newNickname, setNewNickname] = useState('')
+  const [newUserName, setNewUserName] = useState('')
   const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
 
   const changingStatusStyle = {
@@ -16,33 +16,33 @@ function ChangeNickname({ userJWT, userLogin, currentUserName }) {
     color: changingStatus.successful ? 'green' : 'red'
   }
 
-  function changeNicknameHandler() {
+  function changeUserNameHandler() {
 
     const allowedSymbols = /^[A-Za-z0-9]+$/
 
-    // some checks for new nickname
-    if (newNickname === '') {
+    // some checks for new username
+    if (newUserName === '') {
       setChangingStatus({
         successful: false,
-        message: 'new nickname is empty'
+        message: 'new username is empty'
       })
       return
     }
-    if (newNickname === currentUserName) {
+    if (newUserName === currentUserName) {
       setChangingStatus({
         successful: false,
-        message: 'this nickname is the same'
+        message: 'this username is the same'
       })
       return
     }
-    if (/\s/.test(newNickname)) {
+    if (/\s/.test(newUserName)) {
       setChangingStatus({
         successful: false,
-        message: 'nickname cannot contain whitespaces'
+        message: 'username cannot contain whitespaces'
       })
       return
     }
-    if (!allowedSymbols.test(newNickname)) {
+    if (!allowedSymbols.test(newUserName)) {
       setChangingStatus({
         successful: false,
         message: 'only letters and numbers allowed'
@@ -54,9 +54,9 @@ function ChangeNickname({ userJWT, userLogin, currentUserName }) {
     setChangingStatus({message: 'please wait...', successful: true})
 
     // set data and configuration for request
-    const data = { newNickname }
+    const data = { newUserName }
     const config = {headers: {Authorization: 'Bearer ' + userJWT}}
-    axios.patch('/api/accountSettings/changeNickname', data, config)
+    axios.patch('/api/accountSettings/changeUserName', data, config)
       .then(res => {
         
         if (res.data.userExists) {
@@ -67,15 +67,15 @@ function ChangeNickname({ userJWT, userLogin, currentUserName }) {
           return
         }
 
-        localStorage.setItem('JWTToken', res.data.newJWTToken)
-        localStorage.setItem('userName', newNickname)
-        userLogin({userName: newNickname, userJWT: res.data.newJWTToken})
+        localStorage.setItem('userJWT', res.data.newJWT)
+        localStorage.setItem('userName', newUserName)
+        userLogin({userName: newUserName, userJWT: res.data.newJWT})
         setChangingStatus({
           successful: true,
-          message: 'nickname changed successfully'
+          message: 'username changed successfully'
         })
       })
-      .catch(err => {
+      .catch(() => {
         setChangingStatus({
           successful: false,
           message: 'something went wrong :('
@@ -88,10 +88,10 @@ function ChangeNickname({ userJWT, userLogin, currentUserName }) {
       <div>
         <input
           type='text'
-          value={newNickname}
-          onChange={event => setNewNickname(event.target.value)}
+          value={newUserName}
+          onChange={event => setNewUserName(event.target.value)}
           className='change-form-input'
-          placeholder='enter your new nickname'
+          placeholder='enter your new username'
         />
       </div>
       <div>
@@ -100,7 +100,7 @@ function ChangeNickname({ userJWT, userLogin, currentUserName }) {
         </span>
       </div>
       <div>
-        <button className='BtnFullPicture' onClick={changeNicknameHandler} >
+        <button className='BtnFullPicture' onClick={changeUserNameHandler} >
           Change
         </button>
       </div>
@@ -121,4 +121,4 @@ const mapActionsToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(ChangeNickname)
+export default connect(mapStateToProps, mapActionsToProps)(ChangeUserName)

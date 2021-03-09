@@ -4,15 +4,15 @@ import React, { useEffect, useState } from 'react'
 
 import './styles.css'
 import DeleteAccount from './deleteAccount.jsx'
-import ChangeNickname from './changeNickname.jsx'
+import ChangeUserName from './changeUserName.jsx'
 import ChangePassword from './changePassword.jsx'
 
 // this component is part of AccountSettings component
 // and shows selected option by user
 function SelectedOption({selectedOption}) {
   switch (selectedOption) {
-    case 'changeNickname':
-      return <ChangeNickname />
+    case 'changeUserName':
+      return <ChangeUserName />
     case 'changePassword':
       return <ChangePassword />
     case 'deleteAccount':
@@ -26,7 +26,7 @@ function AccountSettings({darkTheme, isLoggedIn}) {
 
   // this useState is for define which option will be displayed
   // it will contain one of these options:
-  // null, 'changeNickname', 'changePassword', 'deleteAccount'
+  // null, 'changeUserName', 'changePassword', 'deleteAccount'
   const [selectedOption, setSelectedOption] = useState(null)
 
   // when user relogins
@@ -55,9 +55,9 @@ function AccountSettings({darkTheme, isLoggedIn}) {
       <div className='setting-item' >
         <div
           className={settingsButtonClassName}
-          onClick={() => setSelectedOption('changeNickname')}
+          onClick={() => setSelectedOption('changeUserName')}
         >
-          Change nickname
+          Change username
         </div>
         <div
           className={settingsButtonClassName}

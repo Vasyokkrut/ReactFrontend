@@ -12,7 +12,7 @@ function Dropdown(props) {
   }
 
   function logout() {
-    localStorage.removeItem('JWTToken')
+    localStorage.removeItem('userJWT')
     localStorage.removeItem('userName')
     props.userLogout()
   }
