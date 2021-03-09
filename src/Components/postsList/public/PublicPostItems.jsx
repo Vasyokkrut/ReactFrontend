@@ -5,26 +5,26 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Picture from '../../Picture'
-import { setPosts } from '../../../Store/actions.js'
 import Buttons from '../../buttons/functionalButtons'
+import { setPublicPosts } from '../../../Store/actions.js'
 
 class PublicPostItems extends React.Component {
 
     componentDidMount() {
         axios.get('/api/getPublicPosts')
             .then(publicPosts => {
-                publicPosts = publicPosts.data.images
+                publicPosts = publicPosts.data.posts
                 if (publicPosts.length) {
-                    this.props.setPosts(publicPosts.reverse())
+                    this.props.setPublicPosts(publicPosts.reverse())
                 }
                 this.props.setIsDataLoaded(true)
             })
     }
 
     render() {
-        let PostClassName = classNames(
+        const PostClassName = classNames(
             'PostItem',
-            this.props.theme==='dark'?'PostItemDark':'PostItemLight'
+            this.props.darkTheme ? 'PostItemDark' : 'PostItemLight'
         )
 
         if(this.props.isDataLoaded === false) return null
@@ -40,11 +40,11 @@ class PublicPostItems extends React.Component {
 
         return(
             this.props.publicPosts.map(item => {
-                let pictureURL = `/api/getImage/${item._id}`
+                const pictureURL = `/api/getPublicPicture/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
                         <div className='PostText'>
-                            <span>{item.name}</span>
+                            <span>{item.title}</span>
                         </div>
                         <Picture pictureURL={pictureURL} />
                         <Buttons
@@ -62,14 +62,14 @@ class PublicPostItems extends React.Component {
 
 const mapStateToProps = store => {
     return {
-        theme: store.theme,
-        publicPosts: store.posts
+        darkTheme: store.darkTheme,
+        publicPosts: store.publicPosts
     }
 }
 
 const mapActionsToProps = dispatch => {
     return {
-        setPosts: bindActionCreators(setPosts, dispatch)
+        setPublicPosts: bindActionCreators(setPublicPosts, dispatch)
     }
 }
 

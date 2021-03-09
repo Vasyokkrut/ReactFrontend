@@ -15,23 +15,21 @@ class MainComponent extends React.Component {
 
   constructor(props) {
     super(props)
-    document.body.className = props.theme
-    if(localStorage.getItem('theme') === 'light') props.changeTheme()
+    document.body.className = props.darkTheme ? 'dark' : 'light'
+    if(localStorage.getItem('darkTheme') === 'false') props.changeTheme()
   }
 
-  async componentDidMount() {
-
-    let LoginData = localStorage.getItem('LoginData')
-    if(LoginData !== null) {
-      let JWTToken = localStorage.getItem('JWTToken')
-      LoginData = JSON.parse(LoginData)
-      this.props.userLogin({username:LoginData.login, JWTToken: JWTToken})
+  componentDidMount() {
+    const userName = localStorage.getItem('userName')
+    if (userName) {
+      const userJWT = localStorage.getItem('JWTToken')
+      this.props.userLogin({userName: userName, userJWT: userJWT})
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.theme !== this.props.theme) {
-      document.body.className = this.props.theme
+    if (prevProps.darkTheme !== this.props.darkTheme) {
+      document.body.className = this.props.darkTheme ? 'dark' : 'light'
     }
   }
 
@@ -53,7 +51,7 @@ class MainComponent extends React.Component {
   
 const mapStateToProps = store => {
   return {
-    theme: store.theme
+    darkTheme: store.darkTheme
   }
 }
   

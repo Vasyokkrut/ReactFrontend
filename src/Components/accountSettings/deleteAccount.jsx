@@ -5,19 +5,19 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { userLogout } from '../../Store/actions.js'
 
-function DeleteAccount({theme, JWTToken, userLogout}) {
+function DeleteAccount({darkTheme, userJWT, userLogout}) {
 
   const settingsButtonClassName = classnames(
     'settings-button',
-    theme === 'dark' ? 'settings-button-dark' : 'settings-button-light'
+    darkTheme ? 'settings-button-dark' : 'settings-button-light'
   )
 
   function deleteHandler() {
-    const config = {headers: {Authorization: 'Bearer ' + JWTToken}}
+    const config = {headers: {Authorization: 'Bearer ' + userJWT}}
     axios.delete('/api/accountSettings/deleteAccount', config)
       .then(res => {
         localStorage.removeItem('JWTToken')
-        localStorage.removeItem('LoginData')
+        localStorage.removeItem('userName')
         userLogout()
       })
 
@@ -39,8 +39,8 @@ function DeleteAccount({theme, JWTToken, userLogout}) {
 
 const mapStateToProps = store => {
   return {
-    theme: store.theme,
-    JWTToken: store.userJWTToken
+    darkTheme: store.darkTheme,
+    userJWT: store.userJWT
   }
 }
 

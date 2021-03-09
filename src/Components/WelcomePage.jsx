@@ -3,13 +3,13 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-function WelcomePage({theme}) {
-  let className = classnames('WelcomeLink', 'Flexible', theme === 'dark'?'WhiteLink':'DarkLink')
+function WelcomePage({darkTheme}) {
+  const linkClassName = classnames('WelcomeLink', 'Flexible', darkTheme ? 'WhiteLink' : 'DarkLink')
   return(
     <div className='MainLink'>
       <div className='Flexible'>
         <Link
-          className={className}
+          className={linkClassName}
           to='/publicPosts'
         >
           Upload your own<br/>
@@ -22,7 +22,7 @@ function WelcomePage({theme}) {
 
 const mapStateToProps = store => {
   return {
-    theme: store.theme
+    darkTheme: store.darkTheme
   }
 }
 

@@ -4,11 +4,11 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { addPost, addUserPost } from '../../../Store/actions.js'
+import { addUserPost } from '../../../Store/actions.js'
 
 function AddPostForm(props) {
-    const [Picture, setPicture] = useState(null)
-    const [Title, setTitle] = useState('')
+    const [picture, setPicture] = useState(null)
+    const [title, setTitle] = useState('')
 
     function handlePictureInput(event) {
         setPicture(event.target.files[0])
@@ -18,14 +18,15 @@ function AddPostForm(props) {
         setTitle(event.target.value)
     }
 
-    async function handleUpload() {
-        if(Picture !== null) {
-            let fd = new FormData()
-            fd.append('image', Picture)
-            fd.append('title', Title)
-            fd.append('userName', props.userName)
-            if(props.isLoggedin) {
-                await axios.put('/api/uploadPictureForUser', fd, {headers:{'Authorization': 'Bearer ' + props.JWTToken}})
+    function handleUpload() {
+        if(picture !== null) {
+            const config = {headers:{'Authorization': 'Bearer ' + props.userJWT}}
+            const data = new FormData()
+            data.append('title', title)
+            data.append('picture', picture)
+            
+            if(props.isLoggedIn) {
+                axios.put('/api/uploadPostForUser', data, config)
                 .then(response => {
                     props.addUserPost(response.data)
                     setPicture(null)
@@ -36,14 +37,14 @@ function AddPostForm(props) {
         }
     }
 
-    if (!props.isLoggedin || props.userName.toLowerCase() !== props.URLUserName.toLowerCase()) return null
+    if (!props.isLoggedIn || props.userName.toLowerCase() !== props.URLUserName.toLowerCase()) return null
 
     return(
         <div className='Flexible'>
             <div>
                 <div className='Flexible'>
                     <label className='UploadBtn'>
-                        {Picture===null?'Create Post':'Rechoose picture'}
+                        {picture === null?'Create Post':'Rechoose picture'}
                         <input
                             id='InputField'
                             accept='image/*'
@@ -52,7 +53,7 @@ function AddPostForm(props) {
                         />
                     </label>
                 </div>
-                {Picture!==null?
+                {picture !== null?
                     <>
                         <div style={{fontSize:'1.2rem', textAlign:'center'}}>
                             Picture is choosen!<br />
@@ -64,7 +65,7 @@ function AddPostForm(props) {
                             type='text'
                             placeholder='Choose title'
                             onChange={handleTitleInput}
-                            value={Title}
+                            value={title}
                         />
                         <div className='Flexible'>
                             <button
@@ -84,15 +85,14 @@ function AddPostForm(props) {
 
 const mapStateToProps = store => {
     return {
+        userJWT: store.userJWT,
         userName: store.userName,
-        isLoggedin: store.isLoggedin,
-        JWTToken: store.userJWTToken
+        isLoggedIn: store.isLoggedIn
     }
 }
 
 const mapActionsToProps = dispatch => {
     return {
-        addPost: bindActionCreators(addPost, dispatch),
         addUserPost: bindActionCreators(addUserPost, dispatch)
     }
 }

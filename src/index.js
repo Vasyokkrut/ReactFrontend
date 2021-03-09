@@ -8,7 +8,7 @@ import './globalStyles.css'
 import { mainReducer } from './Store/reducers.js'
 import MainComponent from './Components/MainComponent.jsx'
 
-let store = createStore(mainReducer)
+const store = createStore(mainReducer)
 
 function MainApp() {
   return (

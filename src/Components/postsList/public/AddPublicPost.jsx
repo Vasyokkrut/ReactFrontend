@@ -4,11 +4,11 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { addPost } from '../../../Store/actions.js'
+import { addPublicPost } from '../../../Store/actions.js'
 
 function AddPostForm(props) {
-    const [Picture, setPicture] = useState(null)
-    const [Title, setTitle] = useState('')
+    const [picture, setPicture] = useState(null)
+    const [title, setTitle] = useState('')
 
     function handlePictureInput(event) {
         setPicture(event.target.files[0])
@@ -19,15 +19,14 @@ function AddPostForm(props) {
     }
 
     function handleUpload() {
-        if(Picture !== null) {
-            let fd = new FormData()
-            fd.append('image', Picture)
-            fd.append('title', Title)
-            fd.append('userName', props.userName)
+        if(picture !== null) {
+            const data = new FormData()
+            data.append('title', title)
+            data.append('picture', picture)
 
-            axios.put('/api/uploadPicture', fd)
-                .then(response => {
-                    props.addPost(response.data.post)
+            axios.put('/api/uploadPublicPost', data)
+                .then(res => {
+                    props.addPublicPost(res.data.post)
                     setPicture(null)
                     setTitle('')
                     document.getElementById('InputField').value=''
@@ -40,7 +39,7 @@ function AddPostForm(props) {
             <div>
                 <div className='Flexible'>
                     <label className='UploadBtn'>
-                        {Picture===null?'Create Post':'Rechoose picture'}
+                        {picture === null?'Create Post':'Rechoose picture'}
                         <input
                             id='InputField'
                             accept='image/*'
@@ -49,7 +48,7 @@ function AddPostForm(props) {
                         />
                     </label>
                 </div>
-                {Picture!==null?
+                {picture !== null?
                     <>
                         <div style={{fontSize:'1.2rem', textAlign:'center'}}>
                             Picture is choosen!<br />
@@ -61,7 +60,7 @@ function AddPostForm(props) {
                             type='text'
                             placeholder='Choose title'
                             onChange={handleTitleInput}
-                            value={Title}
+                            value={title}
                         />
                         <div className='Flexible'>
                             <button
@@ -81,7 +80,7 @@ function AddPostForm(props) {
 
 const mapActionsToProps = dispatch => {
     return {
-        addPost: bindActionCreators(addPost, dispatch)
+        addPublicPost: bindActionCreators(addPublicPost, dispatch)
     }
 }
 

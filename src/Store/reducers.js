@@ -1,36 +1,31 @@
-let initialState = {
-  theme: 'dark',
-  posts: [],
-  popUpHidden: true,
-  isLoggedin: false,
+const initialState = {
+  darkTheme: true,
+  publicPosts: [],
+  isPopUpHidden: true,
+  isLoggedIn: false,
   userName: null,
   userPosts: [],
-  userJWTToken: null
+  userJWT: null
 }
 
 export const mainReducer = (state = initialState, action) => {
     switch(action.type){
       case 'ACTION_CHANGE_THEME':
-        return {...state, theme: state.theme === 'dark' ? 'light': 'dark'}
-      case 'ACTION_DELETE_PICTURE':
-        return {
-          ...state,
-          posts:state.posts.filter(item => item._id !== action.payload._id)
-        }
-      case 'ACTION_DELETE_USER_PICTURE':
+        return {...state, darkTheme: !state.darkTheme}
+      case 'ACTION_DELETE_USER_POST':
         return {
           ...state,
           userPosts: state.userPosts.filter(item => item._id !== action.payload._id)
         }
-      case 'ACTION_ADD_POST':
+      case 'ACTION_ADD_PUBLIC_POST':
         return {
           ...state,
-          posts:[action.payload, ...state.posts]
+          publicPosts:[action.payload, ...state.publicPosts]
         }
-      case 'ACTION_SET_POSTS':
+      case 'ACTION_SET_PUBLIC_POSTS':
         return {
           ...state,
-          posts: action.payload
+          publicPosts: action.payload
         }
       case 'ACTION_SET_USERPOSTS':
         return {
@@ -45,21 +40,21 @@ export const mainReducer = (state = initialState, action) => {
       case 'ACTION_CHANGE_POPUP_DISPLAY':
         return {
           ...state,
-          popUpHidden: !state.popUpHidden
+          isPopUpHidden: !state.isPopUpHidden
         }
       case 'ACTION_LOG_IN':
         return {
           ...state,
-          isLoggedin: true,
-          userName: action.payload.username,
-          userJWTToken: action.payload.JWTToken
+          isLoggedIn: true,
+          userName: action.payload.userName,
+          userJWT: action.payload.userJWT
         }
       case 'ACTION_LOG_OUT':
         return {
           ...state,
-          isLoggedin: false,
+          isLoggedIn: false,
           userName: null,
-          userJWTToken: null
+          userJWT: null
         }
       default:
         return state

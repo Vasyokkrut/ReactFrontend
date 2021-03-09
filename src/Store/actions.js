@@ -1,70 +1,61 @@
 export const changeTheme = () => {
   return {
-    type:'ACTION_CHANGE_THEME'
+    type: 'ACTION_CHANGE_THEME'
   }
 }
 
-export const deletePost = pictureName => {
+export const deleteUserPost = postId => {
   return {
-    type:'ACTION_DELETE_PICTURE',
-    payload:{
-      _id:pictureName
-    }
-  }
-}
-
-export const deleteUserPost = pictureName => {
-  return {
-    type:'ACTION_DELETE_USER_PICTURE',
-    payload:{
-      _id:pictureName
+    type: 'ACTION_DELETE_USER_POST',
+    payload: {
+      _id: postId
     }
   }
 }
 
 export const setUserPosts = posts => {
   return {
-    type:'ACTION_SET_USERPOSTS',
-    payload:posts
+    type: 'ACTION_SET_USERPOSTS',
+    payload: posts
   }
 }
 
-export const setPosts = posts => {
+export const setPublicPosts = posts => {
   return {
-    type:'ACTION_SET_POSTS',
-    payload:posts
+    type: 'ACTION_SET_PUBLIC_POSTS',
+    payload: posts
   }
 }
 
 export const addUserPost = newPost => {
   return {
-    type:'ACTION_ADD_USER_POST',
-    payload:newPost
+    type: 'ACTION_ADD_USER_POST',
+    payload: newPost
   }
 }
 
-export const addPost = newPost => {
+export const addPublicPost = newPost => {
   return {
-    type:'ACTION_ADD_POST',
-    payload:newPost
+    type: 'ACTION_ADD_PUBLIC_POST',
+    payload: newPost
   }
 }
 
 export const changePopUpDisplay = () => {
   return {
-    type:'ACTION_CHANGE_POPUP_DISPLAY'
+    type: 'ACTION_CHANGE_POPUP_DISPLAY'
   }
 }
 
 export const userLogin = user => {
   return {
-    type:'ACTION_LOG_IN',
-    payload:user
+    type: 'ACTION_LOG_IN',
+    payload: user
   }
 }
 
 export const userLogout = () => {
   return {
-    type:'ACTION_LOG_OUT'
+    type: 'ACTION_LOG_OUT'
   }
 }

@@ -22,7 +22,7 @@ function SelectedOption({selectedOption}) {
   }
 }
 
-function AccountSettings({theme, isLoggedin}) {
+function AccountSettings({darkTheme, isLoggedIn}) {
 
   // this useState is for define which option will be displayed
   // it will contain one of these options:
@@ -33,15 +33,15 @@ function AccountSettings({theme, isLoggedin}) {
   // component should display nothing as default option
   useEffect(() => {
     setSelectedOption(null)
-  }, [isLoggedin])
+  }, [isLoggedIn])
 
   const settingsButtonClassName = classnames(
     'settings-button',
-    theme === 'dark' ? 'settings-button-dark' : 'settings-button-light'
+    darkTheme ? 'settings-button-dark' : 'settings-button-light'
   )
 
   // if user didn't log in to website this message will be displayed
-  if (!isLoggedin) {
+  if (!isLoggedIn) {
     return (
       <div style={{fontSize: '4rem', textAlign: 'center'}} >
         You aren't logged in
@@ -79,8 +79,8 @@ function AccountSettings({theme, isLoggedin}) {
 
 const mapStateToProps = store => {
   return {
-    theme: store.theme,
-    isLoggedin: store.isLoggedin
+    darkTheme: store.darkTheme,
+    isLoggedIn: store.isLoggedIn
   }
 }
 

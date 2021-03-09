@@ -9,33 +9,33 @@ import { changeTheme, userLogout, changePopUpDisplay } from '../../Store/actions
 function RightList(props) {
 
     const linkClassName = classnames(
-        props.theme === 'light'?'lightLinkText':'darkLinkText'
+        props.darkTheme ?'darkLinkText':'lightLinkText'
     )
     
     const boxClassName = classnames(
         'Box',
         'RightBox',
-        props.theme === 'light'?'lightBox':'darkBox'
+        props.darkTheme ? 'darkBox' : 'lightBox'
     )
 
     const itemClassName = classnames(
         'UsefulLink',
-        props.theme === 'light'?'UsefulLinkDark':'UsefulLinkLight'
+        props.darkTheme ? 'UsefulLinkLight' : 'UsefulLinkDark'
     )
 
     const separateLineClassName = classnames(
         'Separate-Line',
-        props.theme === 'dark' ? 'Separate-Line-Dark' : 'Separate-Line-Light'
+        props.darkTheme  ? 'Separate-Line-Dark' : 'Separate-Line-Light'
     )
 
     function changeTheme() {
-        localStorage.setItem('theme', props.theme === 'dark'?'light':'dark')
+        localStorage.setItem('darkTheme', props.darkTheme ? 'false' : 'true')
         props.changeTheme()
     }
 
     function userLogout() {
         localStorage.removeItem('JWTToken')
-        localStorage.removeItem('LoginData')
+        localStorage.removeItem('userName')
         props.userLogout()
     }
 
@@ -60,7 +60,7 @@ function RightList(props) {
                     </li>
 
                     {
-                        props.isLoggedin
+                        props.isLoggedIn
                         ?
                         <>
                             <li className={linkClassName}>
@@ -96,8 +96,8 @@ function RightList(props) {
 
 const mapStateToProps = store => {
     return {
-        theme: store.theme,
-        isLoggedin: store.isLoggedin
+        darkTheme: store.darkTheme,
+        isLoggedIn: store.isLoggedIn
     }
 }
 

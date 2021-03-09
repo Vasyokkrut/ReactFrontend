@@ -12,14 +12,11 @@ function Buttons({item, pictureURL, handleDeleteClick, isDeleteAvailable}) {
     // we should explicitly add backend server hostname to href in development mode
     // In production mode there will be only one server
 
-    let downloadHref = `/downloadPicture/${item.fileName}`
-
-    if (process.env.NODE_ENV === 'development') {
-        downloadHref = 'http://localhost:5000' + downloadHref
-    }
+    let downloadHref = `/downloadPicture/${item.pictureName}`
 
     if (process.env.NODE_ENV === 'development') {
         pictureURL = 'http://localhost:5000' + pictureURL
+        downloadHref = 'http://localhost:5000' + downloadHref
     }
 
     return(
@@ -38,7 +35,7 @@ function Buttons({item, pictureURL, handleDeleteClick, isDeleteAvailable}) {
                 target='_blank'
                 href={pictureURL}
             >
-                Open full image
+                Open full picture
             </a>
             <a
                 className='BtnFullPicture'

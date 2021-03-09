@@ -4,7 +4,7 @@ import AddPublicPost from './AddPublicPost.jsx'
 import PublicPostItems from './PublicPostItems.jsx'
 
 function PublicPostsList() {
-    let [isDataLoaded, setIsDataLoaded] = useState(false)
+    const [isDataLoaded, setIsDataLoaded] = useState(false)
     return(
         <div>
             {
@@ -17,7 +17,7 @@ function PublicPostsList() {
                     <AddPublicPost/>
                 </>
                 :
-                null
+                <div className='AccName'>loading...</div>
             }
             <PublicPostItems
                 setIsDataLoaded={setIsDataLoaded}

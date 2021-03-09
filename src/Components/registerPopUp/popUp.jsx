@@ -41,13 +41,13 @@ function PopUp(props) {
         //checking if user is logging into website
         //by checking first and second fields
         if(loginState[0].trim() && loginState[1].trim()) {
-            let data = {login:loginState[0], password:loginState[1]}
+            const data = {userName: loginState[0], password: loginState[1]}
             axios.post('/login', data)
-            .then(async res => {
-                let JWTToken = res.data.JWTToken
-                props.userLogin({username:loginState[0], JWTToken: JWTToken})
-                localStorage.setItem('LoginData', JSON.stringify({login:loginState[0]}))
-                localStorage.setItem('JWTToken', JWTToken)
+            .then(res => {
+                const userJWT = res.data.userJWT
+                props.userLogin({userName: loginState[0], userJWT: userJWT})
+                localStorage.setItem('userName', loginState[0])
+                localStorage.setItem('JWTToken', userJWT)
                 closePopup()
                 setTimeout(() => {
                     setLoginState(['','','','',''])
@@ -58,7 +58,7 @@ function PopUp(props) {
         //checking if user is making account
         //by checking third forth and fifth fields
         } else if(loginState[2].trim() && loginState[3].trim() && loginState[3] === loginState[4]) {
-            let data = {login:loginState[2], password:loginState[3]}
+            const data = {login: loginState[2], password: loginState[3]}
             axios.post('/register', data )
             .then(res => {
                 if (res.status===208) {
@@ -80,7 +80,7 @@ function PopUp(props) {
             <div className={overlayClassname} onClick={closePopup}></div>
             <div className='popupWindow' >
                 <div onClick={closePopup} style={{height:'3rem'}}></div>
-                <div className={`${popupClassname} ${props.background === 'dark'?'popUpDark':'popUpLight'}`} style={{zIndex:99}}>
+                <div className={`${popupClassname} ${props.darkTheme ? 'popUpDark' : 'popUpLight'}`} style={{zIndex:99}}>
                     <div className='Flexible' >sign in</div>
                     <div>
                         <input
@@ -146,8 +146,8 @@ function PopUp(props) {
 
 const mapStateToProps = store => {
     return {
-        background: store.theme,
-        hidden: store.popUpHidden,
+        darkTheme: store.darkTheme,
+        hidden: store.isPopUpHidden,
         userName: store.userName
     }
   }

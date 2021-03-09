@@ -9,23 +9,23 @@ import { changePopUpDisplay } from '../../Store/actions.js'
 function LeftList(props) {
 
     const linkClassName = classnames(
-        props.theme === 'light'?'lightLinkText':'darkLinkText'
+        props.darkTheme ?'darkLinkText':'lightLinkText'
     )
 
     const boxClassName = classnames(
         'Box',
         'LeftBox',
-        props.theme === 'light'?'lightBox':'darkBox'
+        props.darkTheme ? 'darkBox' : 'lightBox'
     )
 
     const itemClassName = classnames(
         'UsefulLink',
-        props.theme === 'light'?'UsefulLinkDark':'UsefulLinkLight'
+        props.darkTheme ? 'UsefulLinkLight' : 'UsefulLinkDark'
     )
 
     const separateLineClassName = classnames(
         'Separate-Line',
-        props.theme === 'dark' ? 'Separate-Line-Dark' : 'Separate-Line-Light'
+        props.darkTheme ? 'Separate-Line-Dark' : 'Separate-Line-Light'
     )
 
     return(
@@ -77,7 +77,7 @@ function LeftList(props) {
 
 const mapStateToProps = store => {
     return {
-        theme: store.theme,
+        darkTheme: store.darkTheme,
         userName: store.userName
     }
 }

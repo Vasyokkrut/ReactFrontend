@@ -14,46 +14,49 @@ class PostItems extends React.Component {
         this.state = {isDataLoaded: false, URLUserName: props.URLUserName}
     }
 
-    async componentDidMount() {
-        try {
-            const user = await axios.get(`/api/getUserInfo/${this.props.URLUserName}`)
-            const {posts, userName} = user.data
-            this.props.setUserName(userName)
-            this.props.setUserPosts(posts.reverse())
-            this.setState({...this.state, isDataLoaded: true})
-        } catch {
-            this.props.setUserPosts(null)
-            this.setState({...this.state, isDataLoaded: true})
-        }
+    componentDidMount() {
+        axios.get(`/api/getUserInfo/${this.props.URLUserName}`)
+            .then(res => {
+                const {userPosts, userName} = res.data
+                this.props.setUserName(userName)
+                this.props.setUserPosts(userPosts.reverse())
+                this.setState({...this.state, isDataLoaded: true})
+            })
+            .catch(() => {
+                this.props.setUserPosts(null)
+                this.setState({...this.state, isDataLoaded: true})
+            })
     }
 
-    async componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
         if (prevProps.URLUserName !== this.props.URLUserName) {
             this.props.setUserName(null)
             this.setState({...this.state, isDataLoaded: false})
-            try {
-                const user = await axios.get(`/api/getUserInfo/${this.props.URLUserName}`)
-                const {posts, userName} = user.data
-                this.props.setUserName(userName)
-                this.props.setUserPosts(posts.reverse())
-                this.setState({isDataLoaded: true, URLUserName: this.props.URLUserName})
-            } catch {
-                this.props.setUserPosts(null)
-                this.setState({isDataLoaded: true, URLUserName: this.props.URLUserName})
-            }
+            
+            axios.get(`/api/getUserInfo/${this.props.URLUserName}`)
+                .then(res => {
+                    const {userPosts, userName} = res.data
+                    this.props.setUserName(userName)
+                    this.props.setUserPosts(userPosts.reverse())
+                    this.setState({isDataLoaded: true, URLUserName: this.props.URLUserName})
+                })
+                .catch(() => {
+                    this.props.setUserPosts(null)
+                    this.setState({isDataLoaded: true, URLUserName: this.props.URLUserName})
+                })
         }
     }
 
     handleDeleteClick(fileName) {
         axios.delete(
-            '/api/deleteUserImage',
+            '/api/deleteUserPost',
             {
                 data:{
-                    delete:fileName,
-                    userName:this.props.userName
+                    delete: fileName,
+                    userName: this.props.userName
                 },
                 headers:{
-                    Authorization: 'Bearer ' + this.props.JWTToken
+                    Authorization: 'Bearer ' + this.props.userJWT
                 } 
             }
         )
@@ -62,19 +65,19 @@ class PostItems extends React.Component {
     }
 
     render() {
-        let PostClassName = classNames(
+        const PostClassName = classNames(
             'PostItem',
-            this.props.theme === 'dark' ? 'PostItemDark' : 'PostItemLight'
+            this.props.darkTheme ? 'PostItemDark' : 'PostItemLight'
         )
 
         // show nothing unless data is loaded to prevent flicker
-        if(this.state.isDataLoaded === false) return null
+        if(this.state.isDataLoaded === false) return <div className='AccName'>loading...</div>
 
         // if user doesn't exist this message will be displayed
         if(this.props.userPosts === null) {
             return (
                 <div className='EmptyPost'>
-                    User Doesn't exist
+                    User doesn't exist
                 </div>
             )
         }
@@ -92,11 +95,11 @@ class PostItems extends React.Component {
         // if user has posts they will be displayed
         return(
             this.props.userPosts.map(item => {
-                let pictureURL=`/api/getUserImage/${this.state.URLUserName}/${item._id}`
+                const pictureURL = `/api/getUserPicture/${this.state.URLUserName}/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
                         <div className='PostText'>
-                            <span>{item.name}</span>
+                            <span>{item.title}</span>
                         </div>
                         <Picture pictureURL={pictureURL} />
                         <Buttons
@@ -114,11 +117,11 @@ class PostItems extends React.Component {
 
 const mapStateToProps = store => {
     return {
-        theme: store.theme,
-        isLoggedin: store.isLoggedin,
+        darkTheme: store.darkTheme,
+        isLoggedIn: store.isLoggedIn,
         userName: store.userName,
         userPosts: store.userPosts,
-        JWTToken: store.userJWTToken
+        userJWT: store.userJWT
     }
 }
 

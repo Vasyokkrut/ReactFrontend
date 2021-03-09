@@ -4,8 +4,8 @@ import AddUserPost from './AddUserPost.jsx'
 import UserPostItems from './UserPostItems.jsx'
 
 function UserPostsList(props) {
-    let URLUserName = props.match.params.URLUserName
-    let [userName, setUserName] = useState(null)
+    const URLUserName = props.match.params.URLUserName
+    const [userName, setUserName] = useState(null)
     return(
         <div>
             {

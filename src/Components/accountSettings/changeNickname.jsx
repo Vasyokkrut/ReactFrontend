@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 
 import { userLogin } from '../../Store/actions.js'
 
-function ChangeNickname({ JWTToken, userLogin, currentUserName }) {
+function ChangeNickname({ userJWT, userLogin, currentUserName }) {
 
   const [newNickname, setNewNickname] = useState('')
   const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
@@ -55,7 +55,7 @@ function ChangeNickname({ JWTToken, userLogin, currentUserName }) {
 
     // set data and configuration for request
     const data = { newNickname }
-    const config = {headers: {Authorization: 'Bearer ' + JWTToken}}
+    const config = {headers: {Authorization: 'Bearer ' + userJWT}}
     axios.patch('/api/accountSettings/changeNickname', data, config)
       .then(res => {
         
@@ -68,8 +68,8 @@ function ChangeNickname({ JWTToken, userLogin, currentUserName }) {
         }
 
         localStorage.setItem('JWTToken', res.data.newJWTToken)
-        localStorage.setItem('LoginData', JSON.stringify({login:newNickname}))
-        userLogin({username:newNickname, JWTToken: res.data.newJWTToken})
+        localStorage.setItem('userName', newNickname)
+        userLogin({userName: newNickname, userJWT: res.data.newJWTToken})
         setChangingStatus({
           successful: true,
           message: 'nickname changed successfully'
@@ -110,7 +110,7 @@ function ChangeNickname({ JWTToken, userLogin, currentUserName }) {
 
 const mapStateToProps = store => {
   return {
-    JWTToken: store.userJWTToken,
+    userJWT: store.userJWT,
     currentUserName: store.userName
   }
 }

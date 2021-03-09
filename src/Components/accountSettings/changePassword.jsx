@@ -2,7 +2,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import React, { useState } from 'react'
 
-function ChangePassword({ JWTToken }) {
+function ChangePassword({ userJWT }) {
 
   const [newPassword, setNewPassword] = useState('')
   const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
@@ -45,7 +45,7 @@ function ChangePassword({ JWTToken }) {
 
     // set data and configuration for request
     const data = { newPassword }
-    const config = {headers: {Authorization: 'Bearer ' + JWTToken}}
+    const config = {headers: {Authorization: 'Bearer ' + userJWT}}
     axios.patch('/api/accountSettings/changePassword', data, config)
       .then(res => {
         setChangingStatus({
@@ -89,7 +89,7 @@ function ChangePassword({ JWTToken }) {
 
 const mapStateToProps = store => {
   return {
-    JWTToken: store.userJWTToken
+    userJWT: store.userJWT
   }
 }
 
