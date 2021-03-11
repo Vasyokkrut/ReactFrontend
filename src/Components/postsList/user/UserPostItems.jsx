@@ -20,10 +20,11 @@ class PostItems extends React.Component {
                 const {userPosts, userName} = res.data
                 this.props.setUserName(userName)
                 this.props.setUserPosts(userPosts.reverse())
-                this.setState({...this.state, isDataLoaded: true})
             })
             .catch(() => {
                 this.props.setUserPosts(null)
+            })
+            .finally(() => {
                 this.setState({...this.state, isDataLoaded: true})
             })
     }
@@ -38,10 +39,11 @@ class PostItems extends React.Component {
                     const {userPosts, userName} = res.data
                     this.props.setUserName(userName)
                     this.props.setUserPosts(userPosts.reverse())
-                    this.setState({isDataLoaded: true, URLUserName: this.props.URLUserName})
                 })
                 .catch(() => {
                     this.props.setUserPosts(null)
+                })
+                .finally(() => {
                     this.setState({isDataLoaded: true, URLUserName: this.props.URLUserName})
                 })
         }

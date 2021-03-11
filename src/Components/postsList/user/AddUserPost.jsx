@@ -66,6 +66,7 @@ function AddPostForm(props) {
                             placeholder='Choose title'
                             onChange={handleTitleInput}
                             value={title}
+                            onKeyDown={(event) => {if (event.key === 'Enter') handleUpload()}}
                         />
                         <div className='flex-center'>
                             <button
