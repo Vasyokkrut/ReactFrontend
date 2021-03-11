@@ -1,37 +1,29 @@
-.darkLinkText:hover {
-  background-color: #6e6e6e;
+.nav-item {
+  display: block;
+  text-decoration: none;
+  width: 13rem;
+  border-radius: 6px;
+  padding: .3rem .5rem;
   cursor: pointer;
 }
 
-.lightLinkText:hover {
-  background-color: #ddd;
-  cursor: pointer;
-}
-
-.UsefulLinkDark {
+.nav-item-light {
   color:black;
 }
 
-.UsefulLinkLight {
-  color: #ffffff;
+.nav-item-dark {
+  color: white;
 }
 
-.UsefulLink {
-  text-decoration: none;
-  padding-left: .1px;
+.nav-item-light:hover {
+  background-color: #ddd;
 }
 
-.lightBox {
-  background-color:whitesmoke;
-  border: 1px solid #e0e0e0;
+.nav-item-dark:hover {
+  background-color: #6e6e6e;
 }
 
-.darkBox {
-  background-color:#333;
-  border: 1px solid #333;
-}
-
-.Box {
+.side-bar {
   position: sticky;
   padding: .5rem;
   width: 14rem;
@@ -40,33 +32,33 @@
   border-radius: .5rem;
 }
 
-.LeftBox {
+.side-bar-light {
+  background-color:whitesmoke;
+  border: 1px solid #e0e0e0;
+}
+
+.side-bar-dark {
+  background-color:#333;
+  border: 1px solid #333;
+}
+
+.left-side-bar {
   margin-right: 3rem;
 }
 
-.RightBox {
+.right-side-bar {
   margin-left: 3rem;
 }
 
-.LinkText {
-  position: absolute;
-  width: 100%;
-}
-
-.List {
-  font-size: 1.4rem;
-  margin: 0;
-}
-
-.Separate-Line {
+.separate-line {
   height: 2px;
   border-style: none;
 }
 
-.Separate-Line-Dark {
+.separate-line-dark {
   background-color: #666;
 }
 
-.Separate-Line-Light {
+.separate-line-light {
   background-color: #ccc;
 }

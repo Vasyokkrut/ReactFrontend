@@ -8,68 +8,52 @@ import { changePopUpDisplay } from '../../Store/actions.js'
 
 function LeftList(props) {
 
-    const linkClassName = classnames(
-        props.darkTheme ?'darkLinkText':'lightLinkText'
+    const sideBarClassName = classnames(
+        'side-bar',
+        'left-side-bar',
+        props.darkTheme ? 'side-bar-dark' : 'side-bar-light'
     )
-
-    const boxClassName = classnames(
-        'Box',
-        'LeftBox',
-        props.darkTheme ? 'darkBox' : 'lightBox'
-    )
-
-    const itemClassName = classnames(
-        'UsefulLink',
-        props.darkTheme ? 'UsefulLinkLight' : 'UsefulLinkDark'
+    
+    const navItemClassName = classnames(
+        'nav-item',
+        props.darkTheme ? 'nav-item-dark' : 'nav-item-light',
     )
 
     const separateLineClassName = classnames(
-        'Separate-Line',
-        props.darkTheme ? 'Separate-Line-Dark' : 'Separate-Line-Light'
+        'separate-line',
+        props.darkTheme ? 'separate-line-dark' : 'separate-line-light'
     )
 
     return(
-        <div className={boxClassName}>
-            <div style={{fontSize:'2rem'}}>
-                Post Lists:
+        <div className={sideBarClassName}>
+            <div style={{fontSize: '2rem'}} >
+                Post lists:
             </div>
             <hr className={separateLineClassName} />
-            <nav>
-                <ul className='LeftList List'>
-                    <li className={linkClassName}>
-                        {
-                        props.userName !== null
-                        ?
-                        <Link
-                            className={itemClassName}
-                            to={`/userPosts/${props.userName}`}
-                        >
-                            <span className='LinkText'>
-                                <span style={{paddingLeft:'.4rem'}}>My Posts</span>
-                            </span>
-                        </Link>
-                        :
-                        <span
-                            className={itemClassName}
-                            onClick={props.changePopUpDisplay}
-                        >
-                            <span className='LinkText'>
-                                <span style={{paddingLeft:'.4rem'}}>My Posts</span>
-                            </span>
-                        </span>
-                        }
-                    </li>
-                    <li className={linkClassName}>
-                        <Link
-                            className={itemClassName}
-                            to='/publicPosts'
-                        >
-                            <span className='LinkText'>
-                                <span style={{paddingLeft:'.4rem'}}>Public Posts</span>
-                            </span>
-                        </Link>
-                    </li>
-                </ul>
+            <nav style={{fontSize: '1.4rem'}} >
+                {
+                    props.userName
+                    ?
+                    <Link
+                        className={navItemClassName}
+                        to={`/userPosts/${props.userName}`}
+                    >
+                        My Posts
+                    </Link>
+                    :
+                    <span
+                        className={navItemClassName}
+                        onClick={props.changePopUpDisplay}
+                    >
+                        My Posts
+                    </span>
+                }
+                <Link
+                    className={navItemClassName}
+                    to='/publicPosts'
+                >
+                    Public Posts
+                </Link>
             </nav>
         </div>
     )

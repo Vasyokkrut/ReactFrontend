@@ -12,7 +12,7 @@ function UserPostsList(props) {
                 userName !== null
                 ?
                 <>
-                    <div className='AccName'>
+                    <div className='account-name'>
                         {userName + ' posts'}
                     </div>
                     <AddUserPost URLUserName={URLUserName} />

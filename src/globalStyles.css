@@ -1,18 +1,18 @@
 @font-face {
-  font-family: 'Roboto-Light';
-  src: url('/Roboto-Light.ttf');
+  font-family: 'roboto-light';
+  src: url('/roboto-light.ttf');
 }
 
 * {
-  font-family: 'Roboto-Light', sans-serif;
+  font-family: 'roboto-light', sans-serif;
 }
 
-.light {
+.light-body {
   background-color: #ebebeb;
   color: black;
 }
 
-.dark {
+.dark-body {
   background-color: #222226;
   color: white;
 }
@@ -28,11 +28,7 @@ body {
   padding-top: 3rem;
   align-items: flex-start;
   margin: 0 auto;
-  width: 76rem;
-}
-
-.PostsList {
-  width: 40rem;
+  width: calc(76rem + 6px);
 }
 
 header {
@@ -44,12 +40,12 @@ header {
   z-index: 9;
 }
 
-.Flexible {
+.flex-center {
   display:flex;
   justify-content: center;
 }
 
-.PictureInput {
+.title-input {
   height: 2.5rem;
   width: 15rem;
   border-radius: 1.25rem;
@@ -60,32 +56,11 @@ header {
   margin: 1rem;
 }
 
-.EmptyPost {
-  width:600px;
-  text-align: center;
-  padding: 20px;
-  font-size: 3rem;
-}
-
-.WhiteLink {
-  color:white;
-}
-
-.DarkLink {
-  color:black;
-}
-
-input[type="file"] {
+#choose-picture-input {
   display: none;
 }
 
-.FullPicture {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.WelcomeLink {
+.welcome-link {
   width: 30rem;
   padding: 2rem;
   font-size: 4rem;
@@ -93,35 +68,35 @@ input[type="file"] {
   text-decoration: none;
 }
 
-ul {
-  padding-left: 0;
-  margin-left: 0;
+.welcome-link-light {
+  color:white;
 }
 
-li {
-  list-style-type: none;
-  padding:.3rem;
-  border-radius: 6px;
-  padding-left: 0;
+.welcome-link-dark {
+  color:black;
 }
 
-.MainLink {
+.welcome-container {
   border: solid rgb(63, 145, 145);
   border-width: 3px;
   border-radius: 20px;
   margin: 2rem 45px;
 }
 
-.MainLink:hover {
+.welcome-container:hover {
   background-color: rgba(0, 0, 0, .2);
 }
 
-.postPicture {
+.post-picture {
   max-height: 400px;
   max-width: 600px;
 }
 
-.PictureContainer {
+.picture-container {
   height: 400px;
   align-items: center;
+}
+
+.middle-list {
+  width: calc(40rem + 2px);
 }

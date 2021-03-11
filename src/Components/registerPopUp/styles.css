@@ -1,4 +1,4 @@
-.popUpInput {
+.pop-up-input {
   height: 2rem;
   width: 23rem;
   border-radius: 1rem;
@@ -10,12 +10,12 @@
   margin: .5rem 1rem;
 }
 
-.popUpLight {
+.pop-up-light {
   background-color: #ddd;
   color:black;
 }
 
-.popUpDark {
+.pop-up-dark {
   background-color: #222226;
   color:whitesmoke;
 }
@@ -38,7 +38,7 @@
   width: 10rem;
 }
 
-.popupWindow {
+.pop-up-window {
   position: fixed;
   height: 100%;
   z-index: 100;
@@ -58,17 +58,17 @@
   animation-fill-mode: forwards;
 }
 
-.overlayOpen {
+.overlay-open {
   animation-name: overlayOpacityOpen;
   animation-duration: .2s;
 }
 
-.overlayClose {
+.overlay-close {
   animation-name: overlayOpacityClose;
   animation-duration: .2s;
 }
 
-.modalWindow {
+.modal-window {
   font-size: 3rem;
   position: sticky;
   border-radius: 2rem;
@@ -77,14 +77,15 @@
   border-color: rgb(211, 211, 211);
   border-width: 2px;
   animation-fill-mode: forwards;
+  z-index: 99;
 }
 
-.modalWindowOpen {
+.modal-window-opened {
   animation-name: modalOpen;
   animation-duration: .2s;
 }
 
-.modalWindowClose {
+.modal-window-closed {
   animation-name: modalClose;
   animation-duration: .2s;
 }

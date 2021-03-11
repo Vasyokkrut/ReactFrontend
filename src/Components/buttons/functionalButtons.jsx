@@ -20,17 +20,17 @@ function Buttons({item, pictureURL, handleDeleteClick, isDeleteAvailable}) {
     }
 
     return(
-        <div className='Flexible'>
+        <div className='flex-center'>
             {isDeleteAvailable ? (
                 <button
                     onClick={() => handleDeleteClick(item._id)}
-                    className='BtnFullPicture'
+                    className='primary-button'
                 >
                     Delete this post
                 </button>
             ) : null}
             <a
-                className='BtnFullPicture'
+                className='primary-button'
                 rel='noopener noreferrer'
                 target='_blank'
                 href={pictureURL}
@@ -38,7 +38,7 @@ function Buttons({item, pictureURL, handleDeleteClick, isDeleteAvailable}) {
                 Open full picture
             </a>
             <a
-                className='BtnFullPicture'
+                className='primary-button'
                 href={downloadHref}
             >
                 Download

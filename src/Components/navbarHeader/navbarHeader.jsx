@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 import './styles.css'
 import Dropdown from './dropdown'
 
-function NavbarHeader({darkTheme, userName}) {
+function NavbarHeader({darkTheme}) {
 
-  const headerClassName = darkTheme ? 'darkHeader' : 'lightHeader'
+  const headerClassName = darkTheme ? 'dark-header' : 'light-header'
 
   return(
     <header className={headerClassName} >
@@ -29,7 +29,6 @@ function NavbarHeader({darkTheme, userName}) {
 
 const mapStateToProps = store => {
   return {
-    userName: store.userName,
     darkTheme: store.darkTheme
   }
 }

@@ -4,18 +4,21 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 function WelcomePage({darkTheme}) {
-  const linkClassName = classnames('WelcomeLink', 'Flexible', darkTheme ? 'WhiteLink' : 'DarkLink')
+  const linkClassName = classnames(
+    'flex-center',
+    'welcome-link',
+    darkTheme ? 'welcome-link-light' : 'welcome-link-dark'
+  )
+
   return(
-    <div className='MainLink'>
-      <div className='Flexible'>
-        <Link
-          className={linkClassName}
-          to='/publicPosts'
-        >
-          Upload your own<br/>
-          picture here!
-        </Link>
-      </div>
+    <div className='welcome-container'>
+      <Link
+        className={linkClassName}
+        to='/publicPosts'
+      >
+        Upload your own<br/>
+        picture here!
+      </Link>
     </div>
   )
 }

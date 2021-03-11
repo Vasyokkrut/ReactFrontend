@@ -8,7 +8,7 @@ import PublicPostsList from './postsList/public/PublicPostsList.jsx'
 
 function MiddleList() {
   return(
-    <div className='PostsList'>
+    <div className='middle-list' >
       <main>
         <Switch>
           <Route path='/publicPosts' component={PublicPostsList} />

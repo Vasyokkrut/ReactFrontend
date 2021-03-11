@@ -15,7 +15,7 @@ class MainComponent extends React.Component {
 
   constructor(props) {
     super(props)
-    document.body.className = props.darkTheme ? 'dark' : 'light'
+    document.body.className = props.darkTheme ? 'dark-body' : 'light-body'
     if(localStorage.getItem('darkTheme') === 'false') props.changeTheme()
   }
 
@@ -29,7 +29,7 @@ class MainComponent extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.darkTheme !== this.props.darkTheme) {
-      document.body.className = this.props.darkTheme ? 'dark' : 'light'
+      document.body.className = this.props.darkTheme ? 'dark-body' : 'light-body'
     }
   }
 
@@ -39,7 +39,7 @@ class MainComponent extends React.Component {
         <noscript>You have to enable JS</noscript>
         <NavbarHeader />
         <PopUp />
-        <div className='Flexible main-component'>
+        <div className='flex-center main-component'>
           <LeftList />
           <MiddleList />
           <RightList />

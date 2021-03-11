@@ -51,7 +51,7 @@ function AccountSettings({darkTheme, isLoggedIn}) {
 
   return(
     <div className='account-settings' >
-      <div className='AccName' >account settings</div>
+      <div className='account-name' >account settings</div>
       <div className='setting-item' >
         <div
           className={settingsButtonClassName}

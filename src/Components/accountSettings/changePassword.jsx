@@ -79,7 +79,7 @@ function ChangePassword({ userJWT }) {
         </span>
       </div>
       <div>
-        <button className='BtnFullPicture' onClick={changePasswordHandler} >
+        <button className='primary-button' onClick={changePasswordHandler} >
           Change
         </button>
       </div>

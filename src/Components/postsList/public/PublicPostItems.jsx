@@ -23,15 +23,15 @@ class PublicPostItems extends React.Component {
 
     render() {
         const PostClassName = classNames(
-            'PostItem',
-            this.props.darkTheme ? 'PostItemDark' : 'PostItemLight'
+            'post-item',
+            this.props.darkTheme ? 'post-item-dark' : 'post-item-light'
         )
 
         if(this.props.isDataLoaded === false) return null
 
         if(!this.props.publicPosts.length) {
             return (
-                <div className='EmptyPost'>
+                <div className='empty-post'>
                     Upload your own picture<br />
                     using button above!
                 </div>
@@ -43,7 +43,7 @@ class PublicPostItems extends React.Component {
                 const pictureURL = `/api/getPublicPicture/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
-                        <div className='PostText'>
+                        <div className='post-title'>
                             <span>{item.title}</span>
                         </div>
                         <Picture pictureURL={pictureURL} />

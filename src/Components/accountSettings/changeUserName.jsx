@@ -100,7 +100,7 @@ function ChangeUserName({ userJWT, userLogin, currentUserName }) {
         </span>
       </div>
       <div>
-        <button className='BtnFullPicture' onClick={changeUserNameHandler} >
+        <button className='primary-button' onClick={changeUserNameHandler} >
           Change
         </button>
       </div>

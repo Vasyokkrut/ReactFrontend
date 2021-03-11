@@ -11,13 +11,13 @@ function PublicPostsList() {
                 isDataLoaded
                 ?
                 <>
-                    <div className='AccName'>
+                    <div className='account-name'>
                         Public posts
                     </div>
                     <AddPublicPost/>
                 </>
                 :
-                <div className='AccName'>loading...</div>
+                <div className='account-name'>loading...</div>
             }
             <PublicPostItems
                 setIsDataLoaded={setIsDataLoaded}

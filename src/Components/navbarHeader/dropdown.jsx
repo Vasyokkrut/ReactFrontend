@@ -56,11 +56,11 @@ function Dropdown(props) {
   } else {
     return (
       <div className={dropdownClassName} >
-        <div className='loginContainer' >
+        <div className='login-container' >
           <div>
             You could&ensp;
             <span
-              className='loginButton'
+              className='login-button'
               onClick={props.changePopUpDisplay}
             >
               log in

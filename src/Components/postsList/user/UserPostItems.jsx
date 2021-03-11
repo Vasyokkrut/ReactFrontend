@@ -66,17 +66,17 @@ class PostItems extends React.Component {
 
     render() {
         const PostClassName = classNames(
-            'PostItem',
-            this.props.darkTheme ? 'PostItemDark' : 'PostItemLight'
+            'post-item',
+            this.props.darkTheme ? 'post-item-dark' : 'post-item-light'
         )
 
         // show nothing unless data is loaded to prevent flicker
-        if(this.state.isDataLoaded === false) return <div className='AccName'>loading...</div>
+        if(this.state.isDataLoaded === false) return <div className='account-name'>loading...</div>
 
         // if user doesn't exist this message will be displayed
         if(this.props.userPosts === null) {
             return (
-                <div className='EmptyPost'>
+                <div className='empty-post'>
                     User doesn't exist
                 </div>
             )
@@ -85,7 +85,7 @@ class PostItems extends React.Component {
         // if user has not any posts this message will be displayed
         if(this.props.userPosts.length === 0) {
             return (
-                <div className='EmptyPost'>
+                <div className='empty-post'>
                     Upload your own picture<br />
                     using button above!
                 </div>
@@ -98,7 +98,7 @@ class PostItems extends React.Component {
                 const pictureURL = `/api/getUserPicture/${this.state.URLUserName}/${item._id}`
                 return (
                     <div key={item._id} className={PostClassName}>
-                        <div className='PostText'>
+                        <div className='post-title'>
                             <span>{item.title}</span>
                         </div>
                         <Picture pictureURL={pictureURL} />

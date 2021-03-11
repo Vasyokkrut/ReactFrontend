@@ -1,4 +1,4 @@
-.BtnFullPicture {
+.primary-button {
   background-color: whitesmoke;
 	border-radius: 28px;
   border: 1px solid #05359c;
@@ -13,12 +13,12 @@
   outline: none;
 }
 
-.BtnFullPicture:hover {
+.primary-button:hover {
 	background-color: #05359c;
   color: white;
 }
 
-.UploadBtn {
+.upload-button {
   background-color: whitesmoke;
   border: 1px solid #05359c;
   color: black;
@@ -33,7 +33,7 @@
   outline: none;
 }
 
-.UploadBtn:hover {
+.upload-button:hover {
   background-color: #05359c;
   color: white;
 }

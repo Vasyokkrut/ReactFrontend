@@ -29,19 +29,19 @@ function AddPostForm(props) {
                     props.addPublicPost(res.data.post)
                     setPicture(null)
                     setTitle('')
-                    document.getElementById('InputField').value=''
+                    document.getElementById('choose-picture-input').value = ''
                 })
         }
     }
 
     return(
-        <div className='Flexible'>
+        <div className='flex-center'>
             <div>
-                <div className='Flexible'>
-                    <label className='UploadBtn'>
+                <div className='flex-center'>
+                    <label className='upload-button'>
                         {picture === null?'Create Post':'Rechoose picture'}
                         <input
-                            id='InputField'
+                            id='choose-picture-input'
                             accept='image/*'
                             type='file'
                             onInput={handlePictureInput}
@@ -56,15 +56,15 @@ function AddPostForm(props) {
                             using form below
                         </div>
                         <input
-                            className='PictureInput'
+                            className='title-input'
                             type='text'
                             placeholder='Choose title'
                             onChange={handleTitleInput}
                             value={title}
                         />
-                        <div className='Flexible'>
+                        <div className='flex-center'>
                             <button
-                                className="UploadBtn"
+                                className="upload-button"
                                 onClick={handleUpload}
                             >
                                 Upload Picture

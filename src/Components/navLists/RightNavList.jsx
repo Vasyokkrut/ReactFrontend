@@ -7,25 +7,21 @@ import { bindActionCreators } from 'redux'
 import { changeTheme, userLogout, changePopUpDisplay } from '../../Store/actions.js'
 
 function RightList(props) {
-
-    const linkClassName = classnames(
-        props.darkTheme ?'darkLinkText':'lightLinkText'
-    )
     
-    const boxClassName = classnames(
-        'Box',
-        'RightBox',
-        props.darkTheme ? 'darkBox' : 'lightBox'
+    const sideBarClassName = classnames(
+        'side-bar',
+        'right-side-bar',
+        props.darkTheme ? 'side-bar-dark' : 'side-bar-light'
     )
 
-    const itemClassName = classnames(
-        'UsefulLink',
-        props.darkTheme ? 'UsefulLinkLight' : 'UsefulLinkDark'
+    const navItemClassName = classnames(
+        'nav-item',
+        props.darkTheme ? 'nav-item-dark' : 'nav-item-light',
     )
 
     const separateLineClassName = classnames(
-        'Separate-Line',
-        props.darkTheme  ? 'Separate-Line-Dark' : 'Separate-Line-Light'
+        'separate-line',
+        props.darkTheme ? 'separate-line-dark' : 'separate-line-light'
     )
 
     function changeTheme() {
@@ -40,55 +36,38 @@ function RightList(props) {
     }
 
     return(
-        <div className={boxClassName}>
-            <div style={{fontSize:'2rem'}}>
+        <div className={sideBarClassName}>
+            <div style={{fontSize: '2rem'}}>
                 Settings:
             </div>
             <hr className={separateLineClassName} />
-            <nav>
-                <ul className='RightList List'>
-
-                    <li className={linkClassName}>
-                        <span
-                            className={itemClassName}
-                            onClick={changeTheme}
-                        >
-                            <span className='LinkText'>
-                                <span style={{paddingLeft:'.4rem'}}>Change theme</span>
+            <nav style={{fontSize: '1.4rem'}} >
+                <span
+                    className={navItemClassName}
+                    onClick={changeTheme}
+                >
+                    Change theme
+                </span>
+                {
+                    props.isLoggedIn
+                    ?
+                    <>
+                            <Link
+                                className={navItemClassName}
+                                to='/accountSettings'
+                            >
+                                Account Settings
+                            </Link>
+                            <span
+                                className={navItemClassName}
+                                onClick={userLogout}
+                            >
+                                Logout
                             </span>
-                        </span>
-                    </li>
-
-                    {
-                        props.isLoggedIn
-                        ?
-                        <>
-                            <li className={linkClassName}>
-                                <Link
-                                    className={itemClassName}
-                                    to='/accountSettings'
-                                >
-                                    <span className='LinkText'>
-                                        <span style={{paddingLeft:'.4rem'}}>Account Settings</span>
-                                    </span>
-                                </Link>
-                            </li>
-                            <li className={linkClassName}>
-                                <span
-                                    className={itemClassName}
-                                    onClick={userLogout}
-                                >
-                                    <span className='LinkText'>
-                                        <span style={{paddingLeft:'.4rem'}}>Logout</span>
-                                    </span>
-                                </span>
-                            </li>
-                        </>
-                        :
-                        null
-                    }
-
-                </ul>
+                    </>
+                    :
+                    null
+                }
             </nav>
         </div>
     )

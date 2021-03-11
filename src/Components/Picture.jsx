@@ -3,11 +3,11 @@ import React from 'react'
 function Picture({pictureURL}) {
 
   return(
-    <div className='Flexible PictureContainer'>
+    <div className='flex-center picture-container'>
       <img
         src={pictureURL}
         alt='There is a beautiful car'
-        className='postPicture'
+        className='post-picture'
       />
     </div>
   )

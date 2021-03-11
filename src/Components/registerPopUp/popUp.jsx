@@ -10,17 +10,17 @@ import { changePopUpDisplay, userLogin } from '../../Store/actions.js'
 function PopUp(props) {
     const [loginState, setLoginState] = useState(['','','','',''])
     const [isInputDisabled, setIsInputDisabled] = useState([false, false])
-    const [overlayClassname, setOverlayClassName] = useState(classnames('overlay', 'overlayOpen'))
-    const [popupClassname, setPopupClassName] = useState(classnames('modalWindow', 'modalWindowOpen'))
+    const [overlayClassname, setOverlayClassName] = useState(classnames('overlay', 'overlay-open'))
+    const [popUpClassname, setPopUpClassName] = useState(classnames('modal-window', 'modal-window-opened'))
 
     function closePopup() {
         setTimeout(() => {
             props.changePopUpDisplay()
-            setPopupClassName(classnames('modalWindow', 'modalWindowOpen'))
-            setOverlayClassName(classnames('overlay', 'overlayOpen'))
+            setPopUpClassName(classnames('modal-window', 'modal-window-opened'))
+            setOverlayClassName(classnames('overlay', 'overlay-open'))
         }, 200)
-        setPopupClassName(classnames('modalWindow', 'modalWindowClose'))
-        setOverlayClassName(classnames('overlay', 'overlayClose'))
+        setPopUpClassName(classnames('modal-window', 'modal-window-closed'))
+        setOverlayClassName(classnames('overlay', 'overlay-close'))
     }
 
     function handleInput(e,idx) {
@@ -78,17 +78,17 @@ function PopUp(props) {
     return(
         <>
             <div className={overlayClassname} onClick={closePopup}></div>
-            <div className='popupWindow' >
+            <div className='pop-up-window' >
                 <div onClick={closePopup} style={{height:'3rem'}}></div>
-                <div className={`${popupClassname} ${props.darkTheme ? 'popUpDark' : 'popUpLight'}`} style={{zIndex:99}}>
-                    <div className='Flexible' >sign in</div>
+                <div className={`${popUpClassname} ${props.darkTheme ? 'pop-up-dark' : 'pop-up-light'}`} >
+                    <div className='flex-center' >sign in</div>
                     <div>
                         <input
                             disabled={isInputDisabled[0]}
                             placeholder='Login'
-                            className='popUpInput'
+                            className='pop-up-input'
                             type='text'
-                            onChange={(e) => handleInput(e,0)}
+                            onChange={(e) => handleInput(e, 0)}
                             value={loginState[0]}
                         />
                     </div>
@@ -96,21 +96,21 @@ function PopUp(props) {
                         <input
                             disabled={isInputDisabled[0]}
                             placeholder='Password'
-                            className='popUpInput'
+                            className='pop-up-input'
                             type='password'
-                            onChange={(e) => handleInput(e,1)}
+                            onChange={(e) => handleInput(e, 1)}
                             value={loginState[1]}
                         />
                     </div>
-                    <div className='or-register Flexible'>or</div>
-                    <div className='Flexible'>sign up</div>
+                    <div className='or-register flex-center'>or</div>
+                    <div className='flex-center'>sign up</div>
                     <div>
                         <input
                             disabled={isInputDisabled[1]}
                             placeholder='Login'
-                            className='popUpInput'
+                            className='pop-up-input'
                             type='text'
-                            onChange={(e) => handleInput(e,2)}
+                            onChange={(e) => handleInput(e, 2)}
                             value={loginState[2]}
                         />
                     </div>
@@ -118,9 +118,9 @@ function PopUp(props) {
                         <input
                             disabled={isInputDisabled[1]}
                             placeholder='Password'
-                            className='popUpInput'
+                            className='pop-up-input'
                             type='password'
-                            onChange={(e) => handleInput(e,3)}
+                            onChange={(e) => handleInput(e, 3)}
                             value={loginState[3]}
                         />
                     </div>
@@ -128,14 +128,14 @@ function PopUp(props) {
                         <input
                             disabled={isInputDisabled[1]}
                             placeholder='Confirm password'
-                            className='popUpInput'
+                            className='pop-up-input'
                             type='password'
-                            onChange={(e) => handleInput(e,4)}
+                            onChange={(e) => handleInput(e, 4)}
                             value={loginState[4]}
                         />
                     </div>
-                    <div className='Flexible'>
-                        <button className='BtnFullPicture' onClick={onClickHandle}>Confirm</button>
+                    <div className='flex-center'>
+                        <button className='primary-button' onClick={onClickHandle}>Confirm</button>
                     </div>
                 </div>
                 <div onClick={closePopup} style={{height:'100%'}}></div>
@@ -147,8 +147,7 @@ function PopUp(props) {
 const mapStateToProps = store => {
     return {
         darkTheme: store.darkTheme,
-        hidden: store.isPopUpHidden,
-        userName: store.userName
+        hidden: store.isPopUpHidden
     }
   }
 
