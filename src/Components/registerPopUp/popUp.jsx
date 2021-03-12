@@ -1,18 +1,47 @@
 import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { bindActionCreators } from 'redux'
 
 import './styles.css'
 import { changePopUpDisplay, userLogin } from '../../Store/actions.js'
 
 function PopUp(props) {
+    // this array contains five states for five inputs in pop up
     const [loginState, setLoginState] = useState(['','','','',''])
+    // this array contains two states for login and register parts in pop up
+    // if first element is true, then login inputs will be disabled
+    // if second element is true, then register inputs will be disabled
     const [isInputDisabled, setIsInputDisabled] = useState([false, false])
+    // this state contains message that displays above the confirmation button
+    // successful field wil change the color of this message
+    const [loginStatus, setLoginStatus] = useState({message: '', successful: null})
+    // class names for overlay, that covers all the screen
+    // and is placed between the pop up and content
     const [overlayClassname, setOverlayClassName] = useState(classnames('overlay', 'overlay-open'))
+    // class names for pop up
     const [popUpClassname, setPopUpClassName] = useState(classnames('modal-window', 'modal-window-opened'))
 
+    // when user toggles pop up display, it should be clean
+    // so we should reset the state of entire pop up
+    useEffect(() => {
+        setLoginState(['','','','',''])
+        setIsInputDisabled([false, false])
+        setLoginStatus({message: '', successful: null})
+    }, [props.isPopUpHidden])
+
+    // styles for status message that is placed above the confirmation button
+    const loginStatusStyle = {
+        height: '2rem',
+        fontSize: '1.5rem',
+        textAlign: 'center',
+        color: loginStatus.successful ? 'green' : 'red'
+    }
+
+    // this function switches class names for pop up and overlay
+    // and closes pop up and overlay
+    // and the will disappear with animation
     function closePopup() {
         setTimeout(() => {
             props.changePopUpDisplay()
@@ -23,57 +52,128 @@ function PopUp(props) {
         setOverlayClassName(classnames('overlay', 'overlay-close'))
     }
 
-    function handleInput(e,idx) {
+    // if something was typed to any input
+    // this function will write it to the state
+    function handleInput(e, idx) {
         const newState = [...loginState]
         newState[idx] = e.target.value
-        if(idx === 0||idx === 1){
+        if (idx === 0 || idx === 1){
             setIsInputDisabled([false, true])
         } else {
             setIsInputDisabled([true, false])
         }
-        if(newState.every(el => el === '')) {
+        if (newState.every(el => el === '')) {
             setIsInputDisabled([false, false])
         }
         setLoginState(newState)
     }
 
-    function onClickHandle() {
+    // this is the big function that filters all values before sending request
+    // and sends request to register new user or log in existing user with its token
+    function confirmHandler() {
+
+        const allowedSymbols = /^[A-Za-z0-9]*$/
+
+        // some checks for entered values
+        if (loginState.every(el => el === '')) {
+            setLoginStatus({
+                successful: false,
+                message: 'all fields are empty'
+            })
+            return
+        }
+        if (loginState.some(el => /\s/.test(el))) {
+            setLoginStatus({
+                successful: false,
+                message: 'whitespaces are forbidden'
+            })
+            return
+        }
+        if (loginState.some(el => !allowedSymbols.test(el))) {
+            setLoginStatus({
+                successful: false,
+                message: 'only letters and numbers allowed'
+            })
+            return
+        }
+
         //checking if user is logging into website
         //by checking first and second fields
-        if(loginState[0].trim() && loginState[1].trim()) {
+        if (loginState[0] && loginState[1]) {
+            setLoginStatus({
+                successful: true,
+                message: 'please wait...'
+            })
             const data = {userName: loginState[0], password: loginState[1]}
             axios.post('/login', data)
-            .then(res => {
-                const userJWT = res.data.userJWT
-                props.userLogin({userName: loginState[0], userJWT: userJWT})
-                localStorage.setItem('userName', loginState[0])
-                localStorage.setItem('userJWT', userJWT)
-                closePopup()
-                setTimeout(() => {
+                .then(res => {
+                    const userJWT = res.data.userJWT
+                    props.userLogin({userName: loginState[0], userJWT: userJWT})
+                    localStorage.setItem('userName', loginState[0])
+                    localStorage.setItem('userJWT', userJWT)
+                    closePopup()
+                    setTimeout(() => {
+                        setLoginState(['','','','',''])
+                        setIsInputDisabled([false, false])
+                    }, 200)
+                })
+                .catch(() => {
+                    setLoginStatus({
+                        successful: false,
+                        message: 'wrong login or password'
+                    })
+                })
+            return
+        }
+
+        //checking if user is making new account
+        //by checking third forth and fifth fields
+        if(loginState[2] && loginState[3] && loginState[4]) {
+            if (loginState[3] !== loginState[4]) {
+                setLoginStatus({
+                    successful: false,
+                    message: 'passwords must be the same'
+                })
+                return
+            }
+            const data = {login: loginState[2], password: loginState[3]}
+            setLoginStatus({
+                successful: true,
+                message: 'please wait...'
+            })
+            axios.post('/register', data )
+                .then(res => {
+                    if (res.status === 208) {
+                        setLoginStatus({
+                            successful: false,
+                            message: 'sorry, but this user exists yet'
+                        })
+                        return
+                    }
                     setLoginState(['','','','',''])
                     setIsInputDisabled([false, false])
-                }, 200)
-            })
-            .catch(() => alert('wrong login or password'))
-        //checking if user is making account
-        //by checking third forth and fifth fields
-        } else if(loginState[2].trim() && loginState[3].trim() && loginState[3] === loginState[4]) {
-            const data = {login: loginState[2], password: loginState[3]}
-            axios.post('/register', data )
-            .then(res => {
-                if (res.status===208) {
-                    return alert('User exists yet')
-                }
-                setLoginState(['','','','',''])
-                setIsInputDisabled([false, false])
-                alert('you are successfully registered')
-            })
-        } else {
-            alert('Entered wrong values!')
+                    setLoginStatus({
+                        successful: true,
+                        message: 'you are successfully registered'
+                    })
+                })
+                .catch(() => {
+                    setLoginStatus({
+                        successful: false,
+                        message: 'Something went wrong'
+                    })
+                })
+            return
         }
+
+        // if some fields havn't been filled this message will be displayed
+        setLoginStatus({
+            message: 'please, fill all fields',
+            successful: false
+        })
     }
 
-    if(props.hidden) return null
+    if (props.isPopUpHidden) return null
 
     return(
         <>
@@ -134,11 +234,14 @@ function PopUp(props) {
                             value={loginState[4]}
                         />
                     </div>
+                    <div style={loginStatusStyle}>
+                        {loginStatus.message}
+                    </div>
                     <div className='flex-center'>
-                        <button className='primary-button' onClick={onClickHandle}>Confirm</button>
+                        <button className='primary-button' onClick={confirmHandler}>Confirm</button>
                     </div>
                 </div>
-                <div onClick={closePopup} style={{height:'100%'}}></div>
+                <div onClick={closePopup} style={{height: '100%'}}></div>
             </div>
         </>
     )
@@ -147,7 +250,7 @@ function PopUp(props) {
 const mapStateToProps = store => {
     return {
         darkTheme: store.darkTheme,
-        hidden: store.isPopUpHidden
+        isPopUpHidden: store.isPopUpHidden
     }
   }
 

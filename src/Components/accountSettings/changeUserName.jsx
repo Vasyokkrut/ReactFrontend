@@ -94,10 +94,8 @@ function ChangeUserName({ userJWT, userLogin, currentUserName }) {
           placeholder='enter your new username'
         />
       </div>
-      <div>
-        <span style={changingStatusStyle}>
-          {changingStatus.message}
-        </span>
+      <div style={changingStatusStyle}>
+        {changingStatus.message}
       </div>
       <div>
         <button className='primary-button' onClick={changeUserNameHandler} >

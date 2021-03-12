@@ -73,10 +73,8 @@ function ChangePassword({ userJWT }) {
           placeholder='enter your new password'
         />
       </div>
-      <div>
-        <span style={changingStatusStyle}>
-          {changingStatus.message}
-        </span>
+      <div style={changingStatusStyle}>
+        {changingStatus.message}
       </div>
       <div>
         <button className='primary-button' onClick={changePasswordHandler} >
