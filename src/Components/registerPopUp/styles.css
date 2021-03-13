@@ -38,7 +38,7 @@
   width: 10rem;
 }
 
-.pop-up-window {
+.overlay-window {
   position: fixed;
   height: 100%;
   z-index: 100;
@@ -68,7 +68,7 @@
   animation-duration: .2s;
 }
 
-.modal-window {
+.pop-up-window {
   font-size: 3rem;
   position: sticky;
   border-radius: 2rem;
@@ -80,17 +80,17 @@
   z-index: 99;
 }
 
-.modal-window-opened {
-  animation-name: modalOpen;
+.pop-up-window-open {
+  animation-name: popUpOpen;
   animation-duration: .2s;
 }
 
-.modal-window-closed {
-  animation-name: modalClose;
+.pop-up-window-close {
+  animation-name: popUpClose;
   animation-duration: .2s;
 }
 
-@keyframes modalOpen {
+@keyframes popUpOpen {
   from {opacity: 0; transform: translateY(5rem);}
   to {opacity: 1; transform: translateY(0);}
 }
@@ -100,7 +100,7 @@
   to {opacity: .8;}
 }
 
-@keyframes modalClose {
+@keyframes popUpClose {
   from {opacity: 1; transform: translateY(0);}
   to {opacity: 0; transform: translateY(-5rem);}
 }

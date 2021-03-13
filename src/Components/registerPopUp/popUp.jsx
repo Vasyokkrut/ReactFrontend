@@ -19,9 +19,9 @@ function PopUp(props) {
     const [loginStatus, setLoginStatus] = useState({message: '', successful: null})
     // class names for overlay, that covers all the screen
     // and is placed between the pop up and content
-    const [overlayClassname, setOverlayClassName] = useState(classnames('overlay', 'overlay-open'))
+    const [overlayClassName, setOverlayClassName] = useState('overlay overlay-open')
     // class names for pop up
-    const [popUpClassname, setPopUpClassName] = useState(classnames('modal-window', 'modal-window-opened'))
+    const [popUpClassName, setPopUpClassName] = useState(classnames('pop-up-window', 'pop-up-window-open'))
 
     // when user toggles pop up display, it should be clean
     // so we should reset the state of entire pop up
@@ -40,16 +40,15 @@ function PopUp(props) {
     }
 
     // this function switches class names for pop up and overlay
-    // and closes pop up and overlay
-    // and the will disappear with animation
+    // and triggers keyframes animations for closing pop up and overlay
     function closePopup() {
         setTimeout(() => {
             props.changePopUpDisplay()
-            setPopUpClassName(classnames('modal-window', 'modal-window-opened'))
-            setOverlayClassName(classnames('overlay', 'overlay-open'))
+            setOverlayClassName('overlay overlay-open')
+            setPopUpClassName(classnames('pop-up-window', 'pop-up-window-open'))
         }, 200)
-        setPopUpClassName(classnames('modal-window', 'modal-window-closed'))
-        setOverlayClassName(classnames('overlay', 'overlay-close'))
+        setOverlayClassName('overlay overlay-close')
+        setPopUpClassName(classnames('pop-up-window', 'pop-up-window-close'))
     }
 
     // if something was typed to any input
@@ -112,10 +111,6 @@ function PopUp(props) {
                     localStorage.setItem('userName', loginState[0])
                     localStorage.setItem('userJWT', userJWT)
                     closePopup()
-                    setTimeout(() => {
-                        setLoginState(['','','','',''])
-                        setIsInputDisabled([false, false])
-                    }, 200)
                 })
                 .catch(() => {
                     setLoginStatus({
@@ -177,10 +172,10 @@ function PopUp(props) {
 
     return(
         <>
-            <div className={overlayClassname} onClick={closePopup}></div>
-            <div className='pop-up-window' >
+            <div className={overlayClassName} onClick={closePopup}></div>
+            <div className='overlay-window' >
                 <div onClick={closePopup} style={{height:'3rem'}}></div>
-                <div className={`${popUpClassname} ${props.darkTheme ? 'pop-up-dark' : 'pop-up-light'}`} >
+                <div className={`${popUpClassName} ${props.darkTheme ? 'pop-up-dark' : 'pop-up-light'}`} >
                     <div className='flex-center' >sign in</div>
                     <div>
                         <input
