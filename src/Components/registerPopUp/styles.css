@@ -20,6 +20,10 @@
   color:whitesmoke;
 }
 
+.or-register {
+  text-align: center;
+}
+
 .or-register::before {
   content: "";
   background-color: #5d5e61;
@@ -38,17 +42,7 @@
   width: 10rem;
 }
 
-.overlay-window {
-  position: fixed;
-  height: 100%;
-  z-index: 100;
-  width: 30rem;
-  left: 50%;
-  margin-left: -15rem;
-}
-
 .overlay {
-  display: flex;
   width: 100%;
   height:100%;
   position: fixed;
@@ -56,38 +50,39 @@
   background-color: #111;
   opacity: .8;
   animation-fill-mode: forwards;
+  animation-duration: .2s;
 }
 
 .overlay-open {
-  animation-name: overlayOpacityOpen;
-  animation-duration: .2s;
+  animation-name: overlayOpen;
 }
 
 .overlay-close {
-  animation-name: overlayOpacityClose;
-  animation-duration: .2s;
+  animation-name: overlayClose;
 }
 
-.pop-up-window {
-  font-size: 3rem;
-  position: sticky;
-  border-radius: 2rem;
+.pop-up {
+  position: fixed;
+  top: 3rem;
+  left: 50%;
+  box-sizing: border-box;
+  width: 30rem;
+  margin-left: -15rem;
   padding: 0 2rem;
-  border-style: solid;
-  border-color: rgb(211, 211, 211);
-  border-width: 2px;
+  font-size: 3rem;
+  border: 2px solid rgb(211, 211, 211);
+  border-radius: 2rem;
   animation-fill-mode: forwards;
-  z-index: 99;
+  animation-duration: .2s;
+  z-index: 100;
 }
 
-.pop-up-window-open {
+.pop-up-open {
   animation-name: popUpOpen;
-  animation-duration: .2s;
 }
 
-.pop-up-window-close {
+.pop-up-close {
   animation-name: popUpClose;
-  animation-duration: .2s;
 }
 
 @keyframes popUpOpen {
@@ -95,7 +90,7 @@
   to {opacity: 1; transform: translateY(0);}
 }
 
-@keyframes overlayOpacityOpen {
+@keyframes overlayOpen {
   from {opacity: 0;}
   to {opacity: .8;}
 }
@@ -105,7 +100,7 @@
   to {opacity: 0; transform: translateY(-5rem);}
 }
 
-@keyframes overlayOpacityClose {
+@keyframes overlayClose {
   from {opacity: .8;}
   to {opacity: 0;}
 }

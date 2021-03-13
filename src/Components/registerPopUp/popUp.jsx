@@ -1,13 +1,24 @@
 import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
-import React, { useEffect, useState } from 'react'
 import { bindActionCreators } from 'redux'
+import React, { useEffect, useState } from 'react'
 
 import './styles.css'
 import { changePopUpDisplay, userLogin } from '../../Store/actions.js'
 
 function PopUp(props) {
+
+    // this function returns class names for pop up
+    // 
+    function getPopUpClassNames(isPopUpHidden) {
+        return classnames(
+            'pop-up',
+            props.darkTheme ? 'pop-up-dark' : 'pop-up-light',
+            isPopUpHidden ? 'pop-up-close' : 'pop-up-open'
+        )
+    }
+
     // this array contains five states for five inputs in pop up
     const [loginState, setLoginState] = useState(['','','','',''])
     // this array contains two states for login and register parts in pop up
@@ -20,8 +31,8 @@ function PopUp(props) {
     // class names for overlay, that covers all the screen
     // and is placed between the pop up and content
     const [overlayClassName, setOverlayClassName] = useState('overlay overlay-open')
-    // class names for pop up
-    const [popUpClassName, setPopUpClassName] = useState(classnames('pop-up-window', 'pop-up-window-open'))
+    // initial class names for pop up
+    const [popUpClassName, setPopUpClassName] = useState(getPopUpClassNames(false))
 
     // when user toggles pop up display, it should be clean
     // so we should reset the state of entire pop up
@@ -40,15 +51,15 @@ function PopUp(props) {
     }
 
     // this function switches class names for pop up and overlay
-    // and triggers keyframes animations for closing pop up and overlay
+    // new class names trigger keyframes animations for closing pop up and overlay
     function closePopup() {
         setTimeout(() => {
             props.changePopUpDisplay()
             setOverlayClassName('overlay overlay-open')
-            setPopUpClassName(classnames('pop-up-window', 'pop-up-window-open'))
+            setPopUpClassName(getPopUpClassNames(false))
         }, 200)
         setOverlayClassName('overlay overlay-close')
-        setPopUpClassName(classnames('pop-up-window', 'pop-up-window-close'))
+        setPopUpClassName(getPopUpClassNames(true))
     }
 
     // if something was typed to any input
@@ -173,70 +184,66 @@ function PopUp(props) {
     return(
         <>
             <div className={overlayClassName} onClick={closePopup}></div>
-            <div className='overlay-window' >
-                <div onClick={closePopup} style={{height:'3rem'}}></div>
-                <div className={`${popUpClassName} ${props.darkTheme ? 'pop-up-dark' : 'pop-up-light'}`} >
-                    <div className='flex-center' >sign in</div>
-                    <div>
-                        <input
-                            disabled={isInputDisabled[0]}
-                            placeholder='Login'
-                            className='pop-up-input'
-                            type='text'
-                            onChange={(e) => handleInput(e, 0)}
-                            value={loginState[0]}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            disabled={isInputDisabled[0]}
-                            placeholder='Password'
-                            className='pop-up-input'
-                            type='password'
-                            onChange={(e) => handleInput(e, 1)}
-                            value={loginState[1]}
-                        />
-                    </div>
-                    <div className='or-register flex-center'>or</div>
-                    <div className='flex-center'>sign up</div>
-                    <div>
-                        <input
-                            disabled={isInputDisabled[1]}
-                            placeholder='Login'
-                            className='pop-up-input'
-                            type='text'
-                            onChange={(e) => handleInput(e, 2)}
-                            value={loginState[2]}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            disabled={isInputDisabled[1]}
-                            placeholder='Password'
-                            className='pop-up-input'
-                            type='password'
-                            onChange={(e) => handleInput(e, 3)}
-                            value={loginState[3]}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            disabled={isInputDisabled[1]}
-                            placeholder='Confirm password'
-                            className='pop-up-input'
-                            type='password'
-                            onChange={(e) => handleInput(e, 4)}
-                            value={loginState[4]}
-                        />
-                    </div>
-                    <div style={loginStatusStyle}>
-                        {loginStatus.message}
-                    </div>
-                    <div className='flex-center'>
-                        <button className='primary-button' onClick={confirmHandler}>Confirm</button>
-                    </div>
+            <div className={popUpClassName} >
+                <div style={{textAlign: 'center'}} >sign in</div>
+                <div>
+                    <input
+                        disabled={isInputDisabled[0]}
+                        placeholder='Login'
+                        className='pop-up-input'
+                        type='text'
+                        onChange={(e) => handleInput(e, 0)}
+                        value={loginState[0]}
+                    />
                 </div>
-                <div onClick={closePopup} style={{height: '100%'}}></div>
+                <div>
+                    <input
+                        disabled={isInputDisabled[0]}
+                        placeholder='Password'
+                        className='pop-up-input'
+                        type='password'
+                        onChange={(e) => handleInput(e, 1)}
+                        value={loginState[1]}
+                    />
+                </div>
+                <div className='or-register'>or</div>
+                <div style={{textAlign: 'center'}}>sign up</div>
+                <div>
+                    <input
+                        disabled={isInputDisabled[1]}
+                        placeholder='Login'
+                        className='pop-up-input'
+                        type='text'
+                        onChange={(e) => handleInput(e, 2)}
+                        value={loginState[2]}
+                    />
+                </div>
+                <div>
+                    <input
+                        disabled={isInputDisabled[1]}
+                        placeholder='Password'
+                        className='pop-up-input'
+                        type='password'
+                        onChange={(e) => handleInput(e, 3)}
+                        value={loginState[3]}
+                    />
+                </div>
+                <div>
+                    <input
+                        disabled={isInputDisabled[1]}
+                        placeholder='Confirm password'
+                        className='pop-up-input'
+                        type='password'
+                        onChange={(e) => handleInput(e, 4)}
+                        value={loginState[4]}
+                    />
+                </div>
+                <div style={loginStatusStyle}>
+                    {loginStatus.message}
+                </div>
+                <div className='flex-center'>
+                    <button className='primary-button' onClick={confirmHandler}>Confirm</button>
+                </div>
             </div>
         </>
     )
