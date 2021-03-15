@@ -2,12 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import './styles.css'
+import './styles.scss'
 import Dropdown from './dropdown'
 
 function NavbarHeader({isDarkTheme}) {
 
-  const headerClassName = isDarkTheme ? 'dark-header' : 'light-header'
+  const headerClassName = isDarkTheme ? 'header-dark' : 'header-light'
 
   return(
     <header className={headerClassName} >

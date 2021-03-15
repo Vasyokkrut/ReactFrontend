@@ -10,7 +10,7 @@ function RightList(props) {
     
     const sideBarClassName = classnames(
         'side-bar',
-        'right-side-bar',
+        'side-bar-right',
         props.isDarkTheme ? 'side-bar-dark' : 'side-bar-light'
     )
 

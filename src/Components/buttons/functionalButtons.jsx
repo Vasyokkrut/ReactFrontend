@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './styles.css'
+import './styles.scss'
 
 // There are three buttons which appear under a picture
 // They allow user to download, open and delete pictures

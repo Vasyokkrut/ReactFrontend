@@ -10,7 +10,7 @@ function LeftList(props) {
 
     const sideBarClassName = classnames(
         'side-bar',
-        'left-side-bar',
+        'side-bar-left',
         props.isDarkTheme ? 'side-bar-dark' : 'side-bar-light'
     )
     

@@ -53,23 +53,23 @@ function Dropdown(props) {
         </div>
       </div>
     )
-  } else {
-    return (
-      <div className={dropdownClassName} >
-        <div className='login-container' >
-          <div>
-            You could&ensp;
-            <span
-              className='login-button'
-              onClick={props.changePopUpDisplay}
-            >
-              log in
-            </span>
-          </div>
+  }
+
+  return (
+    <div className={dropdownClassName} >
+      <div className='login-container' >
+        <div>
+          You could&ensp;
+          <span
+            className='login-button'
+            onClick={props.changePopUpDisplay}
+          >
+            log in
+          </span>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 const mapStateToProps = store => {

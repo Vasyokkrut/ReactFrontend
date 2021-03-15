@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import React, { useEffect, useRef, useState } from 'react'
 
-import './styles.css'
+import './styles.scss'
 import { changePopUpDisplay, userLogin } from '../../Store/actions.js'
 
 function PopUp(props) {

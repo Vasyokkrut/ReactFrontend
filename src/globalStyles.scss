@@ -45,17 +45,6 @@ header {
   justify-content: center;
 }
 
-.title-input {
-  height: 2.5rem;
-  width: 15rem;
-  border-radius: 1.25rem;
-  border: none;
-  font-size: 1.5rem;
-  padding-left: 1rem;
-  outline:none;
-  margin: 1rem;
-}
-
 #choose-picture-input {
   display: none;
 }
@@ -66,14 +55,14 @@ header {
   font-size: 4rem;
   text-align: center;
   text-decoration: none;
-}
 
-.welcome-link-light {
-  color:white;
-}
+  &-light {
+    color:white;
+  }
 
-.welcome-link-dark {
-  color:black;
+  &-dark {
+    color:black;
+  }
 }
 
 .welcome-container {
@@ -81,10 +70,10 @@ header {
   border-width: 3px;
   border-radius: 20px;
   margin: 2rem 45px;
-}
 
-.welcome-container:hover {
-  background-color: rgba(0, 0, 0, .2);
+  &:hover {
+    background-color: rgba(0, 0, 0, .2);
+  }
 }
 
 .post-picture {

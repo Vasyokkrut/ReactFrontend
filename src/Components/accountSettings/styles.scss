@@ -18,21 +18,21 @@
   text-decoration: none;
   transition-duration: 0.2s;
   outline: none;
-}
 
-.settings-button-dark {
-  background-color: #333;
-  color: white;
-}
+  &-light {
+    background-color: whitesmoke;
+    color: black;
+  }
 
-.settings-button-light {
-  background-color: whitesmoke;
-  color: black;
-}
+  &-dark {
+    background-color: #333;
+    color: white;
+  }
 
-.settings-button:hover {
-  background-color: #05359c;
-  color: white;
+  &:hover {
+    background-color: #05359c;
+    color: white;
+  }
 }
 
 .change-form > div {

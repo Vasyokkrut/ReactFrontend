@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 
-import './styles.css'
+import './styles.scss'
 import DeleteAccount from './deleteAccount.jsx'
 import ChangeUserName from './changeUserName.jsx'
 import ChangePassword from './changePassword.jsx'

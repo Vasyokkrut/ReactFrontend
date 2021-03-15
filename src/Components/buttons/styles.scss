@@ -11,11 +11,11 @@
   text-decoration: none;
   transition-duration: 0.2s;
   outline: none;
-}
 
-.primary-button:hover {
-	background-color: #05359c;
-  color: white;
+  &:hover {
+    background-color: #05359c;
+    color: white;
+  }
 }
 
 .upload-button {
@@ -31,9 +31,9 @@
   transition-duration: 0.2s;
   cursor: pointer;
   outline: none;
-}
 
-.upload-button:hover {
-  background-color: #05359c;
-  color: white;
+  &:hover {
+    background-color: #05359c;
+    color: white;
+  }
 }
