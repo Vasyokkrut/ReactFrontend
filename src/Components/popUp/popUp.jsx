@@ -216,7 +216,7 @@ function PopUp(props) {
                         value={loginState[1]}
                     />
                 </div>
-                <div className='or-register'>or</div>
+                <div className='or-register flex-center'>or</div>
                 <div style={{textAlign: 'center'}}>sign up</div>
                 <div>
                     <input

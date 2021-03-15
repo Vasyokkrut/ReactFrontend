@@ -10,11 +10,6 @@
   margin: .5rem 1rem;
 }
 
-.or-register {
-  display: flex;
-  justify-content: center;
-}
-
 .or-register::before {
   content: "";
   background-color: #5d5e61;

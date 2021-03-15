@@ -20,7 +20,7 @@ function AddPostForm(props) {
 
     function handleUpload() {
         if(picture !== null) {
-            const config = {headers:{'Authorization': 'Bearer ' + props.userJWT}}
+            const config = {headers: {'Authorization': 'Bearer ' + props.userJWT}}
             const data = new FormData()
             data.append('title', title)
             data.append('picture', picture)
@@ -42,7 +42,7 @@ function AddPostForm(props) {
             <div>
                 <div className='flex-center'>
                     <label className='upload-button'>
-                        {picture === null?'Create Post':'Rechoose picture'}
+                        {picture === null? 'Create Post' : 'Rechoose picture'}
                         <input
                             id='choose-picture-input'
                             accept='image/*'
@@ -64,7 +64,7 @@ function AddPostForm(props) {
                             placeholder='Choose title'
                             onChange={handleTitleInput}
                             value={title}
-                            onKeyDown={(event) => {if (event.key === 'Enter') handleUpload()}}
+                            onKeyDown={event => {if (event.key === 'Enter') handleUpload()}}
                         />
                         <div className='flex-center'>
                             <button
