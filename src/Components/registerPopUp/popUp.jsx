@@ -1,5 +1,4 @@
 import axios from 'axios'
-import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import React, { useEffect, useState } from 'react'
@@ -8,16 +7,6 @@ import './styles.css'
 import { changePopUpDisplay, userLogin } from '../../Store/actions.js'
 
 function PopUp(props) {
-
-    // this function returns class names for pop up
-    // 
-    function getPopUpClassNames(isPopUpHidden) {
-        return classnames(
-            'pop-up',
-            props.darkTheme ? 'pop-up-dark' : 'pop-up-light',
-            isPopUpHidden ? 'pop-up-close' : 'pop-up-open'
-        )
-    }
 
     // this array contains five states for five inputs in pop up
     const [loginState, setLoginState] = useState(['','','','',''])
@@ -32,7 +21,7 @@ function PopUp(props) {
     // and is placed between the pop up and content
     const [overlayClassName, setOverlayClassName] = useState('overlay overlay-open')
     // initial class names for pop up
-    const [popUpClassName, setPopUpClassName] = useState(getPopUpClassNames(false))
+    const [popUpClassName, setPopUpClassName] = useState('pop-up pop-up-open')
 
     // when user toggles pop up display, it should be clean
     // so we should reset the state of entire pop up
@@ -53,13 +42,14 @@ function PopUp(props) {
     // this function switches class names for pop up and overlay
     // new class names trigger keyframes animations for closing pop up and overlay
     function closePopup() {
+        setOverlayClassName('overlay overlay-close')
+        setPopUpClassName('pop-up pop-up-close')
+        
         setTimeout(() => {
             props.changePopUpDisplay()
             setOverlayClassName('overlay overlay-open')
-            setPopUpClassName(getPopUpClassNames(false))
+            setPopUpClassName('pop-up pop-up-open')
         }, 200)
-        setOverlayClassName('overlay overlay-close')
-        setPopUpClassName(getPopUpClassNames(true))
     }
 
     // if something was typed to any input
@@ -184,7 +174,7 @@ function PopUp(props) {
     return(
         <>
             <div className={overlayClassName} onClick={closePopup}></div>
-            <div className={popUpClassName} >
+            <div className={`${popUpClassName} ${props.darkTheme ? 'pop-up-dark' : 'pop-up-light'}`} >
                 <div style={{textAlign: 'center'}} >sign in</div>
                 <div>
                     <input

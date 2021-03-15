@@ -6,22 +6,23 @@
   font-size: 1.2rem;
   padding: 0;
   padding-left: 1rem;
-  outline:none;
+  outline: none;
   margin: .5rem 1rem;
 }
 
 .pop-up-light {
   background-color: #ddd;
-  color:black;
+  color: black;
 }
 
 .pop-up-dark {
   background-color: #222226;
-  color:whitesmoke;
+  color: whitesmoke;
 }
 
 .or-register {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .or-register::before {
