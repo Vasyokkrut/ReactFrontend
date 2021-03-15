@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import './navLists/styles.css'
-import './postsList/styles.css'
+import './postsLists/styles.css'
+import PopUp from './popUp/popUp.jsx'
 import MiddleList from './MiddleList.jsx'
-import PopUp from './registerPopUp/popUp.jsx'
 import LeftList from './navLists/LeftNavList.jsx'
 import RightList from './navLists/RightNavList.jsx'
 import NavbarHeader from './navbarHeader/navbarHeader.jsx'
@@ -15,8 +15,8 @@ class MainComponent extends React.Component {
 
   constructor(props) {
     super(props)
-    document.body.className = props.darkTheme ? 'dark-body' : 'light-body'
-    if(localStorage.getItem('darkTheme') === 'false') props.changeTheme()
+    document.body.className = props.isDarkTheme ? 'dark-body' : 'light-body'
+    if(localStorage.getItem('isDarkTheme') === 'false') props.changeTheme()
   }
 
   componentDidMount() {
@@ -28,8 +28,8 @@ class MainComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.darkTheme !== this.props.darkTheme) {
-      document.body.className = this.props.darkTheme ? 'dark-body' : 'light-body'
+    if (prevProps.isDarkTheme !== this.props.isDarkTheme) {
+      document.body.className = this.props.isDarkTheme ? 'dark-body' : 'light-body'
     }
   }
 
@@ -48,13 +48,13 @@ class MainComponent extends React.Component {
     )
   }
 }
-  
+
 const mapStateToProps = store => {
   return {
-    darkTheme: store.darkTheme
+    isDarkTheme: store.isDarkTheme
   }
 }
-  
+
 const mapActionsToProps = dispatch => {
   return {
     userLogin: bindActionCreators(userLogin, dispatch),

@@ -174,7 +174,7 @@ function PopUp(props) {
     return(
         <>
             <div className={overlayClassName} onClick={closePopup}></div>
-            <div className={`${popUpClassName} ${props.darkTheme ? 'pop-up-dark' : 'pop-up-light'}`} >
+            <div className={`${popUpClassName} ${props.isDarkTheme ? 'pop-up-dark' : 'pop-up-light'}`} >
                 <div style={{textAlign: 'center'}} >sign in</div>
                 <div>
                     <input
@@ -241,7 +241,7 @@ function PopUp(props) {
 
 const mapStateToProps = store => {
     return {
-        darkTheme: store.darkTheme,
+        isDarkTheme: store.isDarkTheme,
         isPopUpHidden: store.isPopUpHidden
     }
   }

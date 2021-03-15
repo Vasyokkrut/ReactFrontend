@@ -7,7 +7,7 @@ import { changePopUpDisplay, userLogout, changeTheme } from '../../Store/actions
 
 function Dropdown(props) {
   function changeTheme() {
-    localStorage.setItem('darkTheme', props.darkTheme ? 'false' : 'true')
+    localStorage.setItem('isDarkTheme', props.isDarkTheme ? 'false' : 'true')
     props.changeTheme()
   }
 
@@ -19,16 +19,16 @@ function Dropdown(props) {
 
   const dropdownOptionClass = classNames(
     'dropdown-option',
-    props.darkTheme ? 'dropdown-option-dark' : 'dropdown-option-light'
+    props.isDarkTheme ? 'dropdown-option-dark' : 'dropdown-option-light'
   )
   const dropdownContentClass = classNames(
     'dropdown-content',
-    props.darkTheme ? 'dropdown-content-dark' : 'dropdown-content-light'
+    props.isDarkTheme ? 'dropdown-content-dark' : 'dropdown-content-light'
   )
   const dropdownClassName = classNames(
     'dropdown',
-    {'dropdown-dark': props.darkTheme && props.isLoggedIn},
-    {'dropdown-light': !props.darkTheme && props.isLoggedIn}
+    {'dropdown-dark': props.isDarkTheme && props.isLoggedIn},
+    {'dropdown-light': !props.isDarkTheme && props.isLoggedIn}
   )
 
   if (props.isLoggedIn) {
@@ -74,7 +74,7 @@ function Dropdown(props) {
 
 const mapStateToProps = store => {
   return {
-    darkTheme: store.darkTheme,
+    isDarkTheme: store.isDarkTheme,
     isLoggedIn: store.isLoggedIn,
     userName: store.userName
   }

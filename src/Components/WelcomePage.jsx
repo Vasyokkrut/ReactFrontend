@@ -3,11 +3,11 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-function WelcomePage({darkTheme}) {
+function WelcomePage({isDarkTheme}) {
   const linkClassName = classnames(
     'flex-center',
     'welcome-link',
-    darkTheme ? 'welcome-link-light' : 'welcome-link-dark'
+    isDarkTheme ? 'welcome-link-light' : 'welcome-link-dark'
   )
 
   return(
@@ -25,7 +25,7 @@ function WelcomePage({darkTheme}) {
 
 const mapStateToProps = store => {
   return {
-    darkTheme: store.darkTheme
+    isDarkTheme: store.isDarkTheme
   }
 }
 

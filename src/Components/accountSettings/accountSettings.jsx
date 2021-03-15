@@ -22,7 +22,7 @@ function SelectedOption({selectedOption}) {
   }
 }
 
-function AccountSettings({darkTheme, isLoggedIn}) {
+function AccountSettings({isDarkTheme, isLoggedIn}) {
 
   // this useState is for define which option will be displayed
   // it will contain one of these options:
@@ -37,7 +37,7 @@ function AccountSettings({darkTheme, isLoggedIn}) {
 
   const settingsButtonClassName = classnames(
     'settings-button',
-    darkTheme ? 'settings-button-dark' : 'settings-button-light'
+    isDarkTheme ? 'settings-button-dark' : 'settings-button-light'
   )
 
   // if user didn't log in to website this message will be displayed
@@ -79,7 +79,7 @@ function AccountSettings({darkTheme, isLoggedIn}) {
 
 const mapStateToProps = store => {
   return {
-    darkTheme: store.darkTheme,
+    isDarkTheme: store.isDarkTheme,
     isLoggedIn: store.isLoggedIn
   }
 }

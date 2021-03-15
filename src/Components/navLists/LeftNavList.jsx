@@ -11,17 +11,17 @@ function LeftList(props) {
     const sideBarClassName = classnames(
         'side-bar',
         'left-side-bar',
-        props.darkTheme ? 'side-bar-dark' : 'side-bar-light'
+        props.isDarkTheme ? 'side-bar-dark' : 'side-bar-light'
     )
     
     const navItemClassName = classnames(
         'nav-item',
-        props.darkTheme ? 'nav-item-dark' : 'nav-item-light',
+        props.isDarkTheme ? 'nav-item-dark' : 'nav-item-light',
     )
 
     const separateLineClassName = classnames(
         'separate-line',
-        props.darkTheme ? 'separate-line-dark' : 'separate-line-light'
+        props.isDarkTheme ? 'separate-line-dark' : 'separate-line-light'
     )
 
     return(
@@ -61,7 +61,7 @@ function LeftList(props) {
 
 const mapStateToProps = store => {
     return {
-        darkTheme: store.darkTheme,
+        isDarkTheme: store.isDarkTheme,
         userName: store.userName
     }
 }

@@ -5,11 +5,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { userLogout } from '../../Store/actions.js'
 
-function DeleteAccount({darkTheme, userJWT, userLogout}) {
+function DeleteAccount({isDarkTheme, userJWT, userLogout}) {
 
   const settingsButtonClassName = classnames(
     'settings-button',
-    darkTheme ? 'settings-button-dark' : 'settings-button-light'
+    isDarkTheme ? 'settings-button-dark' : 'settings-button-light'
   )
 
   function deleteHandler() {
@@ -39,7 +39,7 @@ function DeleteAccount({darkTheme, userJWT, userLogout}) {
 
 const mapStateToProps = store => {
   return {
-    darkTheme: store.darkTheme,
+    isDarkTheme: store.isDarkTheme,
     userJWT: store.userJWT
   }
 }

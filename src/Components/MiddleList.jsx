@@ -2,9 +2,9 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import WelcomePage from './WelcomePage.jsx'
-import UserPostsList from './postsList/user/UserPostsList.jsx'
+import UserPostsList from './postsLists/user/UserPostsList.jsx'
 import AccountSettings from './accountSettings/accountSettings.jsx'
-import PublicPostsList from './postsList/public/PublicPostsList.jsx'
+import PublicPostsList from './postsLists/public/PublicPostsList.jsx'
 
 function MiddleList() {
   return(

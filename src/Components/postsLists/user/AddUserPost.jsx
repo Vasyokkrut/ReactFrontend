@@ -25,15 +25,13 @@ function AddPostForm(props) {
             data.append('title', title)
             data.append('picture', picture)
             
-            if(props.isLoggedIn) {
-                axios.put('/api/uploadPostForUser', data, config)
-                .then(response => {
-                    props.addUserPost(response.data)
-                    setPicture(null)
-                    setTitle('')
-                    document.getElementById('choose-picture-input').value = ''
-                })
-            }
+            axios.put('/api/uploadPostForUser', data, config)
+            .then(response => {
+                props.addUserPost(response.data)
+                setPicture(null)
+                setTitle('')
+                document.getElementById('choose-picture-input').value = ''
+            })
         }
     }
 

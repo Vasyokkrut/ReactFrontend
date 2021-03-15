@@ -11,21 +11,21 @@ function RightList(props) {
     const sideBarClassName = classnames(
         'side-bar',
         'right-side-bar',
-        props.darkTheme ? 'side-bar-dark' : 'side-bar-light'
+        props.isDarkTheme ? 'side-bar-dark' : 'side-bar-light'
     )
 
     const navItemClassName = classnames(
         'nav-item',
-        props.darkTheme ? 'nav-item-dark' : 'nav-item-light',
+        props.isDarkTheme ? 'nav-item-dark' : 'nav-item-light',
     )
 
     const separateLineClassName = classnames(
         'separate-line',
-        props.darkTheme ? 'separate-line-dark' : 'separate-line-light'
+        props.isDarkTheme ? 'separate-line-dark' : 'separate-line-light'
     )
 
     function changeTheme() {
-        localStorage.setItem('darkTheme', props.darkTheme ? 'false' : 'true')
+        localStorage.setItem('isDarkTheme', props.isDarkTheme ? 'false' : 'true')
         props.changeTheme()
     }
 
@@ -75,7 +75,7 @@ function RightList(props) {
 
 const mapStateToProps = store => {
     return {
-        darkTheme: store.darkTheme,
+        isDarkTheme: store.isDarkTheme,
         isLoggedIn: store.isLoggedIn
     }
 }

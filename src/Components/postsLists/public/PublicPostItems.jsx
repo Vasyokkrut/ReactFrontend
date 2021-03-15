@@ -24,7 +24,7 @@ class PublicPostItems extends React.Component {
     render() {
         const PostClassName = classNames(
             'post-item',
-            this.props.darkTheme ? 'post-item-dark' : 'post-item-light'
+            this.props.isDarkTheme ? 'post-item-dark' : 'post-item-light'
         )
 
         if(this.props.isDataLoaded === false) return null
@@ -62,7 +62,7 @@ class PublicPostItems extends React.Component {
 
 const mapStateToProps = store => {
     return {
-        darkTheme: store.darkTheme,
+        isDarkTheme: store.isDarkTheme,
         publicPosts: store.publicPosts
     }
 }

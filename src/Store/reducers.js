@@ -1,5 +1,5 @@
 const initialState = {
-  darkTheme: true,
+  isDarkTheme: true,
   publicPosts: [],
   isPopUpHidden: true,
   isLoggedIn: false,
@@ -11,7 +11,7 @@ const initialState = {
 export const mainReducer = (state = initialState, action) => {
     switch(action.type){
       case 'ACTION_CHANGE_THEME':
-        return {...state, darkTheme: !state.darkTheme}
+        return {...state, isDarkTheme: !state.isDarkTheme}
       case 'ACTION_DELETE_USER_POST':
         return {
           ...state,

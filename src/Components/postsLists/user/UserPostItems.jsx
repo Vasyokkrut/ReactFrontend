@@ -69,7 +69,7 @@ class PostItems extends React.Component {
     render() {
         const PostClassName = classNames(
             'post-item',
-            this.props.darkTheme ? 'post-item-dark' : 'post-item-light'
+            this.props.isDarkTheme ? 'post-item-dark' : 'post-item-light'
         )
 
         // show nothing unless data is loaded to prevent flicker
@@ -119,7 +119,7 @@ class PostItems extends React.Component {
 
 const mapStateToProps = store => {
     return {
-        darkTheme: store.darkTheme,
+        isDarkTheme: store.isDarkTheme,
         isLoggedIn: store.isLoggedIn,
         userName: store.userName,
         userPosts: store.userPosts,
