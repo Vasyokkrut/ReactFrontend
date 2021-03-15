@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import './styles.css'
 import { changePopUpDisplay, userLogin } from '../../Store/actions.js'
@@ -10,26 +10,42 @@ function PopUp(props) {
 
     // this array contains five states for five inputs in pop up
     const [loginState, setLoginState] = useState(['','','','',''])
+
     // this array contains two states for login and register parts in pop up
     // if first element is true, then login inputs will be disabled
     // if second element is true, then register inputs will be disabled
     const [isInputDisabled, setIsInputDisabled] = useState([false, false])
+
     // this state contains message that displays above the confirmation button
     // successful field wil change the color of this message
     const [loginStatus, setLoginStatus] = useState({message: '', successful: null})
-    // class names for overlay, that covers all the screen
-    // and is placed between the pop up and content
-    const [overlayClassName, setOverlayClassName] = useState('overlay overlay-open')
-    // initial class names for pop up
-    const [popUpClassName, setPopUpClassName] = useState('pop-up pop-up-open')
+
+    // class names for overlay and pop up
+    const [componentsClassNames, setComponentsClassNames] = useState({
+        popUp: 'pop-up pop-up-open',
+        overlay: 'overlay overlay-open'
+    })
+
+    // for first render we shouldn't reset pop up inputs state
+    // so this useRef turns off useEffect on first render
+    const firstRender = useRef(true)
 
     // when user toggles pop up display, it should be clean
     // so we should reset the state of entire pop up
     useEffect(() => {
+        if (firstRender.current) {
+            firstRender.current = false
+            return
+        }
         setLoginState(['','','','',''])
         setIsInputDisabled([false, false])
         setLoginStatus({message: '', successful: null})
     }, [props.isPopUpHidden])
+
+    // depending on darktheme state we should choose background color for pop up
+    const popUpStyle = {
+        backgroundColor: props.isDarkTheme ? '#222' : '#ddd'
+    }
 
     // styles for status message that is placed above the confirmation button
     const loginStatusStyle = {
@@ -42,13 +58,17 @@ function PopUp(props) {
     // this function switches class names for pop up and overlay
     // new class names trigger keyframes animations for closing pop up and overlay
     function closePopup() {
-        setOverlayClassName('overlay overlay-close')
-        setPopUpClassName('pop-up pop-up-close')
-        
+        setComponentsClassNames({
+            popUp: 'pop-up pop-up-close',
+            overlay: 'overlay overlay-close'
+        })
+
         setTimeout(() => {
             props.changePopUpDisplay()
-            setOverlayClassName('overlay overlay-open')
-            setPopUpClassName('pop-up pop-up-open')
+            setComponentsClassNames({
+                popUp: 'pop-up pop-up-open',
+                overlay: 'overlay overlay-open'
+            })
         }, 200)
     }
 
@@ -164,8 +184,8 @@ function PopUp(props) {
 
         // if some fields havn't been filled this message will be displayed
         setLoginStatus({
-            message: 'please, fill all fields',
-            successful: false
+            successful: false,
+            message: 'please, fill all fields'
         })
     }
 
@@ -173,8 +193,8 @@ function PopUp(props) {
 
     return(
         <>
-            <div className={overlayClassName} onClick={closePopup}></div>
-            <div className={`${popUpClassName} ${props.isDarkTheme ? 'pop-up-dark' : 'pop-up-light'}`} >
+            <div className={componentsClassNames.overlay} onClick={closePopup}></div>
+            <div className={componentsClassNames.popUp} style={popUpStyle} >
                 <div style={{textAlign: 'center'}} >sign in</div>
                 <div>
                     <input

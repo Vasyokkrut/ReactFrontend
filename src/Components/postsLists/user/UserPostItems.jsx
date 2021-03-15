@@ -62,7 +62,7 @@ class PostItems extends React.Component {
                 } 
             }
         )
-        .then(res => {if(res.data.deleted === true) this.props.deleteUserPost(fileName) })
+        .then(res => {if (res.data.deleted === true) this.props.deleteUserPost(fileName) })
         .catch(() => {alert('whoops, we cannot delete this post')})
     }
 

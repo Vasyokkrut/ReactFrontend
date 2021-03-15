@@ -10,16 +10,6 @@
   margin: .5rem 1rem;
 }
 
-.pop-up-light {
-  background-color: #ddd;
-  color: black;
-}
-
-.pop-up-dark {
-  background-color: #222226;
-  color: whitesmoke;
-}
-
 .or-register {
   display: flex;
   justify-content: center;
