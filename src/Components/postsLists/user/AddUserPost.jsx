@@ -26,12 +26,12 @@ function AddPostForm(props) {
             data.append('picture', picture)
             
             axios.put('/api/uploadPostForUser', data, config)
-            .then(response => {
-                props.addUserPost(response.data)
-                setPicture(null)
-                setTitle('')
-                document.getElementById('choose-picture-input').value = ''
-            })
+                .then(response => {
+                    props.addUserPost(response.data)
+                    setPicture(null)
+                    setTitle('')
+                    document.getElementById('choose-picture-input').value = ''
+                })
         }
     }
 
@@ -42,7 +42,7 @@ function AddPostForm(props) {
             <div>
                 <div className='flex-center'>
                     <label className='upload-button'>
-                        {picture === null? 'Create Post' : 'Rechoose picture'}
+                        {picture === null ? 'Create Post' : 'Rechoose picture'}
                         <input
                             id='choose-picture-input'
                             accept='image/*'
@@ -68,7 +68,7 @@ function AddPostForm(props) {
                         />
                         <div className='flex-center'>
                             <button
-                                className="upload-button"
+                                className='upload-button'
                                 onClick={handleUpload}
                             >
                                 Upload Picture

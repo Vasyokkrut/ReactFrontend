@@ -1,4 +1,9 @@
 const initialState = {
+  currentMusicTime: 0,
+  isMusicPlaying: false,
+  currentAudioTrack: null,
+  currentMusicVolume: .01,
+  userAudioTracks: [],
   isDarkTheme: true,
   publicPosts: [],
   isPopUpHidden: true,
@@ -10,6 +15,43 @@ const initialState = {
 
 export const mainReducer = (state = initialState, action) => {
     switch(action.type){
+      case 'ACTION_SET_CURRENT_AUDIO_TRACK':
+        return {
+          ...state,
+          isMusicPlaying: true,
+          currentAudioTrack: action.payload
+        }
+      case 'ACTION_ADD_AUDIO_TRACK':
+        return {
+          ...state,
+          userAudioTracks: [...state.userAudioTracks, action.payload]
+        }
+      case 'ACTION_SET_IS_MUSIC_PLAYING':
+        return {
+          ...state,
+          isMusicPlaying: action.payload
+        }
+      case 'ACTION_SET_CURRENT_MUSIC_VOLUME':
+        return {
+          ...state,
+          currentMusicVolume: action.payload
+        }
+      case 'ACTION_SET_PROGRESS_BAR_WIDTH':
+        return {
+          ...state,
+          currentMusicTime: action.payload
+        }
+      case 'ACTION_SET_USER_AUDIO_TRACKS':
+        return {
+          ...state,
+          userAudioTracks: action.payload
+        }
+      case 'ACTION_SET_NEXT_AUDIO_TRACK':
+        return {
+          ...state,
+          currentMusicTime: 0,
+          currentAudioTrack: state.currentAudioTrack + 1
+        }
       case 'ACTION_CHANGE_THEME':
         return {...state, isDarkTheme: !state.isDarkTheme}
       case 'ACTION_DELETE_USER_POST':

@@ -1,3 +1,51 @@
+export const addAudioTrack = track => {
+  return {
+    type: 'ACTION_ADD_AUDIO_TRACK',
+    payload: track
+  }
+}
+
+export const setIsMusicPlaying = value => {
+  return {
+    type: 'ACTION_SET_IS_MUSIC_PLAYING',
+    payload: value
+  }
+}
+
+export const setCurrentAudioTrack = track => {
+  return {
+    type: 'ACTION_SET_CURRENT_AUDIO_TRACK',
+    payload: track
+  }
+}
+
+export const setProgressBarWidth = time => {
+  return {
+    type: 'ACTION_SET_PROGRESS_BAR_WIDTH',
+    payload: time
+  }
+}
+
+export const setMusicVolume = value => {
+  return {
+    type: 'ACTION_SET_CURRENT_MUSIC_VOLUME',
+    payload: value
+  }
+}
+
+export const setUserAudioTracks = audioTracks => {
+  return {
+    type: 'ACTION_SET_USER_AUDIO_TRACKS',
+    payload: audioTracks
+  }
+}
+
+export const setNextAudioTrack = () => {
+  return {
+    type: 'ACTION_SET_NEXT_AUDIO_TRACK'
+  }
+}
+
 export const changeTheme = () => {
   return {
     type: 'ACTION_CHANGE_THEME'

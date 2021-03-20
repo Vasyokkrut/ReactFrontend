@@ -8,6 +8,7 @@ import PopUp from './popUp/popUp.jsx'
 import MiddleList from './MiddleList.jsx'
 import LeftList from './navLists/LeftNavList.jsx'
 import RightList from './navLists/RightNavList.jsx'
+import NativeAudioElement from './music/nativeAudioElement.jsx'
 import NavbarHeader from './navbarHeader/navbarHeader.jsx'
 import { changeTheme, userLogin } from '../Store/actions.js'
 
@@ -17,12 +18,10 @@ class MainComponent extends React.Component {
     super(props)
     document.body.className = props.isDarkTheme ? 'dark-body' : 'light-body'
     if(localStorage.getItem('isDarkTheme') === 'false') props.changeTheme()
-  }
 
-  componentDidMount() {
+    const userJWT = localStorage.getItem('userJWT')
     const userName = localStorage.getItem('userName')
-    if (userName) {
-      const userJWT = localStorage.getItem('userJWT')
+    if (userName && userJWT) {
       this.props.userLogin({userName, userJWT})
     }
   }
@@ -38,6 +37,7 @@ class MainComponent extends React.Component {
       <>
         <noscript>You have to enable JS</noscript>
         <NavbarHeader />
+        <NativeAudioElement />
         <PopUp />
         <div className='flex-center main-component'>
           <LeftList />

@@ -1,0 +1,155 @@
+#choose-track-input {
+  display: none;
+}
+
+.audioplayer {
+
+  &-trackitem {
+    display: flex;
+    padding: .5rem;
+    margin-top: .5rem;
+    border-radius: .5rem;
+
+    &-title {
+      font-size: 1.5rem;
+      margin-left: 1rem;
+    }
+
+    &-light {
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+
+    &-dark {
+      &:hover {
+        background-color: #6e6e6e;
+      }
+    }
+
+  }
+
+  &-title {
+    margin-left: 1rem;
+  }
+
+  &-controls {
+    margin-top: 1rem;
+    display: flex;
+  }
+
+  &-volume {
+
+    &-wrapper {
+      margin-left: 1rem;
+      padding: .5rem 0;
+      display: inline-block;
+      cursor: pointer;
+      height: 4px;
+      width: 100px;
+    }
+
+    &-bar {
+      height: 4px;
+      width: 100%;
+
+      &-light {
+        background-color: #ccc;
+      }
+
+      &-dark {
+        background-color: #777;
+      }
+    }
+
+    &-value {
+      height: 4px;
+
+      &-light {
+        background-color: #999;
+      }
+
+      &-dark {
+        background-color: #aaa;
+      }
+    }
+  }
+
+  &-progress {
+
+    &-wrapper {
+      margin-left: 1rem;
+      padding: .5rem 0;
+      display: inline-block;
+      cursor: pointer;
+      height: 4px;
+      width: 400px;
+    }
+
+    &-bar {
+      height: 4px;
+      width: 100%;
+      
+      &-light {
+        background-color: #ccc;
+      }
+
+      &-dark {
+        background-color: #777;
+      }
+    }
+
+    &-time {
+      height: 4px;
+      
+      &-light {
+        background-color: #999;
+      }
+
+      &-dark {
+        background-color: #aaa;
+      }
+    }
+  }
+
+  &-button {
+    width: 4rem;
+    height: 2rem;
+    outline: none;
+    display: block;
+    cursor: pointer;
+    border-style: none;
+    border-radius: .2rem;
+    transition-duration: .1s;
+
+    &-light {
+      background-color: whitesmoke;
+
+      &:hover {
+        background-color: #05359c;
+        color: white;
+      }
+
+      &:disabled {
+        background-color: #e2e2e2;
+        color: #a3a3a3;
+        cursor: default;
+      }
+    }
+
+    &-dark {
+      background-color: #333;
+      color: white;
+
+      &:hover {
+        background-color: #05359c;
+      }
+
+      &:disabled {
+        background-color: #6e6e6e;
+        color: #bdbdbd;
+        cursor: default;
+      }
+    }
+  }
+}

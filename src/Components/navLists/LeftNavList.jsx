@@ -36,6 +36,23 @@ function LeftList(props) {
                     ?
                     <Link
                         className={navItemClassName}
+                        to={'/myMusic'}
+                    >
+                        My Music
+                    </Link>
+                    :
+                    <span
+                        className={navItemClassName}
+                        onClick={props.changePopUpDisplay}
+                    >
+                        My Music
+                    </span>
+                }
+                {
+                    props.userName
+                    ?
+                    <Link
+                        className={navItemClassName}
                         to={`/userPosts/${props.userName}`}
                     >
                         My Posts

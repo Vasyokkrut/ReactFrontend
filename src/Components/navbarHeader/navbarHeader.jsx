@@ -15,7 +15,7 @@ function NavbarHeader({isDarkTheme}) {
         <div>
           <Link
             className={headerClassName}
-            style={{textDecoration:'none'}}
+            style={{textDecoration:'none', outline: 'none'}}
             to='/'
           >
             Vasyokkrut
