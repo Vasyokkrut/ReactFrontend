@@ -9,10 +9,22 @@
     padding: .5rem;
     margin-top: .5rem;
     border-radius: .5rem;
+    position: relative;
 
     &-title {
       font-size: 1.5rem;
       margin-left: 1rem;
+    }
+
+    &-delete {
+      position: absolute;
+      right: 1rem;
+      cursor: pointer;
+      opacity: .8;
+
+      &:hover {
+        opacity: .4;
+      }
     }
 
     &-light {
@@ -31,6 +43,7 @@
 
   &-title {
     margin-left: 1rem;
+    font-size: 1rem;
   }
 
   &-controls {

@@ -21,7 +21,17 @@ export const mainReducer = (state = initialState, action) => {
           isMusicPlaying: true,
           currentAudioTrack: action.payload
         }
+      case 'ACTION_DELETE_AUDIO_TRACK':
+        const newUserAudioTracks = state.userAudioTracks.filter(track => track._id !== action.payload.track._id)
+        let newCurrentAudioTrack = state.currentAudioTrack
+        if (action.payload.trackIndex < state.currentAudioTrack) newCurrentAudioTrack--
+        return {
+          ...state,
+          userAudioTracks: newUserAudioTracks,
+          currentAudioTrack: newCurrentAudioTrack
+        }
       case 'ACTION_ADD_AUDIO_TRACK':
+        console.log([...state.userAudioTracks, action.payload])
         return {
           ...state,
           userAudioTracks: [...state.userAudioTracks, action.payload]

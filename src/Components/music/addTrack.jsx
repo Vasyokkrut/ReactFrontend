@@ -41,6 +41,7 @@ function AddTrack(props) {
             <input
               id='choose-track-input'
               type='file'
+              accept='audio/*'
               onInput={handleTrackInput}
             />
           </label>

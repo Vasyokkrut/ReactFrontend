@@ -1,3 +1,10 @@
+export const deleteAudioTrack = data => {
+  return {
+    type: 'ACTION_DELETE_AUDIO_TRACK',
+    payload: data
+  }
+}
+
 export const addAudioTrack = track => {
   return {
     type: 'ACTION_ADD_AUDIO_TRACK',
