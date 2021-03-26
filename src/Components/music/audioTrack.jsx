@@ -47,7 +47,7 @@ function AudioTrack({
       }
     }
 
-    axios.delete('/api/deleteUserTrack', config)
+    axios.delete('/api/music/deleteUserTrack', config)
       .then(res => {
         deleteAudioTrack({track: audioTrack, trackIndex: index})
       })
@@ -60,7 +60,7 @@ function AudioTrack({
     const nativeAudioElement = document.getElementById('native-audio-element')
 
     if (currentAudioTrack === null) {
-      nativeAudioElement.src = `/api/getUserTrack/${userName}/${audioTrack._id}`
+      nativeAudioElement.src = `/api/music/getUserTrack/${userName}/${audioTrack._id}`
       nativeAudioElement.volume = currentMusicVolume
       nativeAudioElement.play()
       setCurrentAudioTrack(index)
@@ -78,7 +78,7 @@ function AudioTrack({
     } else {
       nativeAudioElement.pause()
       setProgressBarWidth(0)
-      nativeAudioElement.src = `/api/getUserTrack/${userName}/${audioTrack._id}`
+      nativeAudioElement.src = `/api/music/getUserTrack/${userName}/${audioTrack._id}`
       nativeAudioElement.currentTime = 0
       nativeAudioElement.play()
       setCurrentAudioTrack(index)

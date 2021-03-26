@@ -17,7 +17,7 @@ function MyMusic({userName, userJWT, userAudioTracks, setUserAudioTracks, isDark
     if (!userName || !userJWT) return
     
     const config = {headers: {'Authorization': 'Bearer ' + userJWT}}
-    axios.get('/api/getUserMusic/' + userName, config)
+    axios.get('/api/music/getUserMusic/' + userName, config)
       .then(res => {
         setUserAudioTracks(res.data.userMusic)
         setIsDataLoaded(true)

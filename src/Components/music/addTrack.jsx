@@ -23,7 +23,7 @@ function AddTrack(props) {
       const data = new FormData()
       data.append('title', title)
       data.append('track', track)
-      axios.put('/api/uploadMusicForUser', data, config)
+      axios.put('/api/music/uploadMusicForUser', data, config)
         .then(res => {
           setTrack(null)
           setTitle('')
