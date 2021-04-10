@@ -32,6 +32,10 @@ function AddTrack(props) {
     }
   }
 
+  function sendOnEnter(event) {
+    if (event.key === 'Enter') uploadTrack()
+  }
+
   return(
     <div className='flex-center' >
       <div>
@@ -63,7 +67,7 @@ function AddTrack(props) {
               placeholder='Choose title'
               onChange={handleTitleInput}
               value={title}
-              onKeyDown={event => {if (event.key === 'Enter') uploadTrack()}}
+              onKeyDown={sendOnEnter}
             />
             <div className='flex-center'>
               <button className='upload-button' onClick={uploadTrack} >Upload track</button>

@@ -31,7 +31,6 @@ export const mainReducer = (state = initialState, action) => {
         currentAudioTrack: newCurrentAudioTrack
       }
     case 'ACTION_ADD_AUDIO_TRACK':
-      console.log([...state.userAudioTracks, action.payload])
       return {
         ...state,
         userAudioTracks: [...state.userAudioTracks, action.payload]
@@ -104,9 +103,13 @@ export const mainReducer = (state = initialState, action) => {
     case 'ACTION_LOG_OUT':
       return {
         ...state,
-        isLoggedIn: false,
+        userJWT: null,
         userName: null,
-        userJWT: null
+        isLoggedIn: false,
+        userAudioTracks: [],
+        currentMusicTime: 0,
+        isMusicPlaying: false,
+        currentAudioTrack: null
       }
     default:
       return state

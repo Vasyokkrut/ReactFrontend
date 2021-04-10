@@ -6,7 +6,7 @@ import './styles.scss'
 import Dropdown from './dropdown.jsx'
 import AudioPlayerControls from '../music/audioPlayerControls.jsx'
 
-function NavbarHeader({isDarkTheme, currentAudioTrack}) {
+function NavbarHeader({isDarkTheme, isLoggedIn, currentAudioTrack}) {
 
   const headerClassName = isDarkTheme ? 'header-dark' : 'header-light'
 
@@ -22,7 +22,13 @@ function NavbarHeader({isDarkTheme, currentAudioTrack}) {
             Vasyokkrut
           </Link>
         </div>
-        { currentAudioTrack !== null ? <AudioPlayerControls /> : null }
+        {
+          currentAudioTrack !== null && isLoggedIn
+          ?
+          <AudioPlayerControls />
+          :
+          null
+        }
         <Dropdown />
       </div>
     </header>
@@ -31,6 +37,7 @@ function NavbarHeader({isDarkTheme, currentAudioTrack}) {
 
 const mapStateToProps = store => {
   return {
+    isLoggedIn: store.isLoggedIn,
     isDarkTheme: store.isDarkTheme,
     currentAudioTrack: store.currentAudioTrack
   }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { connect } from 'react-redux'
-import React, { useEffect, useState } from 'react'
 import { bindActionCreators } from 'redux'
+import React, { useEffect, useState } from 'react'
 
 import './styles.scss'
 import AddTrack from './addTrack.jsx'
@@ -34,9 +34,21 @@ function MyMusic({userName, userJWT, userAudioTracks, setUserAudioTracks, isDark
 
   if (!isDataLoaded) {
     return(
-      <div style={{fontSize: '5rem', textAlign: 'center'}} >
+      <div style={{fontSize: '4rem', textAlign: 'center'}} >
         loading...
       </div>
+    )
+  }
+
+  if (!userAudioTracks.length) {
+    return(
+      <>
+        <div style={{fontSize: '3rem', textAlign: 'center'}} >
+          you have no tracks :( <br />
+          fortunatly, you can add one!
+        </div>
+        <AddTrack />
+      </>
     )
   }
 

@@ -5,10 +5,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
-  setCurrentAudioTrack,
+  deleteAudioTrack,
   setIsMusicPlaying,
   setProgressBarWidth,
-  deleteAudioTrack
+  setCurrentAudioTrack
 } from '../../Store/actions.js'
 
 function AudioTrack({
@@ -48,7 +48,7 @@ function AudioTrack({
     }
 
     axios.delete('/api/music/deleteUserTrack', config)
-      .then(res => {
+      .then(() => {
         deleteAudioTrack({track: audioTrack, trackIndex: index})
       })
       .catch(err => {
@@ -85,8 +85,14 @@ function AudioTrack({
     }
   }
 
+  const trackItemStyle = {}
+
+  if (audioTrack._id === userAudioTracks[currentAudioTrack]?._id) {
+    trackItemStyle.backgroundColor = isDarkTheme ? '#555' : '#ccc'
+  }
+
   return(
-    <div className={trackitemClassName} >
+    <div className={trackitemClassName} style={trackItemStyle} >
       <button className={buttonClassname} onClick={playpause} >
         {(isMusicPlaying && audioTrack._id === userAudioTracks[currentAudioTrack]._id) ? 'pause' : 'play'}
       </button>
