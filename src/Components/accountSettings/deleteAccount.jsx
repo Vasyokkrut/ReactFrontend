@@ -9,6 +9,7 @@ function DeleteAccount({isDarkTheme, userJWT, userLogout}) {
 
   const settingsButtonClassName = classnames(
     'settings-button',
+    'settings-button-delete',
     isDarkTheme ? 'settings-button-dark' : 'settings-button-light'
   )
 
