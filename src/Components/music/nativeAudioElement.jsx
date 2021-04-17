@@ -6,7 +6,7 @@ import {
   setProgressBarWidth,
   setNextAudioTrack,
   setIsMusicPlaying
-} from '../../Store/actions.js'
+} from '../../Store/music/actions.js'
 
 function NativeAudioElement({
   userName,
@@ -52,9 +52,9 @@ function NativeAudioElement({
 
 const mapStateToProps = store => {
   return {
-    userName: store.userName,
-    userAudioTracks: store.userAudioTracks,
-    currentAudioTrack: store.currentAudioTrack
+    userName: store.account.userName,
+    userAudioTracks: store.music.userAudioTracks,
+    currentAudioTrack: store.music.currentAudioTrack
   }
 }
 

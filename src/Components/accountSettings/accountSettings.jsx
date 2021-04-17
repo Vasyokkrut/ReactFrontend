@@ -79,8 +79,8 @@ function AccountSettings({isDarkTheme, isLoggedIn}) {
 
 const mapStateToProps = store => {
   return {
-    isDarkTheme: store.isDarkTheme,
-    isLoggedIn: store.isLoggedIn
+    isLoggedIn: store.account.isLoggedIn,
+    isDarkTheme: store.appearance.isDarkTheme
   }
 }
 

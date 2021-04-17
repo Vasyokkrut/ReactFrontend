@@ -87,7 +87,7 @@ function ChangePassword({ userJWT }) {
 
 const mapStateToProps = store => {
   return {
-    userJWT: store.userJWT
+    userJWT: store.account.userJWT
   }
 }
 

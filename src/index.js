@@ -5,10 +5,10 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import './globalStyles.scss'
-import { mainReducer } from './Store/reducers.js'
+import { rootReducer } from './Store/rootReducer.js'
 import MainComponent from './Components/MainComponent.jsx'
 
-const store = createStore(mainReducer)
+const store = createStore(rootReducer)
 
 function MainApp() {
   return (

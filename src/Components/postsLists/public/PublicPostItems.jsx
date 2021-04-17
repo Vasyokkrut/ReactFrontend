@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 
 import Picture from '../../Picture'
 import Buttons from '../../buttons/functionalButtons'
-import { setPublicPosts } from '../../../Store/actions.js'
+import { setPublicPosts } from '../../../Store/posts/actions.js'
 
 class PublicPostItems extends React.Component {
 
@@ -62,8 +62,8 @@ class PublicPostItems extends React.Component {
 
 const mapStateToProps = store => {
     return {
-        isDarkTheme: store.isDarkTheme,
-        publicPosts: store.publicPosts
+        publicPosts: store.posts.publicPosts,
+        isDarkTheme: store.appearance.isDarkTheme
     }
 }
 

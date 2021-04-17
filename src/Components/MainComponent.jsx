@@ -8,9 +8,10 @@ import PopUp from './popUp/popUp.jsx'
 import MiddleList from './MiddleList.jsx'
 import LeftList from './navLists/LeftNavList.jsx'
 import RightList from './navLists/RightNavList.jsx'
-import NativeAudioElement from './music/nativeAudioElement.jsx'
+import { userLogin } from '../Store/account/actions.js'
 import NavbarHeader from './navbarHeader/navbarHeader.jsx'
-import { changeTheme, userLogin } from '../Store/actions.js'
+import { changeTheme } from '../Store/appearance/actions.js'
+import NativeAudioElement from './music/nativeAudioElement.jsx'
 
 class MainComponent extends React.Component {
 
@@ -51,7 +52,7 @@ class MainComponent extends React.Component {
 
 const mapStateToProps = store => {
   return {
-    isDarkTheme: store.isDarkTheme
+    isDarkTheme: store.appearance.isDarkTheme
   }
 }
 

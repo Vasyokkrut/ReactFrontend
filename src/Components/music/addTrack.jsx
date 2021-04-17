@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
 
-import { addAudioTrack } from '../../Store/actions.js'
+import { addAudioTrack } from '../../Store/music/actions.js'
 
 function AddTrack(props) {
   const [title, setTitle] = useState('')
@@ -81,7 +81,7 @@ function AddTrack(props) {
 
 const mapStateToProps = store => {
   return {
-    userJWT: store.userJWT
+    userJWT: store.account.userJWT
   }
 }
 

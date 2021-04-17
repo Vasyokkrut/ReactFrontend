@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
-import { changeTheme, userLogout, changePopUpDisplay } from '../../Store/actions.js'
+import { userLogout } from '../../Store/account/actions.js'
+import { resetAudioPlayer } from '../../Store/music/actions.js'
+import { changeTheme, changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function RightList(props) {
     
@@ -33,6 +35,7 @@ function RightList(props) {
         localStorage.removeItem('userJWT')
         localStorage.removeItem('userName')
         props.userLogout()
+        props.resetAudioPlayer()
     }
 
     return(
@@ -75,8 +78,8 @@ function RightList(props) {
 
 const mapStateToProps = store => {
     return {
-        isDarkTheme: store.isDarkTheme,
-        isLoggedIn: store.isLoggedIn
+        isLoggedIn: store.account.isLoggedIn,
+        isDarkTheme: store.appearance.isDarkTheme
     }
 }
 
@@ -84,6 +87,7 @@ const mapActionsToProps = dispatch => {
     return {
         userLogout: bindActionCreators(userLogout, dispatch),
         changeTheme: bindActionCreators(changeTheme, dispatch),
+        resetAudioPlayer: bindActionCreators(resetAudioPlayer, dispatch),
         changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
     }
 }

@@ -7,21 +7,24 @@ import './styles.scss'
 import AddTrack from './addTrack.jsx'
 import AudioTrack from './audioTrack.jsx'
 import AudioPlayerControls from './audioPlayerControls.jsx'
-import { setUserAudioTracks } from '../../Store/actions.js'
+import { setUserAudioTracks } from '../../Store/music/actions.js'
 
 function MyMusic({userName, userJWT, userAudioTracks, setUserAudioTracks, isDarkTheme}) {
 
   const [isDataLoaded, setIsDataLoaded] = useState(false)
 
   useEffect(() => {
-    if (!userName || !userJWT) return
-    
-    const config = {headers: {'Authorization': 'Bearer ' + userJWT}}
-    axios.get('/api/music/getUserMusic/' + userName, config)
-      .then(res => {
-        setUserAudioTracks(res.data.userMusic)
-        setIsDataLoaded(true)
-      })
+    if (userName && userJWT) {
+      const config = {headers: {'Authorization': 'Bearer ' + userJWT}}
+      axios.get('/api/music/getUserMusic/' + userName, config)
+        .then(res => {
+          setUserAudioTracks(res.data.userMusic)
+          setIsDataLoaded(true)
+        })
+    }
+    return () => {
+      setIsDataLoaded(false)
+    }
   }, [userName, userJWT, setUserAudioTracks])
 
   if (!userName) {
@@ -79,10 +82,10 @@ function MyMusic({userName, userJWT, userAudioTracks, setUserAudioTracks, isDark
 
 const mapStateToProps = store => {
   return {
-    userJWT: store.userJWT,
-    userName: store.userName,
-    isDarkTheme: store.isDarkTheme,
-    userAudioTracks: store.userAudioTracks
+    userJWT: store.account.userJWT,
+    userName: store.account.userName,
+    isDarkTheme: store.appearance.isDarkTheme,
+    userAudioTracks: store.music.userAudioTracks
   }
 }
 

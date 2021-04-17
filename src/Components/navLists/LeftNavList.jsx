@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
-import { changePopUpDisplay } from '../../Store/actions.js'
+import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function LeftList(props) {
 
@@ -78,8 +78,8 @@ function LeftList(props) {
 
 const mapStateToProps = store => {
     return {
-        isDarkTheme: store.isDarkTheme,
-        userName: store.userName
+        userName: store.account.userName,
+        isDarkTheme: store.appearance.isDarkTheme
     }
 }
 

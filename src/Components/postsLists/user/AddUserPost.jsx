@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { addUserPost } from '../../../Store/actions.js'
+import { addUserPost } from '../../../Store/posts/actions.js'
 
 function AddPostForm(props) {
     const [picture, setPicture] = useState(null)
@@ -84,9 +84,9 @@ function AddPostForm(props) {
 
 const mapStateToProps = store => {
     return {
-        userJWT: store.userJWT,
-        userName: store.userName,
-        isLoggedIn: store.isLoggedIn
+        userJWT: store.account.userJWT,
+        userName: store.account.userName,
+        isLoggedIn: store.account.isLoggedIn
     }
 }
 

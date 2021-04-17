@@ -3,7 +3,11 @@ import React, { useRef } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setIsMusicPlaying, setMusicVolume, setProgressBarWidth } from '../../Store/actions.js'
+import {
+  setIsMusicPlaying,
+  setMusicVolume,
+  setProgressBarWidth
+} from '../../Store/music/actions.js'
 
 function AudioPlayerControls(props) {
 
@@ -123,12 +127,12 @@ function AudioPlayerControls(props) {
 
 const mapStateToProps = store => {
   return {
-    isDarkTheme: store.isDarkTheme,
-    isMusicPlaying: store.isMusicPlaying,
-    userAudioTracks: store.userAudioTracks,
-    currentMusicTime: store.currentMusicTime,
-    currentAudioTrack: store.currentAudioTrack,
-    currentMusicVolume: store.currentMusicVolume
+    isDarkTheme: store.appearance.isDarkTheme,
+    isMusicPlaying: store.music.isMusicPlaying,
+    userAudioTracks: store.music.userAudioTracks,
+    currentMusicTime: store.music.currentMusicTime,
+    currentAudioTrack: store.music.currentAudioTrack,
+    currentMusicVolume: store.music.currentMusicVolume
   }
 }
 

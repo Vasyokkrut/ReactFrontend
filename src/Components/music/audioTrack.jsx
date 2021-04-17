@@ -9,7 +9,7 @@ import {
   setIsMusicPlaying,
   setProgressBarWidth,
   setCurrentAudioTrack
-} from '../../Store/actions.js'
+} from '../../Store/music/actions.js'
 
 function AudioTrack({
   index,
@@ -113,13 +113,13 @@ function AudioTrack({
 
 const mapStateToProps = store => {
   return {
-    userJWT: store.userJWT,
-    userName: store.userName,
-    isDarkTheme: store.isDarkTheme,
-    isMusicPlaying: store.isMusicPlaying,
-    userAudioTracks: store.userAudioTracks,
-    currentAudioTrack: store.currentAudioTrack,
-    currentMusicVolume: store.currentMusicVolume
+    userJWT: store.account.userJWT,
+    userName: store.account.userName,
+    isDarkTheme: store.appearance.isDarkTheme,
+    isMusicPlaying: store.music.isMusicPlaying,
+    userAudioTracks: store.music.userAudioTracks,
+    currentAudioTrack: store.music.currentAudioTrack,
+    currentMusicVolume: store.music.currentMusicVolume
   }
 }
 

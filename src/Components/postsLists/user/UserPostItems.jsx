@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 
 import Picture from '../../Picture'
 import Buttons from '../../buttons/functionalButtons'
-import { deleteUserPost, setUserPosts } from '../../../Store/actions.js'
+import { deleteUserPost, setUserPosts } from '../../../Store/posts/actions.js'
 
 class PostItems extends React.Component {
     constructor(props) {
@@ -119,11 +119,11 @@ class PostItems extends React.Component {
 
 const mapStateToProps = store => {
     return {
-        isDarkTheme: store.isDarkTheme,
-        isLoggedIn: store.isLoggedIn,
-        userName: store.userName,
-        userPosts: store.userPosts,
-        userJWT: store.userJWT
+        userJWT: store.account.userJWT,
+        userName: store.account.userName,
+        userPosts: store.posts.userPosts,
+        isLoggedIn: store.account.isLoggedIn,
+        isDarkTheme: store.appearance.isDarkTheme
     }
 }
 

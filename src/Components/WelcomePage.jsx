@@ -25,7 +25,7 @@ function WelcomePage({isDarkTheme}) {
 
 const mapStateToProps = store => {
   return {
-    isDarkTheme: store.isDarkTheme
+    isDarkTheme: store.appearance.isDarkTheme
   }
 }
 

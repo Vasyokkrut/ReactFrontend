@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
 
-import { userLogin } from '../../Store/actions.js'
+import { userLogin } from '../../Store/account/actions.js'
 
 function ChangeUserName({ userJWT, userLogin, currentUserName }) {
 
@@ -108,8 +108,8 @@ function ChangeUserName({ userJWT, userLogin, currentUserName }) {
 
 const mapStateToProps = store => {
   return {
-    userJWT: store.userJWT,
-    currentUserName: store.userName
+    userJWT: store.account.userJWT,
+    currentUserName: store.account.userName
   }
 }
 

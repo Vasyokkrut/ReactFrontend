@@ -37,9 +37,9 @@ function NavbarHeader({isDarkTheme, isLoggedIn, currentAudioTrack}) {
 
 const mapStateToProps = store => {
   return {
-    isLoggedIn: store.isLoggedIn,
-    isDarkTheme: store.isDarkTheme,
-    currentAudioTrack: store.currentAudioTrack
+    isLoggedIn: store.account.isLoggedIn,
+    isDarkTheme: store.appearance.isDarkTheme,
+    currentAudioTrack: store.music.currentAudioTrack
   }
 }
 

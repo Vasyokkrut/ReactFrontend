@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { addPublicPost } from '../../../Store/actions.js'
+import { addPublicPost } from '../../../Store/posts/actions.js'
 
 function AddPostForm(props) {
     const [picture, setPicture] = useState(null)

@@ -3,7 +3,9 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { changePopUpDisplay, userLogout, changeTheme } from '../../Store/actions.js'
+import { userLogout } from '../../Store/account/actions.js'
+import { resetAudioPlayer } from '../../Store/music/actions.js'
+import { changePopUpDisplay, changeTheme } from '../../Store/appearance/actions.js'
 
 function Dropdown(props) {
   function changeTheme() {
@@ -15,6 +17,7 @@ function Dropdown(props) {
     localStorage.removeItem('userJWT')
     localStorage.removeItem('userName')
     props.userLogout()
+    props.resetAudioPlayer()
   }
 
   const dropdownOptionClass = classNames(
@@ -74,17 +77,18 @@ function Dropdown(props) {
 
 const mapStateToProps = store => {
   return {
-    isDarkTheme: store.isDarkTheme,
-    isLoggedIn: store.isLoggedIn,
-    userName: store.userName
+    userName: store.account.userName,
+    isLoggedIn: store.account.isLoggedIn,
+    isDarkTheme: store.appearance.isDarkTheme
   }
 }
   
 const mapActionsToProps = dispatch => {
   return {
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch),
     userLogout: bindActionCreators(userLogout, dispatch),
     changeTheme: bindActionCreators(changeTheme, dispatch),
+    resetAudioPlayer: bindActionCreators(resetAudioPlayer, dispatch),
+    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
   }
 }
 

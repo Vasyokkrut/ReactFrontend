@@ -3,7 +3,7 @@ import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { userLogout } from '../../Store/actions.js'
+import { userLogout } from '../../Store/account/actions.js'
 
 function DeleteAccount({isDarkTheme, userJWT, userLogout}) {
 
@@ -40,8 +40,8 @@ function DeleteAccount({isDarkTheme, userJWT, userLogout}) {
 
 const mapStateToProps = store => {
   return {
-    isDarkTheme: store.isDarkTheme,
-    userJWT: store.userJWT
+    userJWT: store.account.userJWT,
+    isDarkTheme: store.appearance.isDarkTheme
   }
 }
 

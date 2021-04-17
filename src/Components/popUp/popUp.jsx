@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux'
 import React, { useEffect, useRef, useState } from 'react'
 
 import './styles.scss'
-import { changePopUpDisplay, userLogin } from '../../Store/actions.js'
+import { userLogin } from '../../Store/account/actions.js'
+import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function PopUp(props) {
 
@@ -261,8 +262,8 @@ function PopUp(props) {
 
 const mapStateToProps = store => {
     return {
-        isDarkTheme: store.isDarkTheme,
-        isPopUpHidden: store.isPopUpHidden
+        isDarkTheme: store.appearance.isDarkTheme,
+        isPopUpHidden: store.appearance.isPopUpHidden
     }
   }
 
