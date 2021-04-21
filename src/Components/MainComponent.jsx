@@ -36,7 +36,6 @@ class MainComponent extends React.Component {
   render(){
     return(
       <>
-        <noscript>You have to enable JS</noscript>
         <NavbarHeader />
         <NativeAudioElement />
         <PopUp />
