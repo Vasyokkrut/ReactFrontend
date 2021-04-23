@@ -1,4 +1,3 @@
-import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
@@ -6,7 +5,7 @@ import './styles.scss'
 import Dropdown from './dropdown.jsx'
 import AudioPlayerControls from '../music/audioPlayerControls.jsx'
 
-function NavbarHeader({isDarkTheme, isLoggedIn, currentAudioTrack}) {
+function NavbarHeader({isDarkTheme, userName, currentAudioTrack}) {
 
   const headerClassName = isDarkTheme ? 'header-dark' : 'header-light'
 
@@ -23,7 +22,7 @@ function NavbarHeader({isDarkTheme, isLoggedIn, currentAudioTrack}) {
           </Link>
         </div>
         {
-          currentAudioTrack !== null && isLoggedIn
+          currentAudioTrack !== null && userName
           ?
           <AudioPlayerControls />
           :
@@ -37,7 +36,7 @@ function NavbarHeader({isDarkTheme, isLoggedIn, currentAudioTrack}) {
 
 const mapStateToProps = store => {
   return {
-    isLoggedIn: store.account.isLoggedIn,
+    userName: store.account.userName,
     isDarkTheme: store.appearance.isDarkTheme,
     currentAudioTrack: store.music.currentAudioTrack
   }

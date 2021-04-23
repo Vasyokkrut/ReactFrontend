@@ -1,4 +1,3 @@
-import React from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -14,7 +13,6 @@ function Dropdown(props) {
   }
 
   function logout() {
-    localStorage.removeItem('userJWT')
     localStorage.removeItem('userName')
     props.userLogout()
     props.resetAudioPlayer()
@@ -30,11 +28,11 @@ function Dropdown(props) {
   )
   const dropdownClassName = classNames(
     'dropdown',
-    {'dropdown-dark': props.isDarkTheme && props.isLoggedIn},
-    {'dropdown-light': !props.isDarkTheme && props.isLoggedIn}
+    {'dropdown-dark': props.isDarkTheme && props.userName},
+    {'dropdown-light': !props.isDarkTheme && props.userName}
   )
 
-  if (props.isLoggedIn) {
+  if (props.userName) {
     return(
       <div className={dropdownClassName} >
         <div className='username'>
@@ -78,7 +76,6 @@ function Dropdown(props) {
 const mapStateToProps = store => {
   return {
     userName: store.account.userName,
-    isLoggedIn: store.account.isLoggedIn,
     isDarkTheme: store.appearance.isDarkTheme
   }
 }

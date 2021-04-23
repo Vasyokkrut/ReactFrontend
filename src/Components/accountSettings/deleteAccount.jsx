@@ -1,11 +1,12 @@
-import React from 'react'
 import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { userLogout } from '../../Store/account/actions.js'
 
-function DeleteAccount({isDarkTheme, userJWT, userLogout}) {
+import { userLogout } from '../../Store/account/actions.js'
+import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+
+function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
 
   const settingsButtonClassName = classnames(
     'settings-button',
@@ -14,14 +15,34 @@ function DeleteAccount({isDarkTheme, userJWT, userLogout}) {
   )
 
   function deleteHandler() {
-    const config = {headers: {Authorization: 'Bearer ' + userJWT}}
-    axios.delete('/api/accountSettings/deleteAccount', config)
+    axios.delete('/api/account/settings/deleteAccount')
       .then(() => {
-        localStorage.removeItem('userJWT')
         localStorage.removeItem('userName')
         userLogout()
       })
-
+      .catch(err => {
+        const status = err.response.status
+        if (status === 401 || status === 403) {
+          axios.get('/api/account/getNewAccessToken')
+            .then(res => axios.delete('/api/account/settings/deleteAccount'))
+            .then(res => {
+              localStorage.removeItem('userName')
+              userLogout()
+            })
+            .catch(err => {
+              const status = err.response.status
+              if (status === 401 || status === 403) {
+                localStorage.removeItem('userName')
+                userLogout()
+                changePopUpDisplay()
+              } else {
+                alert('error happened :(')
+              }
+            })
+        } else {
+          alert('error happened :(')
+        }
+      })
   }
 
   return (
@@ -40,14 +61,14 @@ function DeleteAccount({isDarkTheme, userJWT, userLogout}) {
 
 const mapStateToProps = store => {
   return {
-    userJWT: store.account.userJWT,
     isDarkTheme: store.appearance.isDarkTheme
   }
 }
 
 const mapActionsToProps = dispatch => {
   return {
-    userLogout: bindActionCreators(userLogout, dispatch)
+    userLogout: bindActionCreators(userLogout, dispatch),
+    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
   }
 }
 

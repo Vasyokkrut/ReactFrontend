@@ -20,10 +20,9 @@ class MainComponent extends React.Component {
     document.body.className = props.isDarkTheme ? 'dark-body' : 'light-body'
     if(localStorage.getItem('isDarkTheme') === 'false') props.changeTheme()
 
-    const userJWT = localStorage.getItem('userJWT')
     const userName = localStorage.getItem('userName')
-    if (userName && userJWT) {
-      this.props.userLogin({userName, userJWT})
+    if (userName) {
+      this.props.userLogin({userName})
     }
   }
 

@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
 
-import { userLogin } from '../../Store/account/actions.js'
+import { userLogin, userLogout } from '../../Store/account/actions.js'
+import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
-function ChangeUserName({ userJWT, userLogin, currentUserName }) {
+function ChangeUserName({ userLogin, userLogout, currentUserName, changePopUpDisplay }) {
 
   const [newUserName, setNewUserName] = useState('')
   const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
@@ -53,33 +54,61 @@ function ChangeUserName({ userJWT, userLogin, currentUserName }) {
     // when user clicked the button this message will appear
     setChangingStatus({message: 'please wait...', successful: true})
 
-    // set data and configuration for request
-    const data = { newUserName }
-    const config = {headers: {Authorization: 'Bearer ' + userJWT}}
-    axios.patch('/api/accountSettings/changeUserName', data, config)
+    axios.patch('/api/account/settings/changeUserName', { newUserName })
       .then(res => {
-        
         if (res.data.userExists) {
           setChangingStatus({
             successful: false,
             message: 'this user exists yet'
           })
-          return
+        } else {
+          localStorage.setItem('userName', newUserName)
+          userLogin({userName: newUserName})
+          setChangingStatus({
+            successful: true,
+            message: 'username changed successfully'
+          })
         }
-
-        localStorage.setItem('userJWT', res.data.newJWT)
-        localStorage.setItem('userName', newUserName)
-        userLogin({userName: newUserName, userJWT: res.data.newJWT})
-        setChangingStatus({
-          successful: true,
-          message: 'username changed successfully'
-        })
       })
-      .catch(() => {
-        setChangingStatus({
-          successful: false,
-          message: 'something went wrong :('
-        })
+      .catch(err => {
+        const status = err.response.status
+        if (status === 401 || status === 403) {
+          axios.get('/api/account/getNewAccessToken')
+          .then(res => axios.patch('/api/account/settings/changeUserName', { newUserName }))
+          .then(res => {
+              if (res.data.userExists) {
+                setChangingStatus({
+                  successful: false,
+                  message: 'this user exists yet'
+                })
+              } else {
+                localStorage.setItem('userName', newUserName)
+                userLogin({userName: newUserName})
+                setChangingStatus({
+                  successful: true,
+                  message: 'username changed successfully'
+                })
+              }
+            })
+            .catch(err => {
+              const status = err.response.status
+              if (status === 401 || status === 403) {
+                localStorage.removeItem('userName')
+                userLogout()
+                changePopUpDisplay()
+              } else {
+                setChangingStatus({
+                  successful: false,
+                  message: 'something went wrong :('
+                })
+              }
+            })
+        } else {
+          setChangingStatus({
+            successful: false,
+            message: 'something went wrong :('
+          })
+        }
       })
   }
 
@@ -108,14 +137,15 @@ function ChangeUserName({ userJWT, userLogin, currentUserName }) {
 
 const mapStateToProps = store => {
   return {
-    userJWT: store.account.userJWT,
     currentUserName: store.account.userName
   }
 }
 
 const mapActionsToProps = dispatch => {
   return {
-    userLogin: bindActionCreators(userLogin, dispatch)
+    userLogin: bindActionCreators(userLogin, dispatch),
+    userLogout: bindActionCreators(userLogout, dispatch),
+    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
   }
 }
 

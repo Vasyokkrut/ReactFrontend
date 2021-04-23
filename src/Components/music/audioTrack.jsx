@@ -1,9 +1,10 @@
-import React from 'react'
 import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import { userLogout } from '../../Store/account/actions.js'
+import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 import {
   deleteAudioTrack,
   setIsMusicPlaying,
@@ -13,8 +14,8 @@ import {
 
 function AudioTrack({
   index,
-  userJWT,
   userName,
+  userLogout,
   audioTrack,
   isDarkTheme,
   isMusicPlaying,
@@ -23,6 +24,7 @@ function AudioTrack({
   currentAudioTrack,
   setIsMusicPlaying,
   currentMusicVolume,
+  changePopUpDisplay,
   setProgressBarWidth,
   setCurrentAudioTrack,
 }) {
@@ -39,20 +41,32 @@ function AudioTrack({
 
   function deleteTrack() {
     const config = {
-      headers: {
-        'Authorization': 'Bearer ' + userJWT
-      },
       data: {
         trackID: audioTrack._id
       }
     }
 
     axios.delete('/api/music/deleteUserTrack', config)
-      .then(() => {
-        deleteAudioTrack({track: audioTrack, trackIndex: index})
-      })
+      .then(res => deleteAudioTrack({track: audioTrack, trackIndex: index}))
       .catch(err => {
-        alert(err)
+        const status = err.response.status
+        if (status === 401 || status === 403) {
+          axios.get('/api/account/getNewAccessToken')
+            .then(res => axios.delete('/api/music/deleteUserTrack', config))
+            .then(res => deleteAudioTrack({track: audioTrack, trackIndex: index}))
+            .catch(err => {
+              const status = err.response.status
+              if (status === 401 || status === 403) {
+                localStorage.removeItem('userName')
+                userLogout()
+                changePopUpDisplay()
+              } else {
+                alert('error happened :(')
+              }
+            })
+        } else {
+          alert('error happened :(')
+        }
       })
   }
 
@@ -113,7 +127,6 @@ function AudioTrack({
 
 const mapStateToProps = store => {
   return {
-    userJWT: store.account.userJWT,
     userName: store.account.userName,
     isDarkTheme: store.appearance.isDarkTheme,
     isMusicPlaying: store.music.isMusicPlaying,
@@ -125,8 +138,10 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = dispatch => {
   return {
+    userLogout: bindActionCreators(userLogout, dispatch),
     deleteAudioTrack: bindActionCreators(deleteAudioTrack, dispatch),
     setIsMusicPlaying: bindActionCreators(setIsMusicPlaying, dispatch),
+    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch),
     setProgressBarWidth: bindActionCreators(setProgressBarWidth, dispatch),
     setCurrentAudioTrack: bindActionCreators(setCurrentAudioTrack, dispatch)
   }

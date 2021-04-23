@@ -126,19 +126,25 @@ function PopUp(props) {
                 message: 'please wait...'
             })
             const data = {userName: loginState[0], password: loginState[1]}
-            axios.post('/login', data)
+            axios.post('/api/account/login', data)
                 .then(res => {
-                    const userJWT = res.data.userJWT
-                    props.userLogin({userName: loginState[0], userJWT: userJWT})
+                    props.userLogin({userName: loginState[0]})
                     localStorage.setItem('userName', loginState[0])
-                    localStorage.setItem('userJWT', userJWT)
                     closePopup()
                 })
-                .catch(() => {
-                    setLoginStatus({
-                        successful: false,
-                        message: 'wrong login or password'
-                    })
+                .catch(err => {
+                    const status = err.response.status
+                    if (status === 400 || status === 404) {
+                        setLoginStatus({
+                            successful: false,
+                            message: 'wrong login or password'
+                        })
+                    } else {
+                        setLoginStatus({
+                            successful: false,
+                            message: 'something went wrong'
+                        })
+                    }
                 })
             return
         }
@@ -153,12 +159,12 @@ function PopUp(props) {
                 })
                 return
             }
-            const data = {login: loginState[2], password: loginState[3]}
+            const data = {userName: loginState[2], password: loginState[3]}
             setLoginStatus({
                 successful: true,
                 message: 'please wait...'
             })
-            axios.post('/register', data )
+            axios.post('/api/account/register', data )
                 .then(res => {
                     if (res.status === 208) {
                         setLoginStatus({

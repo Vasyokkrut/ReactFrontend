@@ -1,4 +1,3 @@
-import React from 'react'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -32,7 +31,6 @@ function RightList(props) {
     }
 
     function userLogout() {
-        localStorage.removeItem('userJWT')
         localStorage.removeItem('userName')
         props.userLogout()
         props.resetAudioPlayer()
@@ -52,7 +50,7 @@ function RightList(props) {
                     Change theme
                 </span>
                 {
-                    props.isLoggedIn
+                    props.userName
                     ?
                     <>
                             <Link
@@ -78,7 +76,7 @@ function RightList(props) {
 
 const mapStateToProps = store => {
     return {
-        isLoggedIn: store.account.isLoggedIn,
+        userName: store.account.userName,
         isDarkTheme: store.appearance.isDarkTheme
     }
 }

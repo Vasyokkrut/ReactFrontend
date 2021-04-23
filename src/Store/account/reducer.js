@@ -1,26 +1,18 @@
 import { LOG_IN, LOG_OUT } from '../actionTypes.js'
 
 const initialState = {
-  isLoggedIn: false,
-  userName: null,
-  userJWT: null
+  userName: null
 }
 
 export const accountReducer = (state = initialState, action) => {
   switch(action.type){
     case LOG_IN:
       return {
-        ...state,
-        isLoggedIn: true,
-        userName: action.payload.userName,
-        userJWT: action.payload.userJWT
+        userName: action.payload.userName
       }
     case LOG_OUT:
       return {
-        ...state,
-        userJWT: null,
-        userName: null,
-        isLoggedIn: false
+        userName: null
       }
     default:
       return state

@@ -1,8 +1,12 @@
 import axios from 'axios'
 import { connect } from 'react-redux'
 import React, { useState } from 'react'
+import { bindActionCreators } from 'redux'
 
-function ChangePassword({ userJWT }) {
+import { userLogout } from '../../Store/account/actions.js'
+import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+
+function ChangePassword({userLogout, changePopUpDisplay}) {
 
   const [newPassword, setNewPassword] = useState('')
   const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
@@ -13,40 +17,44 @@ function ChangePassword({ userJWT }) {
     color: changingStatus.successful ? 'green' : 'red'
   }
 
-  function changePasswordHandler() {
-
+  function checkPassword() {
     const allowedSymbols = /^[A-Za-z0-9]+$/
 
     // some checks for new password
+    // password cannot be empty
+    // and cannot contain special symbols
+    // such as endlines or whitespaces
     if (newPassword === '') {
       setChangingStatus({
         successful: false,
         message: 'new password is empty'
       })
-      return
+      return false
     }
     if (/\s/.test(newPassword)) {
       setChangingStatus({
         successful: false,
         message: 'password cannot contain whitespaces'
       })
-      return
+      return false
     }
     if (!allowedSymbols.test(newPassword)) {
       setChangingStatus({
         successful: false,
         message: 'only letters and numbers allowed'
       })
-      return
+      return false
     }
+    return true
+  }
+
+  function changePassword() {
+    if(!checkPassword(newPassword)) return
 
     // when user clicked the button this message will appear
     setChangingStatus({message: 'please wait...', successful: true})
 
-    // set data and configuration for request
-    const data = { newPassword }
-    const config = {headers: {Authorization: 'Bearer ' + userJWT}}
-    axios.patch('/api/accountSettings/changePassword', data, config)
+    axios.patch('/api/account/settings/changePassword', { newPassword })
       .then(res => {
         setChangingStatus({
           successful: true,
@@ -54,12 +62,36 @@ function ChangePassword({ userJWT }) {
         })
       })
       .catch(err => {
-        setChangingStatus({
-          successful: false,
-          message: 'Something went wrong :('
-        })
+        const status = err.response.status
+        if (status === 401 || status === 403) {
+          axios.get('/api/account/getNewAccessToken')
+            .then(res => axios.patch('/api/account/settings/changePassword', { newPassword }))
+            .then(res => {
+              setChangingStatus({
+                successful: true,
+                message: 'password changed successfully'
+              })
+            })
+            .catch(err => {
+              const status = err.response.status
+              if (status === 401 || status === 403) {
+                localStorage.removeItem('userName')
+                userLogout()
+                changePopUpDisplay()
+              } else {
+                setChangingStatus({
+                  successful: false,
+                  message: 'Something went wrong :('
+                })
+              }
+            })
+        } else {
+          setChangingStatus({
+            successful: false,
+            message: 'Something went wrong :('
+          })
+        }
       })
-
   }
 
   return (
@@ -77,7 +109,7 @@ function ChangePassword({ userJWT }) {
         {changingStatus.message}
       </div>
       <div>
-        <button className='primary-button' onClick={changePasswordHandler} >
+        <button className='primary-button' onClick={changePassword} >
           Change
         </button>
       </div>
@@ -85,10 +117,11 @@ function ChangePassword({ userJWT }) {
   )
 }
 
-const mapStateToProps = store => {
+const mapActionsToProps = dispatch => {
   return {
-    userJWT: store.account.userJWT
+    userLogout: bindActionCreators(userLogout, dispatch),
+    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
   }
 }
 
-export default connect(mapStateToProps, null)(ChangePassword)
+export default connect(null, mapActionsToProps)(ChangePassword)

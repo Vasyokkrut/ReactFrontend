@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
 
+import { userLogout } from '../../Store/account/actions.js'
 import { addAudioTrack } from '../../Store/music/actions.js'
+import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function AddTrack(props) {
   const [title, setTitle] = useState('')
@@ -19,15 +21,38 @@ function AddTrack(props) {
 
   function uploadTrack() {
     if (track !== null) {
-      const config = {headers: {'Authorization': 'Bearer ' + props.userJWT}}
       const data = new FormData()
       data.append('title', title)
       data.append('track', track)
-      axios.put('/api/music/uploadMusicForUser', data, config)
+      axios.put('/api/music/uploadMusicForUser', data)
         .then(res => {
           setTrack(null)
           setTitle('')
           props.addAudioTrack(res.data)
+        })
+        .catch(err => {
+          const status = err.response.status
+          if (status === 401 || status === 403) {
+            axios.get('/api/account/getNewAccessToken')
+            .then(res => axios.put('/api/music/uploadMusicForUser', data))
+            .then(res => {
+                setTrack(null)
+                setTitle('')
+                props.addAudioTrack(res.data)
+              })
+            .catch(err => {
+              const status = err.response.status
+              if (status === 401 || status === 403) {
+                localStorage.removeItem('userName')
+                props.userLogout()
+                props.changePopUpDisplay()
+              } else {
+                alert('error happened :(')
+              }
+            })
+          } else {
+            alert('error happened :(')
+          }
         })
     }
   }
@@ -79,16 +104,12 @@ function AddTrack(props) {
   )
 }
 
-const mapStateToProps = store => {
-  return {
-    userJWT: store.account.userJWT
-  }
-}
-
 const mapActionsToProps = dispatch => {
   return {
-    addAudioTrack: bindActionCreators(addAudioTrack, dispatch)
+    userLogout: bindActionCreators(userLogout, dispatch),
+    addAudioTrack: bindActionCreators(addAudioTrack, dispatch),
+    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(AddTrack)
+export default connect(null, mapActionsToProps)(AddTrack)

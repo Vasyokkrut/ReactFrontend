@@ -1,10 +1,11 @@
-import React from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { addUserPost } from '../../../Store/posts/actions.js'
+import { userLogout } from '../../../Store/account/actions.js'
+import { changePopUpDisplay } from '../../../Store/appearance/actions.js'
 
 function AddPostForm(props) {
     const [picture, setPicture] = useState(null)
@@ -20,22 +21,46 @@ function AddPostForm(props) {
 
     function handleUpload() {
         if(picture !== null) {
-            const config = {headers: {'Authorization': 'Bearer ' + props.userJWT}}
             const data = new FormData()
             data.append('title', title)
             data.append('picture', picture)
             
-            axios.put('/api/uploadPostForUser', data, config)
+            axios.put('/api/uploadPostForUser', data)
                 .then(response => {
                     props.addUserPost(response.data)
                     setPicture(null)
                     setTitle('')
                     document.getElementById('choose-picture-input').value = ''
                 })
+                .catch(err => {
+                    const status = err.response.status
+                    if (status === 401 || status === 403) {
+                        axios.get('/api/account/getNewAccessToken')
+                            .then(res => axios.put('/api/uploadPostForUser', data))
+                            .then(res => {
+                                props.addUserPost(res.data)
+                                setPicture(null)
+                                setTitle('')
+                                document.getElementById('choose-picture-input').value = ''
+                            })
+                            .catch(err => {
+                                const status = err.response.status
+                                if (status === 401 || status === 403) {
+                                    localStorage.removeItem('userName')
+                                    this.props.userLogout()
+                                    this.props.changePopUpDisplay()
+                                } else {
+                                    alert('error happened :(')
+                                }
+                            })
+                    } else {
+                        alert('error happened :(')
+                    }
+                })
         }
     }
 
-    if (!props.isLoggedIn || props.userName.toLowerCase() !== props.URLUserName.toLowerCase()) return null
+    if (!props.userName || props.userName.toLowerCase() !== props.URLUserName.toLowerCase()) return null
 
     return(
         <div className='flex-center'>
@@ -84,15 +109,15 @@ function AddPostForm(props) {
 
 const mapStateToProps = store => {
     return {
-        userJWT: store.account.userJWT,
-        userName: store.account.userName,
-        isLoggedIn: store.account.isLoggedIn
+        userName: store.account.userName
     }
 }
 
 const mapActionsToProps = dispatch => {
     return {
-        addUserPost: bindActionCreators(addUserPost, dispatch)
+        userLogout: bindActionCreators(userLogout, dispatch),
+        addUserPost: bindActionCreators(addUserPost, dispatch),
+        changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
     }
 }
 

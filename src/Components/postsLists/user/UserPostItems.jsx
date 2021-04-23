@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux'
 
 import Picture from '../../Picture'
 import Buttons from '../../buttons/functionalButtons'
+import { userLogout } from '../../../Store/account/actions.js'
+import { changePopUpDisplay } from '../../../Store/appearance/actions.js'
 import { deleteUserPost, setUserPosts } from '../../../Store/posts/actions.js'
 
 class PostItems extends React.Component {
@@ -50,20 +52,35 @@ class PostItems extends React.Component {
     }
 
     handleDeleteClick(fileName) {
-        axios.delete(
-            '/api/deleteUserPost',
-            {
-                data:{
-                    delete: fileName,
-                    userName: this.props.userName
-                },
-                headers:{
-                    Authorization: 'Bearer ' + this.props.userJWT
-                } 
+        const config = {
+            data: {
+                delete: fileName,
+                userName: this.props.userName
             }
-        )
-        .then(res => {if (res.data.deleted === true) this.props.deleteUserPost(fileName) })
-        .catch(() => {alert('whoops, we cannot delete this post')})
+        }
+
+        axios.delete('/api/deleteUserPost', config)
+            .then(res => this.props.deleteUserPost(fileName))
+            .catch(err => {
+                const status = err.response.status
+                if (status === 401 || status === 403) {
+                    axios.get('/api/account/getNewAccessToken')
+                        .then(res => axios.delete('/api/deleteUserPost', config))
+                        .then(res => this.props.deleteUserPost(fileName))
+                        .catch(err => {
+                            const status = err.response.status
+                            if (status === 401 || status === 403) {
+                                localStorage.removeItem('userName')
+                                this.props.userLogout()
+                                this.props.changePopUpDisplay()
+                            } else {
+                                alert('error happened :(')
+                            }
+                        })
+                } else {
+                    alert('error happened :(')
+                }
+            })
     }
 
     render() {
@@ -119,18 +136,18 @@ class PostItems extends React.Component {
 
 const mapStateToProps = store => {
     return {
-        userJWT: store.account.userJWT,
         userName: store.account.userName,
         userPosts: store.posts.userPosts,
-        isLoggedIn: store.account.isLoggedIn,
         isDarkTheme: store.appearance.isDarkTheme
     }
 }
 
 const mapActionsToProps = dispatch => {
     return {
+        userLogout: bindActionCreators(userLogout, dispatch),
         setUserPosts: bindActionCreators(setUserPosts, dispatch),
-        deleteUserPost: bindActionCreators(deleteUserPost, dispatch)
+        deleteUserPost: bindActionCreators(deleteUserPost, dispatch),
+        changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
     }
 }
 
