@@ -68,6 +68,7 @@ function ChangeUserName({ userLogin, userLogout, currentUserName, changePopUpDis
             successful: true,
             message: 'username changed successfully'
           })
+          setNewUserName('')
         }
       })
       .catch(err => {
@@ -88,6 +89,7 @@ function ChangeUserName({ userLogin, userLogout, currentUserName, changePopUpDis
                   successful: true,
                   message: 'username changed successfully'
                 })
+                setNewUserName('')
               }
             })
             .catch(err => {

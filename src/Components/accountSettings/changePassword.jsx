@@ -60,6 +60,7 @@ function ChangePassword({userLogout, changePopUpDisplay}) {
           successful: true,
           message: 'password changed successfully'
         })
+        setNewPassword('')
       })
       .catch(err => {
         const status = err.response.status
@@ -71,6 +72,7 @@ function ChangePassword({userLogout, changePopUpDisplay}) {
                 successful: true,
                 message: 'password changed successfully'
               })
+              setNewPassword('')
             })
             .catch(err => {
               const status = err.response.status
