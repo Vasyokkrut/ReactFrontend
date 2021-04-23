@@ -1,3 +1,4 @@
+import axios from 'axios'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -13,6 +14,7 @@ function Dropdown(props) {
   }
 
   function logout() {
+    axios.get('/api/account/logout')
     localStorage.removeItem('userName')
     props.userLogout()
     props.resetAudioPlayer()

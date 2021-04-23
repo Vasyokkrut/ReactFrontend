@@ -1,3 +1,4 @@
+import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -31,6 +32,7 @@ function RightList(props) {
     }
 
     function userLogout() {
+        axios.get('/api/account/logout')
         localStorage.removeItem('userName')
         props.userLogout()
         props.resetAudioPlayer()
