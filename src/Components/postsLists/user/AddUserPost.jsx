@@ -10,9 +10,18 @@ import { changePopUpDisplay } from '../../../Store/appearance/actions.js'
 function AddPostForm(props) {
     const [picture, setPicture] = useState(null)
     const [title, setTitle] = useState('')
+    const [preview, setPreview] = useState(null)
 
     function handlePictureInput(event) {
-        setPicture(event.target.files[0])
+        const picture = event.target.files[0]
+        
+        setPicture(picture)
+        
+        const reader = new FileReader()
+        reader.onload = event => {
+            setPreview(event.target.result)
+        }
+        reader.readAsDataURL(picture)
     }
 
     function handleTitleInput(event) {
@@ -29,6 +38,7 @@ function AddPostForm(props) {
                 .then(response => {
                     props.addUserPost(response.data)
                     setPicture(null)
+                    setPreview(null)
                     setTitle('')
                     document.getElementById('choose-picture-input').value = ''
                 })
@@ -40,6 +50,7 @@ function AddPostForm(props) {
                             .then(res => {
                                 props.addUserPost(res.data)
                                 setPicture(null)
+                                setPreview(null)
                                 setTitle('')
                                 document.getElementById('choose-picture-input').value = ''
                             })
@@ -63,46 +74,45 @@ function AddPostForm(props) {
     if (!props.userName || props.userName.toLowerCase() !== props.URLUserName.toLowerCase()) return null
 
     return(
-        <div className='flex-center'>
-            <div>
-                <div className='flex-center'>
-                    <label className='upload-button'>
-                        {picture === null ? 'Create Post' : 'Rechoose picture'}
-                        <input
-                            id='choose-picture-input'
-                            accept='image/*'
-                            type='file'
-                            onInput={handlePictureInput}
-                        />
-                    </label>
-                </div>
-                {picture !== null?
-                    <>
-                        <div style={{fontSize:'1.2rem', textAlign:'center'}}>
-                            Picture is choosen!<br />
-                            You can upload it<br />
-                            using form below
-                        </div>
-                        <input
-                            className='title-input'
-                            type='text'
-                            placeholder='Choose title'
-                            onChange={handleTitleInput}
-                            value={title}
-                            onKeyDown={event => {if (event.key === 'Enter') handleUpload()}}
-                        />
-                        <div className='flex-center'>
-                            <button
-                                className='upload-button'
-                                onClick={handleUpload}
-                            >
-                                Upload Picture
-                            </button>
-                        </div>
-                    </>
-                    :null
-                }
-            </div>
+        <div className='post-creator'>
+            <label className='upload-button'>
+                {picture === null ? 'Create Post' : 'Rechoose picture'}
+                <input
+                    id='choose-picture-input'
+                    accept='image/*'
+                    type='file'
+                    onInput={handlePictureInput}
+                />
+            </label>
+            {
+                picture ?
+                <>
+                    <div className='preview-container' >
+                    {
+                        preview ? 
+                        <img src={preview} alt='preview' className='preview-photo' />
+                        : null
+                    }
+                    </div>
+                    <input
+                        className='title-input'
+                        type='text'
+                        placeholder='Choose title'
+                        onChange={handleTitleInput}
+                        value={title}
+                        onKeyDown={event => {if (event.key === 'Enter') handleUpload()}}
+                    />
+                    <div className='flex-center'>
+                        <button
+                            className='upload-button'
+                            onClick={handleUpload}
+                        >
+                            Upload Picture
+                        </button>
+                    </div>
+                </>
+                : null
+            }
         </div>
     )
 }

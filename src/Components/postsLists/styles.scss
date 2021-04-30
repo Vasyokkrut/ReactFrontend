@@ -2,25 +2,28 @@
   display: none;
 }
 
-.post-item {
-  margin-top: 2rem;
-  border-radius: 1rem;
-  
-  &-light {
-    background-color: whitesmoke;
-    border: 1px solid #e0e0e0;
-  }
-  
-  &-dark {
-    background-color: #333;
-    border: 1px solid #333;
-  }
-}
+.post {
 
-.post-title {
-  font-size: 2rem;
-  padding: 1rem 0;
-  text-align: center;
+  &-item {
+    margin-top: 2rem;
+    border-radius: 1rem;
+
+    &-light {
+      background-color: whitesmoke;
+      border: 1px solid #e0e0e0;
+    }
+    
+    &-dark {
+      background-color: #333;
+      border: 1px solid #333;
+    }
+  }
+
+  &-title {
+    font-size: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+  }
 }
 
 .account-name {
@@ -44,5 +47,27 @@
   font-size: 1.5rem;
   padding-left: 1rem;
   outline:none;
-  margin: 1rem;
+}
+
+.post-creator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview {
+  &-photo {
+    max-height: 10rem;
+    max-width: 18rem;
+  }
+
+  &-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+    width: 20rem;
+    margin: 1rem 0;
+  }
 }
