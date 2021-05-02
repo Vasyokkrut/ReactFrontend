@@ -1,4 +1,5 @@
 import axios from 'axios'
+import classNames from 'classnames'
 import { connect } from 'react-redux'
 import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
@@ -6,7 +7,7 @@ import { bindActionCreators } from 'redux'
 import { userLogin, userLogout } from '../../Store/account/actions.js'
 import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
-function ChangeUserName({ userLogin, userLogout, currentUserName, changePopUpDisplay }) {
+function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, changePopUpDisplay }) {
 
   const [newUserName, setNewUserName] = useState('')
   const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
@@ -16,6 +17,11 @@ function ChangeUserName({ userLogin, userLogout, currentUserName, changePopUpDis
     fontSize: '1.5rem',
     color: changingStatus.successful ? 'green' : 'red'
   }
+
+  const inputClassName = classNames(
+    'change-form-input',
+    isDarkTheme ? 'change-form-input-dark' : 'change-form-input-light'
+  )
 
   function changeUserNameHandler() {
 
@@ -121,7 +127,7 @@ function ChangeUserName({ userLogin, userLogout, currentUserName, changePopUpDis
           type='text'
           value={newUserName}
           onChange={event => setNewUserName(event.target.value)}
-          className='change-form-input'
+          className={inputClassName}
           placeholder='enter your new username'
         />
       </div>
@@ -139,7 +145,8 @@ function ChangeUserName({ userLogin, userLogout, currentUserName, changePopUpDis
 
 const mapStateToProps = store => {
   return {
-    currentUserName: store.account.userName
+    currentUserName: store.account.userName,
+    isDarkTheme: store.appearance.isDarkTheme
   }
 }
 

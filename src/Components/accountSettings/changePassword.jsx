@@ -1,4 +1,5 @@
 import axios from 'axios'
+import classNames from 'classnames'
 import { connect } from 'react-redux'
 import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
@@ -6,7 +7,7 @@ import { bindActionCreators } from 'redux'
 import { userLogout } from '../../Store/account/actions.js'
 import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
-function ChangePassword({userLogout, changePopUpDisplay}) {
+function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
 
   const [newPassword, setNewPassword] = useState('')
   const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
@@ -16,6 +17,11 @@ function ChangePassword({userLogout, changePopUpDisplay}) {
     fontSize: '1.5rem',
     color: changingStatus.successful ? 'green' : 'red'
   }
+
+  const inputClassName = classNames(
+    'change-form-input',
+    isDarkTheme ? 'change-form-input-dark' : 'change-form-input-light'
+  )
 
   function checkPassword() {
     const allowedSymbols = /^[A-Za-z0-9]+$/
@@ -103,7 +109,7 @@ function ChangePassword({userLogout, changePopUpDisplay}) {
           type='text'
           value={newPassword}
           onChange={event => setNewPassword(event.target.value)}
-          className='change-form-input'
+          className={inputClassName}
           placeholder='enter your new password'
         />
       </div>
@@ -119,6 +125,12 @@ function ChangePassword({userLogout, changePopUpDisplay}) {
   )
 }
 
+const mapStateToProps = store => {
+  return {
+    isDarkTheme: store.appearance.isDarkTheme
+  }
+}
+
 const mapActionsToProps = dispatch => {
   return {
     userLogout: bindActionCreators(userLogout, dispatch),
@@ -126,4 +138,4 @@ const mapActionsToProps = dispatch => {
   }
 }
 
-export default connect(null, mapActionsToProps)(ChangePassword)
+export default connect(mapStateToProps, mapActionsToProps)(ChangePassword)

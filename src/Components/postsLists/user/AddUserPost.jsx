@@ -160,7 +160,7 @@ function AddPostForm(props) {
                 <>
                     <div className='preview-container' >
                     {
-                        preview ? 
+                        preview ?
                         <img draggable={false} src={preview} alt='preview' className='preview-photo' />
                         : null
                     }
