@@ -12,7 +12,7 @@ function Buttons({item, pictureURL, handleDeleteClick, isDeleteAvailable}) {
 
     let downloadHref = `/api/downloadPicture/${item.pictureName}`
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV !== 'production') {
         pictureURL = 'http://localhost:5000' + pictureURL
         downloadHref = 'http://localhost:5000' + downloadHref
     }
