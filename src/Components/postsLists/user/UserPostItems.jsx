@@ -118,7 +118,10 @@ class PostItems extends React.Component {
                 return (
                     <div key={item._id} className={PostClassName}>
                         <div className='post-title'>
-                            <span>{item.title}</span>
+                            {item.title}
+                        </div>
+                        <div className='post-text' >
+                            {item.text}
                         </div>
                         <Picture pictureURL={pictureURL} />
                         <Buttons

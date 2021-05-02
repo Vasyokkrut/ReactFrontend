@@ -1,3 +1,8 @@
+$border-color-light: #e0e0e0;
+$border-color-dark: #333;
+$background-color-light: white;
+$background-color-dark: #222;
+
 #choose-picture-input {
   display: none;
 }
@@ -7,6 +12,7 @@
   &-item {
     margin-top: 2rem;
     border-radius: 1rem;
+    padding: 1.2rem;
 
     &-light {
       background-color: whitesmoke;
@@ -21,8 +27,16 @@
 
   &-title {
     font-size: 2rem;
-    padding: 1rem 0;
     text-align: center;
+    overflow: hidden;
+    width: 600px;
+  }
+  
+  &-text {
+    width: 600px;
+    white-space: pre-wrap;
+    padding: 1rem 0;
+    word-wrap: break-word;
   }
 }
 
@@ -39,14 +53,33 @@
   font-size: 3rem;
 }
 
-.title-input {
-  height: 2.5rem;
-  width: 15rem;
-  border-radius: 1.25rem;
-  border: none;
-  font-size: 1.5rem;
-  padding-left: 1rem;
-  outline:none;
+.title {
+  &-input {
+    height: 2.5rem;
+    width: 25rem;
+    border-radius: .5rem .5rem 0 0rem;
+    font-size: 1.5rem;
+    padding: .25rem;
+    outline:none;
+
+    &-wrapper {
+      width: 35.75rem;
+    }
+
+    &-light {
+      color: black;
+      background-color: $background-color-light;
+      border: 2px solid $border-color-light;
+      border-bottom: none;
+    }
+  
+    &-dark {
+      background-color: $background-color-dark;
+      color: white;
+      border: 2px solid $border-color-dark;
+      border-bottom: none;
+    }
+  }
 }
 
 .post-creator {
@@ -70,4 +103,33 @@
     width: 20rem;
     margin: 1rem 0;
   }
+}
+
+.textinput {
+  border-style: solid;
+  border-radius: 0rem .5rem .5rem .5rem;
+  display: block;
+  padding: .25rem;
+  width: 35rem;
+  min-height: 7rem;
+  resize: none;
+  font-size: 1.2rem;
+  outline: none;
+
+  &-light {
+    background-color: $background-color-light;
+    border: 2px solid $border-color-light;
+    color: black;
+  }
+
+  &-dark {
+    color: white;
+    background-color: $background-color-dark;
+    border: 2px solid $border-color-dark;
+  }
+}
+
+.upload-status {
+  font-size: 1.5rem;
+  height: 2rem;
 }

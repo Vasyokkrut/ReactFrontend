@@ -1,4 +1,5 @@
 import axios from 'axios'
+import classNames from 'classnames'
 import { connect } from 'react-redux'
 import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
@@ -10,6 +11,11 @@ import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 function AddTrack(props) {
   const [title, setTitle] = useState('')
   const [track, setTrack] = useState(null)
+
+  const titleInputClassName = classNames(
+    'audiotrack-title-input',
+    props.isDarkTheme ? 'audiotrack-title-input-dark' : 'audiotrack-title-input-light'
+  )
 
   function handleTrackInput(event) {
     setTrack(event.target.files[0])
@@ -81,13 +87,13 @@ function AddTrack(props) {
           null
           :
           <>
-            <div style={{fontSize:'1.2rem', textAlign:'center'}}>
+            <div style={{fontSize:'1.2rem', textAlign:'center', margin: '1rem'}}>
               Track is choosen!<br />
               You can upload it<br />
               using form below
             </div>
             <input
-              className='title-input'
+              className={titleInputClassName}
               type='text'
               placeholder='Choose title'
               onChange={handleTitleInput}
@@ -104,6 +110,12 @@ function AddTrack(props) {
   )
 }
 
+const mapStateToProps = store => {
+  return {
+      isDarkTheme: store.appearance.isDarkTheme
+  }
+}
+
 const mapActionsToProps = dispatch => {
   return {
     userLogout: bindActionCreators(userLogout, dispatch),
@@ -112,4 +124,4 @@ const mapActionsToProps = dispatch => {
   }
 }
 
-export default connect(null, mapActionsToProps)(AddTrack)
+export default connect(mapStateToProps, mapActionsToProps)(AddTrack)
