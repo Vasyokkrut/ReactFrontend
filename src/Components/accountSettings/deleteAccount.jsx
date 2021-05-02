@@ -47,7 +47,7 @@ function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
 
   return (
     <div className='deleting-prompt' >
-      <div>do you indeed want to delete your account?</div>
+      <div>are you sure you want to delete your account?</div>
       <div>this action is irreversible!</div>
       <div
         className={settingsButtonClassName}
