@@ -10,6 +10,7 @@ import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, changePopUpDisplay }) {
 
   const [newUserName, setNewUserName] = useState('')
+  const [password, setPassword] = useState('')
   const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
 
   const changingStatusStyle = {
@@ -38,7 +39,7 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
     if (newUserName === currentUserName) {
       setChangingStatus({
         successful: false,
-        message: 'this username is the same'
+        message: 'new username is the same as current one'
       })
       return
     }
@@ -60,7 +61,11 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
     // when user clicked the button this message will appear
     setChangingStatus({message: 'please wait...', successful: true})
 
-    axios.patch('/api/account/settings/changeUserName', { newUserName })
+    const data = {
+      newUserName,
+      password
+    }
+    axios.patch('/api/account/settings/changeUserName', data)
       .then(res => {
         if (res.data.userExists) {
           setChangingStatus({
@@ -75,13 +80,14 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
             message: 'username changed successfully'
           })
           setNewUserName('')
+          setPassword('')
         }
       })
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
           axios.get('/api/account/getNewAccessToken')
-          .then(res => axios.patch('/api/account/settings/changeUserName', { newUserName }))
+          .then(res => axios.patch('/api/account/settings/changeUserName', data))
           .then(res => {
               if (res.data.userExists) {
                 setChangingStatus({
@@ -96,6 +102,7 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
                   message: 'username changed successfully'
                 })
                 setNewUserName('')
+                setPassword('')
               }
             })
             .catch(err => {
@@ -104,6 +111,11 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
                 localStorage.removeItem('userName')
                 userLogout()
                 changePopUpDisplay()
+              } else if (status === 400) {
+                setChangingStatus({
+                  successful: false,
+                  message: 'wrong password'
+                })
               } else {
                 setChangingStatus({
                   successful: false,
@@ -111,6 +123,11 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
                 })
               }
             })
+        } else if (status === 400) {
+          setChangingStatus({
+            successful: false,
+            message: 'wrong password'
+          })
         } else {
           setChangingStatus({
             successful: false,
@@ -129,6 +146,15 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
           onChange={event => setNewUserName(event.target.value)}
           className={inputClassName}
           placeholder='enter your new username'
+        />
+      </div>
+      <div>
+        <input
+          type='password'
+          value={password}
+          onChange={event => setPassword(event.target.value)}
+          className={inputClassName}
+          placeholder='confirm your password'
         />
       </div>
       <div style={changingStatusStyle}>

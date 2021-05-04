@@ -9,8 +9,34 @@ import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
 
-  const [newPassword, setNewPassword] = useState('')
-  const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
+  const [password, setPassword] = useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmNewPassword: ''
+  })
+  const [changingStatus, setChangingStatus] = useState({
+    message: '',
+    successful: null
+  })
+
+  function setOldPassword(event) {
+    setPassword({
+      ...password,
+      oldPassword: event.target.value
+    })
+  }
+  function setFirstNewPassword(event) {
+    setPassword({
+      ...password,
+      newPassword: event.target.value
+    })
+  }
+  function setSecondNewPassword(event) {
+    setPassword({
+      ...password,
+      confirmNewPassword: event.target.value
+    })
+  }
 
   const changingStatusStyle = {
     height: '2rem',
@@ -30,21 +56,42 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
     // password cannot be empty
     // and cannot contain special symbols
     // such as endlines or whitespaces
-    if (newPassword === '') {
+    if (password.oldPassword === '') {
+      setChangingStatus({
+        successful: false,
+        message: 'you should confirm your current password'
+      })
+      return false
+    }
+    if (password.newPassword === '') {
       setChangingStatus({
         successful: false,
         message: 'new password is empty'
       })
       return false
     }
-    if (/\s/.test(newPassword)) {
+    if (password.confirmNewPassword === '') {
       setChangingStatus({
         successful: false,
-        message: 'password cannot contain whitespaces'
+        message: 'you should confirm your new password'
       })
       return false
     }
-    if (!allowedSymbols.test(newPassword)) {
+    if (password.newPassword !== password.confirmNewPassword) {
+      setChangingStatus({
+        successful: false,
+        message: 'your new passwords are not same'
+      })
+      return false
+    }
+    if (password.newPassword === password.oldPassword) {
+      setChangingStatus({
+        successful: false,
+        message: 'your new password same as previous one'
+      })
+      return false
+    }
+    if (!allowedSymbols.test(password.newPassword)) {
       setChangingStatus({
         successful: false,
         message: 'only letters and numbers allowed'
@@ -55,30 +102,42 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
   }
 
   function changePassword() {
-    if(!checkPassword(newPassword)) return
+    if(!checkPassword(password)) return
 
     // when user clicked the button this message will appear
     setChangingStatus({message: 'please wait...', successful: true})
 
-    axios.patch('/api/account/settings/changePassword', { newPassword })
+    const data = {
+      newPassword: password.newPassword,
+      oldPassword: password.oldPassword
+    }
+    axios.patch('/api/account/settings/changePassword', data)
       .then(res => {
         setChangingStatus({
           successful: true,
           message: 'password changed successfully'
         })
-        setNewPassword('')
+        setPassword({
+          oldPassword: '',
+          newPassword: '',
+          confirmNewPassword: ''
+        })
       })
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
           axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.patch('/api/account/settings/changePassword', { newPassword }))
+            .then(res => axios.patch('/api/account/settings/changePassword', data))
             .then(res => {
               setChangingStatus({
                 successful: true,
                 message: 'password changed successfully'
               })
-              setNewPassword('')
+              setPassword({
+                oldPassword: '',
+                newPassword: '',
+                confirmNewPassword: ''
+              })
             })
             .catch(err => {
               const status = err.response.status
@@ -86,6 +145,11 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
                 localStorage.removeItem('userName')
                 userLogout()
                 changePopUpDisplay()
+              } else if (status === 400) {
+                setChangingStatus({
+                  successful: false,
+                  message: 'old password is wrong'
+                })
               } else {
                 setChangingStatus({
                   successful: false,
@@ -93,6 +157,11 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
                 })
               }
             })
+        } else if (status === 400) {
+          setChangingStatus({
+            successful: false,
+            message: 'old password is wrong'
+          })
         } else {
           setChangingStatus({
             successful: false,
@@ -106,11 +175,29 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
     <div className='change-form' >
       <div>
         <input
-          type='text'
-          value={newPassword}
-          onChange={event => setNewPassword(event.target.value)}
+          type='password'
+          value={password.oldPassword}
+          onChange={setOldPassword}
+          className={inputClassName}
+          placeholder='enter your old password'
+        />
+      </div>
+      <div>
+        <input
+          type='password'
+          value={password.newPassword}
+          onChange={setFirstNewPassword}
           className={inputClassName}
           placeholder='enter your new password'
+        />
+      </div>
+      <div>
+        <input
+          type='password'
+          value={password.confirmNewPassword}
+          onChange={setSecondNewPassword}
+          className={inputClassName}
+          placeholder='repeat your new password'
         />
       </div>
       <div style={changingStatusStyle}>
