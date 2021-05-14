@@ -1,0 +1,236 @@
+.friend-item {
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+
+  &-light {
+    border-top: 2px solid #ccc;
+  }
+
+  &-dark {
+    border-top: 2px solid #333;
+  }
+
+  &-name {
+    display: block;
+    height: 2rem;
+    font-size: 2rem;
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.search {
+  &-friends {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+    margin-left: 0;
+  }
+
+  &-input {
+    width: 30rem;
+    height: 2rem;
+    padding-left: .5rem;
+    border-radius: .3rem;
+    outline: none;
+    color: white;
+    font-size: 1rem;
+    
+    &-dark {
+      color: white;
+      background-color: #222;
+      border: 1px solid #333;
+    }
+
+    &-light {
+      color: black;
+      background-color: white;
+      border: 1px solid #ccc;
+    }
+  }
+
+  &-button {
+    border-style: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    width: 5rem;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+
+    &-light {
+      color: black;
+      background-color: white;
+
+      &:hover {
+        background-color: #ddd;
+      }
+
+      &:disabled {
+        color: #888;
+        background-color: #ddd;
+        cursor: default;
+      }
+    }
+
+    &-dark {
+      color: white;
+      background-color: #555;
+
+      &:hover {
+        background-color: #777;
+      }
+
+      &:disabled {
+        color: #777;
+        background-color: #333;
+        cursor: default;
+      }
+    }
+  }
+  
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    height: 4rem;
+
+    &-light {
+      border-top: 2px solid #ccc;
+    }
+
+    &-dark {
+      border-top: 2px solid #333;
+    }
+
+    &>div {
+      padding-right: .5rem;
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.options {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  margin: 1rem 0;
+
+  &-item {
+    outline: none;
+    cursor: pointer;
+    width: 25%;
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+
+    &:first-child {
+      border-left: none;
+    }
+    
+    &-dark {
+      color: white;
+      border-left: 1px solid #333;
+
+      &:hover {
+        background-color: #555;
+      }
+    }
+
+    &-light {
+      color: black;
+      border-left: 1px solid #ccc;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+}
+
+.notification {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  height: 5rem;
+
+  &-light {
+    border-top: 2px solid #ccc;
+  }
+
+  &-dark {
+    border-top: 2px solid #333;
+  }
+}
+
+.clickable-item {
+  text-align: center;
+  height: 1.3rem;
+  outline: none;
+  display: block;
+  margin: .5rem;
+  border-radius: .3rem;
+  width: 7rem;
+  padding: .2rem .5rem;
+  font-size: 1rem;
+  box-sizing: content-box;
+  cursor: pointer;
+  border-style: none;
+  text-decoration: none;
+
+  &-light {
+    color: black;
+    background-color: white;
+    border: 1px solid transparent;
+
+    &:hover {
+      background-color: #ddd;
+    }
+
+    &:disabled {
+      color: #888;
+      background-color: #ddd;
+      cursor: default;
+    }
+
+    &:nth-child(2) {
+      border-color: #d00;
+    }
+
+    &:nth-child(2):hover {
+      color: white;
+      background-color: #d00;
+    }
+  }
+
+  &-dark {
+    color: white;
+    // background-color: #555;
+    background-color: #222;
+    border: 1px solid #444;
+
+    &:hover {
+      background-color: #444;
+    }
+
+    &:disabled {
+      color: #777;
+      background-color: #333;
+      cursor: default;
+    }
+
+    &:nth-child(2) {
+      border-color: #600;
+    }
+
+    &:nth-child(2):hover {
+      color: white;
+      background-color: #600;
+    }
+  }
+}

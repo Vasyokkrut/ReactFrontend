@@ -64,6 +64,9 @@ function LeftList(props) {
                         My Posts
                     </span>
                 }
+                <Link className={navItemClassName} to='/friends' >
+                    My Friends
+                </Link>
                 <Link
                     className={navItemClassName}
                     to='/publicPosts'
