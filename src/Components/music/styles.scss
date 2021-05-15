@@ -13,16 +13,15 @@ $background-color-dark: #222;
   border-radius: 1.25rem;
   font-size: 1.5rem;
   padding-left: .5rem;
-  outline:none;
+  outline: none;
+  color: inherit;
 
   &-light {
-    color: black;
     background-color: $background-color-light;
     border: 2px solid $border-color-light;
   }
 
   &-dark {
-    color: white;
     background-color: $background-color-dark;
     border: 2px solid $border-color-dark;
   }

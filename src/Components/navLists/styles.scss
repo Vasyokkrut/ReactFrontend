@@ -6,21 +6,14 @@
   padding: .3rem .5rem;
   cursor: pointer;
   outline: none;
+  color: inherit;
 
-  &-light {
-    color:black;
-
-    &:hover {
-      background-color: #ddd;
-    }
+  &-light:hover {
+    background-color: #ddd;
   }
 
-  &-dark {
-    color: white;
-
-    &:hover {
-      background-color: #6e6e6e;
-    }
+  &-dark:hover {
+    background-color: #6e6e6e;
   }
 }
 

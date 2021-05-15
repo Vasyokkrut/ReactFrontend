@@ -34,17 +34,15 @@
     padding-left: .5rem;
     border-radius: .3rem;
     outline: none;
-    color: white;
+    color: inherit;
     font-size: 1rem;
     
     &-dark {
-      color: white;
       background-color: #222;
       border: 1px solid #333;
     }
 
     &-light {
-      color: black;
       background-color: white;
       border: 1px solid #ccc;
     }
@@ -58,9 +56,9 @@
     color: white;
     font-size: 1rem;
     outline: none;
+    color: inherit;
 
     &-light {
-      color: black;
       background-color: white;
 
       &:hover {
@@ -75,7 +73,6 @@
     }
 
     &-dark {
-      color: white;
       background-color: #555;
 
       &:hover {
@@ -123,6 +120,7 @@
     font-size: 1rem;
     background-color: transparent;
     border: none;
+    color: inherit;
     border-radius: 0;
 
     &:first-child {
@@ -130,7 +128,6 @@
     }
     
     &-dark {
-      color: white;
       border-left: 1px solid #333;
 
       &:hover {
@@ -139,7 +136,6 @@
     }
 
     &-light {
-      color: black;
       border-left: 1px solid #ccc;
 
       &:hover {
@@ -182,9 +178,9 @@
   cursor: pointer;
   border-style: none;
   text-decoration: none;
+  color: inherit;
 
   &-light {
-    color: black;
     background-color: white;
     border: 1px solid transparent;
 
@@ -209,8 +205,6 @@
   }
 
   &-dark {
-    color: white;
-    // background-color: #555;
     background-color: #222;
     border: 1px solid #444;
 
