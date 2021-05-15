@@ -157,9 +157,13 @@ function SearchFriends({isDarkTheme, userLogout, changePopUpDisplay}) {
                 userLogout()
                 changePopUpDisplay()
               } else {
-                alert('error happened :(')
+                setFoundUsers([])
+                setIsDataLoaded(true)
               }
             })
+        } else {
+          setFoundUsers([])
+          setIsDataLoaded(true)
         }
       })
   }
