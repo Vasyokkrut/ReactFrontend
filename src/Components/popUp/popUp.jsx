@@ -1,4 +1,5 @@
 import axios from 'axios'
+import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import React, { useEffect, useRef, useState } from 'react'
@@ -42,6 +43,11 @@ function PopUp(props) {
     setIsInputDisabled([false, false])
     setLoginStatus({message: '', successful: null})
   }, [props.isPopUpHidden])
+
+  const popUpInputClassName = classnames(
+    'pop-up-input',
+    props.isDarkTheme ? 'pop-up-input-dark' : 'pop-up-input-light'
+  )
 
   // depending on darktheme state we should choose background color for pop up
   const popUpStyle = {
@@ -207,7 +213,7 @@ function PopUp(props) {
           <input
             disabled={isInputDisabled[0]}
             placeholder='Login'
-            className='pop-up-input'
+            className={popUpInputClassName}
             type='text'
             onChange={(e) => handleInput(e, 0)}
             value={loginState[0]}
@@ -217,7 +223,7 @@ function PopUp(props) {
           <input
             disabled={isInputDisabled[0]}
             placeholder='Password'
-            className='pop-up-input'
+            className={popUpInputClassName}
             type='password'
             onChange={(e) => handleInput(e, 1)}
             value={loginState[1]}
@@ -229,7 +235,7 @@ function PopUp(props) {
           <input
             disabled={isInputDisabled[1]}
             placeholder='Login'
-            className='pop-up-input'
+            className={popUpInputClassName}
             type='text'
             onChange={(e) => handleInput(e, 2)}
             value={loginState[2]}
@@ -239,7 +245,7 @@ function PopUp(props) {
           <input
             disabled={isInputDisabled[1]}
             placeholder='Password'
-            className='pop-up-input'
+            className={popUpInputClassName}
             type='password'
             onChange={(e) => handleInput(e, 3)}
             value={loginState[3]}
@@ -249,7 +255,7 @@ function PopUp(props) {
           <input
             disabled={isInputDisabled[1]}
             placeholder='Confirm password'
-            className='pop-up-input'
+            className={popUpInputClassName}
             type='password'
             onChange={(e) => handleInput(e, 4)}
             value={loginState[4]}
