@@ -7,88 +7,88 @@ import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function LeftList(props) {
 
-    const sideBarClassName = classnames(
-        'side-bar',
-        'side-bar-left',
-        props.isDarkTheme ? 'side-bar-dark' : 'side-bar-light'
-    )
+  const sideBarClassName = classnames(
+    'side-bar',
+    'side-bar-left',
+    props.isDarkTheme ? 'side-bar-dark' : 'side-bar-light'
+  )
     
-    const navItemClassName = classnames(
-        'nav-item',
-        props.isDarkTheme ? 'nav-item-dark' : 'nav-item-light',
-    )
+  const navItemClassName = classnames(
+    'nav-item',
+    props.isDarkTheme ? 'nav-item-dark' : 'nav-item-light',
+  )
 
-    const separateLineClassName = classnames(
-        'separate-line',
-        props.isDarkTheme ? 'separate-line-dark' : 'separate-line-light'
-    )
+  const separateLineClassName = classnames(
+    'separate-line',
+    props.isDarkTheme ? 'separate-line-dark' : 'separate-line-light'
+  )
 
-    return(
-        <div className={sideBarClassName}>
-            <div style={{fontSize: '2rem'}} >
-                Post lists:
-            </div>
-            <hr className={separateLineClassName} />
-            <nav style={{fontSize: '1.4rem'}} >
-                {
-                    props.userName
-                    ?
-                    <Link
-                        className={navItemClassName}
-                        to={'/myMusic'}
-                    >
-                        My Music
-                    </Link>
-                    :
-                    <span
-                        className={navItemClassName}
-                        onClick={props.changePopUpDisplay}
-                    >
-                        My Music
-                    </span>
-                }
-                {
-                    props.userName
-                    ?
-                    <Link
-                        className={navItemClassName}
-                        to={`/userPosts/${props.userName}`}
-                    >
-                        My Posts
-                    </Link>
-                    :
-                    <span
-                        className={navItemClassName}
-                        onClick={props.changePopUpDisplay}
-                    >
-                        My Posts
-                    </span>
-                }
-                <Link className={navItemClassName} to='/friends' >
-                    My Friends
-                </Link>
-                <Link
-                    className={navItemClassName}
-                    to='/publicPosts'
-                >
-                    Public Posts
-                </Link>
-            </nav>
-        </div>
-    )
+  return(
+    <div className={sideBarClassName}>
+      <div style={{fontSize: '2rem'}} >
+        Post lists:
+      </div>
+      <hr className={separateLineClassName} />
+      <nav style={{fontSize: '1.4rem'}} >
+        {
+          props.userName
+          ?
+          <Link
+            className={navItemClassName}
+            to={'/myMusic'}
+          >
+            My Music
+          </Link>
+          :
+          <span
+            className={navItemClassName}
+            onClick={props.changePopUpDisplay}
+          >
+            My Music
+          </span>
+        }
+        {
+          props.userName
+          ?
+          <Link
+            className={navItemClassName}
+            to={`/userPosts/${props.userName}`}
+          >
+            My Posts
+          </Link>
+          :
+          <span
+            className={navItemClassName}
+            onClick={props.changePopUpDisplay}
+          >
+            My Posts
+          </span>
+        }
+        <Link className={navItemClassName} to='/friends' >
+          My Friends
+        </Link>
+        <Link
+          className={navItemClassName}
+          to='/publicPosts'
+        >
+          Public Posts
+        </Link>
+      </nav>
+    </div>
+  )
 }
 
 const mapStateToProps = store => {
-    return {
-        userName: store.account.userName,
-        isDarkTheme: store.appearance.isDarkTheme
-    }
+  return {
+    userName: store.account.userName,
+    isDarkTheme: store.appearance.isDarkTheme
+  }
 }
 
 const mapActionsToProps = dispatch => {
-    return {
-        changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
-    }
+  return {
+    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
+  }
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(LeftList)
