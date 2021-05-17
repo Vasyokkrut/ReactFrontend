@@ -4,11 +4,11 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import Picture from '../../Picture'
-import Buttons from '../../buttons/functionalButtons'
-import { userLogout } from '../../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../../Store/appearance/actions.js'
-import { deleteUserPost, setUserPosts } from '../../../Store/posts/actions.js'
+import Picture from '../Picture'
+import Buttons from '../buttons/functionalButtons'
+import { userLogout } from '../../Store/account/actions.js'
+import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { deleteUserPost, setUserPosts } from '../../Store/posts/actions.js'
 
 class PostItems extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class PostItems extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/getUserInfo/${this.props.URLUserName}`)
+    axios.get(`/api/posts/getUserInfo/${this.props.URLUserName}`)
       .then(res => {
         const {userPosts, userName} = res.data
         this.props.setUserName(userName)
@@ -36,7 +36,7 @@ class PostItems extends React.Component {
       this.props.setUserName(null)
       this.setState({...this.state, isDataLoaded: false})
 
-      axios.get(`/api/getUserInfo/${this.props.URLUserName}`)
+      axios.get(`/api/posts/getUserInfo/${this.props.URLUserName}`)
         .then(res => {
           const {userPosts, userName} = res.data
           this.props.setUserName(userName)
@@ -59,13 +59,13 @@ class PostItems extends React.Component {
       }
     }
 
-    axios.delete('/api/deleteUserPost', config)
+    axios.delete('/api/posts/deletePost', config)
       .then(res => this.props.deleteUserPost(fileName))
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
           axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.delete('/api/deleteUserPost', config))
+            .then(res => axios.delete('/api/posts/deletePost', config))
             .then(res => this.props.deleteUserPost(fileName))
             .catch(err => {
               const status = err.response.status
@@ -114,7 +114,7 @@ class PostItems extends React.Component {
     // if user has posts they will be displayed
     return(
       this.props.userPosts.map(item => {
-        const pictureURL = `/api/getUserPicture/${this.state.URLUserName}/${item._id}`
+        const pictureURL = `/api/posts/getPostPicture/${this.state.URLUserName}/${item._id}`
         return (
           <div key={item._id} className={PostClassName}>
             <div className='post-title'>

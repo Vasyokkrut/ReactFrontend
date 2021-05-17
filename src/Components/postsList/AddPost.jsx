@@ -4,9 +4,9 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { addUserPost } from '../../../Store/posts/actions.js'
-import { userLogout } from '../../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../../Store/appearance/actions.js'
+import { addUserPost } from '../../Store/posts/actions.js'
+import { userLogout } from '../../Store/account/actions.js'
+import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function AddPostForm(props) {
   const [picture, setPicture] = useState(null)
@@ -82,7 +82,7 @@ function AddPostForm(props) {
       successful: true,
       message: 'your post is uploading...'
     })
-    axios.put('/api/uploadPostForUser', data)
+    axios.put('/api/posts/uploadPost', data)
       .then(response => {
         props.addUserPost(response.data)
         setPicture(null)
@@ -99,7 +99,7 @@ function AddPostForm(props) {
         const status = err.response.status
         if (status === 401 || status === 403) {
           axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.put('/api/uploadPostForUser', data))
+            .then(res => axios.put('/api/posts/uploadPost', data))
             .then(res => {
               props.addUserPost(res.data)
               setPicture(null)

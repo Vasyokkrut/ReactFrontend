@@ -26,53 +26,43 @@ function LeftList(props) {
   return(
     <div className={sideBarClassName}>
       <div style={{fontSize: '2rem'}} >
-        Post lists:
+        Navigation:
       </div>
       <hr className={separateLineClassName} />
       <nav style={{fontSize: '1.4rem'}} >
         {
           props.userName
           ?
-          <Link
-            className={navItemClassName}
-            to={'/myMusic'}
-          >
-            My Music
-          </Link>
+          <>
+            <Link
+              className={navItemClassName}
+              to={`/userPosts/${props.userName}`}
+            >Posts</Link>
+            <Link
+              className={navItemClassName}
+              to={'/myMusic'}
+            >Music</Link>
+            <Link
+              className={navItemClassName}
+              to='/friends'
+            >Friends</Link>
+          </>
           :
-          <span
-            className={navItemClassName}
-            onClick={props.changePopUpDisplay}
-          >
-            My Music
-          </span>
+          <>
+            <span
+              className={navItemClassName}
+              onClick={props.changePopUpDisplay}
+            >Posts</span>
+            <span
+              className={navItemClassName}
+              onClick={props.changePopUpDisplay}
+            >Music</span>
+            <span
+              className={navItemClassName}
+              onClick={props.changePopUpDisplay}
+            >Friends</span>
+          </>
         }
-        {
-          props.userName
-          ?
-          <Link
-            className={navItemClassName}
-            to={`/userPosts/${props.userName}`}
-          >
-            My Posts
-          </Link>
-          :
-          <span
-            className={navItemClassName}
-            onClick={props.changePopUpDisplay}
-          >
-            My Posts
-          </span>
-        }
-        <Link className={navItemClassName} to='/friends' >
-          My Friends
-        </Link>
-        <Link
-          className={navItemClassName}
-          to='/publicPosts'
-        >
-          Public Posts
-        </Link>
       </nav>
     </div>
   )

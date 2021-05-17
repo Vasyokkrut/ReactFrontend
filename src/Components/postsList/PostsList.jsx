@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import AddUserPost from './AddUserPost.jsx'
-import UserPostItems from './UserPostItems.jsx'
+import AddUserPost from './AddPost.jsx'
+import PostItems from './PostItems.jsx'
 
 function UserPostsList(props) {
   const URLUserName = props.match.params.URLUserName
@@ -20,7 +20,7 @@ function UserPostsList(props) {
         :
         null
       }
-      <UserPostItems URLUserName={URLUserName} setUserName={setUserName} />
+      <PostItems URLUserName={URLUserName} setUserName={setUserName} />
     </div>
   )
 }

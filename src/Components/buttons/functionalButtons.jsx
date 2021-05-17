@@ -10,7 +10,7 @@ function Buttons({item, pictureURL, handleDeleteClick, isDeleteAvailable}) {
   // we should explicitly add backend server hostname to href in development mode
   // In production mode there will be only one server
 
-  let downloadHref = `/api/downloadPicture/${item.pictureName}`
+  let downloadHref = `/api/posts/downloadPicture/${item.pictureName}`
 
   if (process.env.NODE_ENV !== 'production') {
     pictureURL = 'http://localhost:5000' + pictureURL

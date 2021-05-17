@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import './navLists/styles.scss'
-import './postsLists/styles.scss'
+import './postsList/styles.scss'
 import PopUp from './popUp/popUp.jsx'
 import MiddleList from './MiddleList.jsx'
 import LeftList from './navLists/LeftNavList.jsx'
