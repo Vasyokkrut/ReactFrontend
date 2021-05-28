@@ -98,37 +98,13 @@ function AddPostForm(props) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.put('/api/posts/uploadPost', data))
-            .then(res => {
-              props.addUserPost(res.data)
-              setPicture(null)
-              setPreview(null)
-              setTitle('')
-              setText('')
-              setStatus({
-                successful: true,
-                message: ''
-              })
-              document.getElementById('choose-picture-input').value = ''
-            })
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                props.userLogout()
-                props.changePopUpDisplay()
-                setStatus({
-                  successful: false,
-                  message: ''
-                })
-              } else {
-                setStatus({
-                  successful: false,
-                  message: 'something went wrong :('
-                })
-              }
-            })
+          localStorage.removeItem('userName')
+          props.userLogout()
+          props.changePopUpDisplay()
+          setStatus({
+            successful: false,
+            message: ''
+          })
         } else {
           setStatus({
             successful: false,

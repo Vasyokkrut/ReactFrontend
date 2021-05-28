@@ -59,27 +59,9 @@ function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.delete('/api/account/settings/deleteAccount', config))
-            .then(res => {
-              localStorage.removeItem('userName')
-              userLogout()
-            })
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                userLogout()
-                changePopUpDisplay()
-              } else if (status === 400) {
-                setDeletingStatus({
-                  successful: false,
-                  message: 'wrong password'
-                })
-              } else {
-                alert('error happened :(')
-              }
-            })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         } else if(status === 400) {
           setDeletingStatus({
             successful: false,

@@ -86,43 +86,9 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-          .then(res => axios.patch('/api/account/settings/changeUserName', data))
-          .then(res => {
-              if (res.data.userExists) {
-                setChangingStatus({
-                  successful: false,
-                  message: 'this user exists yet'
-                })
-              } else {
-                localStorage.setItem('userName', newUserName)
-                userLogin({userName: newUserName})
-                setChangingStatus({
-                  successful: true,
-                  message: 'username changed successfully'
-                })
-                setNewUserName('')
-                setPassword('')
-              }
-            })
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                userLogout()
-                changePopUpDisplay()
-              } else if (status === 400) {
-                setChangingStatus({
-                  successful: false,
-                  message: 'wrong password'
-                })
-              } else {
-                setChangingStatus({
-                  successful: false,
-                  message: 'something went wrong :('
-                })
-              }
-            })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         } else if (status === 400) {
           setChangingStatus({
             successful: false,

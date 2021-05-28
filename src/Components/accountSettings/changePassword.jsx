@@ -126,37 +126,9 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.patch('/api/account/settings/changePassword', data))
-            .then(res => {
-              setChangingStatus({
-                successful: true,
-                message: 'password changed successfully'
-              })
-              setPassword({
-                oldPassword: '',
-                newPassword: '',
-                confirmNewPassword: ''
-              })
-            })
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                userLogout()
-                changePopUpDisplay()
-              } else if (status === 400) {
-                setChangingStatus({
-                  successful: false,
-                  message: 'old password is wrong'
-                })
-              } else {
-                setChangingStatus({
-                  successful: false,
-                  message: 'Something went wrong :('
-                })
-              }
-            })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         } else if (status === 400) {
           setChangingStatus({
             successful: false,

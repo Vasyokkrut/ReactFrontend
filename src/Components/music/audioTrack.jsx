@@ -51,19 +51,9 @@ function AudioTrack({
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.delete('/api/music/deleteUserTrack', config))
-            .then(res => deleteAudioTrack({track: audioTrack, trackIndex: index}))
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                userLogout()
-                changePopUpDisplay()
-              } else {
-                alert('error happened :(')
-              }
-            })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         } else {
           alert('error happened :(')
         }

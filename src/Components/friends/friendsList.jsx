@@ -30,17 +30,9 @@ function FriendItem({isDarkTheme, friend, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.delete('/api/friends/deleteFriend', config))
-            .then(res => setIsDeleted(true))
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                userLogout()
-                changePopUpDisplay()
-              }
-            })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         }
       })
   }
@@ -71,20 +63,9 @@ function FriendsList({isDarkTheme, userName, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.get('/api/friends/getFriends'))
-            .then(res => {
-              setFriends(res.data)
-              setIsDataLoaded(true)
-            })
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                userLogout()
-                changePopUpDisplay()
-              }
-            })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         }
       })
   }, [userName, userLogout, changePopUpDisplay])

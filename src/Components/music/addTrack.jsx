@@ -39,23 +39,9 @@ function AddTrack(props) {
         .catch(err => {
           const status = err.response.status
           if (status === 401 || status === 403) {
-            axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.put('/api/music/uploadMusicForUser', data))
-            .then(res => {
-                setTrack(null)
-                setTitle('')
-                props.addAudioTrack(res.data)
-              })
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                props.userLogout()
-                props.changePopUpDisplay()
-              } else {
-                alert('error happened :(')
-              }
-            })
+            localStorage.removeItem('userName')
+            props.userLogout()
+            props.changePopUpDisplay()
           } else {
             alert('error happened :(')
           }

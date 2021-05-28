@@ -30,17 +30,9 @@ function RequestItem({isDarkTheme, user, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-          .then(res => axios.delete('/api/friends/deleteOutgoingRequest', config))
-          .then(res => setIsDeleted(true))
-          .catch(err => {
-            const status = err.response.status
-            if (status === 401 || status === 403) {
-              localStorage.removeItem('userName')
-              userLogout()
-              changePopUpDisplay()
-            }
-          })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         }
       })
   }
@@ -71,20 +63,9 @@ function OutgoingRequests({isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-          .then(res => axios.get('/api/friends/getOutgoingRequests'))
-          .then(res => {
-            setRequests(res.data)
-            setIsDataLoaded(true)
-          })
-          .catch(err => {
-            const status = err.response.status
-            if (status === 401 || status === 403) {
-              localStorage.removeItem('userName')
-              userLogout()
-              changePopUpDisplay()
-            }
-          })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         }
       })
   }, [userLogout, changePopUpDisplay])

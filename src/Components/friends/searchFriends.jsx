@@ -28,17 +28,9 @@ function FoundUser({isDarkTheme, user, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-          .then(res => axios.post('/api/friends/sendRequest', {recipient: user}))
-          .then(res => setIsRequestSent(true))
-          .catch(err => {
-            const status = err.response.status
-            if (status === 401 || status === 403) {
-              localStorage.removeItem('userName')
-              userLogout()
-              changePopUpDisplay()
-            }
-          })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         }
       })
   }
@@ -49,17 +41,9 @@ function FoundUser({isDarkTheme, user, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-          .then(res => axios.post('/api/friends/acceptRequest', {requester: user}))
-          .then(res => setIsRequestAccepted(true))
-          .catch(err => {
-            const status = err.response.status
-            if (status === 401 || status === 403) {
-              localStorage.removeItem('userName')
-              userLogout()
-              changePopUpDisplay()
-            }
-          })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         }
       })
   }
@@ -144,23 +128,9 @@ function SearchFriends({isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.get('/api/friends/searchFriends?username=' + requestedUser))
-            .then(res => {
-              setFoundUsers(res.data)
-              setIsDataLoaded(true)
-            })
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                userLogout()
-                changePopUpDisplay()
-              } else {
-                setFoundUsers([])
-                setIsDataLoaded(true)
-              }
-            })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         } else {
           setFoundUsers([])
           setIsDataLoaded(true)

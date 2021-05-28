@@ -28,17 +28,9 @@ function RequestItem({requester, isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-          .then(res => axios.post('/api/friends/acceptRequest', {requester}))
-          .then(res => setIsAccepted(true))
-          .catch(err => {
-            const status = err.response.status
-            if (status === 401 || status === 403) {
-              localStorage.removeItem('userName')
-              userLogout()
-              changePopUpDisplay()
-            }
-          })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         }
       })
   }
@@ -49,17 +41,9 @@ function RequestItem({requester, isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-          .then(res => axios.post('/api/friends/declineIncomingRequest', {requester}))
-          .then(res => setIsDeclined(true))
-          .catch(err => {
-            const status = err.response.status
-            if (status === 401 || status === 403) {
-              localStorage.removeItem('userName')
-              userLogout()
-              changePopUpDisplay()
-            }
-          })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         }
       })
   }
@@ -104,20 +88,9 @@ function IncomingRequests({isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.get('/api/friends/getIncomingRequests'))
-            .then(res => {
-              setRequesters(res.data)
-              setIsDataLoaded(true)
-            })
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                userLogout()
-                changePopUpDisplay()
-              }
-            })
+          localStorage.removeItem('userName')
+          userLogout()
+          changePopUpDisplay()
         }
       })
   }, [userLogout, changePopUpDisplay])

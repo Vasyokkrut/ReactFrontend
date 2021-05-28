@@ -64,19 +64,9 @@ class PostItems extends React.Component {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          axios.get('/api/account/getNewAccessToken')
-            .then(res => axios.delete('/api/posts/deletePost', config))
-            .then(res => this.props.deleteUserPost(fileName))
-            .catch(err => {
-              const status = err.response.status
-              if (status === 401 || status === 403) {
-                localStorage.removeItem('userName')
-                this.props.userLogout()
-                this.props.changePopUpDisplay()
-              } else {
-                alert('error happened :(')
-              }
-            })
+          localStorage.removeItem('userName')
+          this.props.userLogout()
+          this.props.changePopUpDisplay()
         } else {
           alert('error happened :(')
         }
