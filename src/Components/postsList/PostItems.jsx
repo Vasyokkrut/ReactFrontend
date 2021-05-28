@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import Picture from '../Picture'
 import Buttons from '../buttons/functionalButtons'
 import { userLogout } from '../../Store/account/actions.js'
 import { changePopUpDisplay } from '../../Store/appearance/actions.js'
@@ -113,7 +112,9 @@ class PostItems extends React.Component {
             <div className='post-text' >
               {item.text}
             </div>
-            <Picture pictureURL={pictureURL} />
+            <div className='flex-center post-picture-container'>
+              <img src={pictureURL} alt='There is a beautiful car' className='post-picture' />
+            </div>
             <Buttons
               pictureURL={pictureURL}
               item={item}

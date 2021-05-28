@@ -38,6 +38,16 @@ $background-color-dark: #222;
     padding: 1rem 0;
     word-wrap: break-word;
   }
+
+  &-picture {
+    max-height: 400px;
+    max-width: 600px;
+
+    &-container {
+      height: 400px;
+      align-items: center;
+    }
+  }
 }
 
 .account-name {
