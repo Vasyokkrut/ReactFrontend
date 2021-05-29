@@ -29,8 +29,9 @@ function NativeAudioElement({
     audioPlayerRef.current.pause()
     
     if (currentAudioTrack < userAudioTracks.length - 1) {
+      const nextAudioTrack = userAudioTracks[currentAudioTrack + 1]
       audioPlayerRef.current.currentTime = 0
-      audioPlayerRef.current.src = `/api/music/getUserTrack/${userName}/${userAudioTracks[currentAudioTrack + 1]._id}`
+      audioPlayerRef.current.src = `/api/music/getAudioTrack/${userName}/${nextAudioTrack._id}`
       audioPlayerRef.current.play()
       setNextAudioTrack()
     } else {

@@ -15,7 +15,7 @@ function MyMusic({userName, userAudioTracks, setUserAudioTracks, isDarkTheme}) {
 
   useEffect(() => {
     if (userName) {
-      axios.get('/api/music/getUserMusic/' + userName)
+      axios.get('/api/music/getMusic/' + userName)
         .then(res => {
           setUserAudioTracks(res.data.userMusic)
           setIsDataLoaded(true)
