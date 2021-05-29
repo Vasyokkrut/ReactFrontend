@@ -5,11 +5,11 @@ import { bindActionCreators } from 'redux'
 import './navLists/styles.scss'
 import './postsList/styles.scss'
 import PopUp from './popUp/popUp.jsx'
+import Header from './header/header.jsx'
 import MiddleList from './MiddleList.jsx'
 import LeftList from './navLists/LeftNavList.jsx'
 import RightList from './navLists/RightNavList.jsx'
 import { userLogin } from '../Store/account/actions.js'
-import NavbarHeader from './navbarHeader/navbarHeader.jsx'
 import { changeTheme } from '../Store/appearance/actions.js'
 import NativeAudioElement from './music/nativeAudioElement.jsx'
 
@@ -35,7 +35,7 @@ class MainComponent extends React.Component {
   render(){
     return(
       <>
-        <NavbarHeader />
+        <Header />
         <NativeAudioElement />
         <PopUp />
         <div className='flex-center main-component'>

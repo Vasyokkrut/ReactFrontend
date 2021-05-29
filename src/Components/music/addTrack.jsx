@@ -17,6 +17,11 @@ function AddTrack(props) {
     props.isDarkTheme ? 'audiotrack-title-input-dark' : 'audiotrack-title-input-light'
   )
 
+  const buttonClassName = classNames(
+    'primary-button',
+    props.isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
+  )
+
   function handleTrackInput(event) {
     setTrack(event.target.files[0])
   }
@@ -57,7 +62,7 @@ function AddTrack(props) {
     <div className='flex-center' >
       <div>
         <div className='flex-center'>
-          <label className='upload-button'>
+          <label className={buttonClassName}>
             {!track ? 'Add track' : 'Rechoose track'}
             <input
               id='choose-track-input'
@@ -87,7 +92,10 @@ function AddTrack(props) {
               onKeyDown={sendOnEnter}
             />
             <div className='flex-center'>
-              <button className='upload-button' onClick={uploadTrack} >Upload track</button>
+              <button
+                className={buttonClassName}
+                onClick={uploadTrack}
+              >Upload track</button>
             </div>
           </>
         }

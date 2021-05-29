@@ -21,10 +21,10 @@ function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
     color: deletingStatus.successful ? 'green' : 'red'
   }
 
-  const settingsButtonClassName = classNames(
-    'settings-button',
-    'settings-button-delete',
-    isDarkTheme ? 'settings-button-dark' : 'settings-button-light'
+  const deleteButtonClassName = classNames(
+    'primary-button',
+    'primary-button-danger',
+    isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
   )
 
   const inputClassName = classNames(
@@ -79,7 +79,7 @@ function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
         <div>are you sure you want to delete your account?</div>
         <div>this action is irreversible!</div>
         <div
-          className={settingsButtonClassName}
+          className={deleteButtonClassName}
           onClick={() => setIsWarning(false)}
         >
           Delete
@@ -102,7 +102,7 @@ function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
       </div>
       <div
         onClick={deleteHandler}
-        className={settingsButtonClassName}
+        className={deleteButtonClassName}
       >
         Delete
       </div>

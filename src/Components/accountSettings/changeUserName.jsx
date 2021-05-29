@@ -24,6 +24,11 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
     isDarkTheme ? 'change-form-input-dark' : 'change-form-input-light'
   )
 
+  const buttonClassName = classNames(
+    'primary-button',
+    isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
+  )
+
   function changeUserNameHandler() {
 
     const allowedSymbols = /^[A-Za-z0-9]+$/
@@ -127,7 +132,7 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
         {changingStatus.message}
       </div>
       <div>
-        <button className='primary-button' onClick={changeUserNameHandler} >
+        <button className={buttonClassName} onClick={changeUserNameHandler} >
           Change
         </button>
       </div>

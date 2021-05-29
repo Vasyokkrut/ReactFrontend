@@ -66,3 +66,41 @@ header {
 .middle-list {
   width: calc(40rem + 2px);
 }
+
+.primary-button {
+  color: inherit;
+  box-sizing: content-box;
+  border: none;
+	border-radius: 5px;
+  margin: 1rem .5rem;
+	width: 10rem;
+  text-align: center;
+	cursor: pointer;
+	font-size: 16px;
+	padding: 1rem;
+  text-decoration: none;
+  transition-duration: .1s;
+  outline: none;
+
+  &-light {
+    background-color: whitesmoke;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+
+  &-dark {
+    background-color: #333;
+
+    &:hover {
+      background-color: #555;
+      color: white;
+    }
+  }
+
+  &-danger:hover {
+    background-color: #be1919;
+    color: white;
+  }
+}

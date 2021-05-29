@@ -25,6 +25,11 @@ function AddPostForm(props) {
     props.isDarkTheme ? 'textinput-dark' : 'textinput-light'
   )
 
+  const buttonClassName = classNames(
+    'primary-button',
+    props.isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
+  )
+
   function handlePictureInput(event) {
     const picture = event.target.files[0]
 
@@ -122,7 +127,7 @@ function AddPostForm(props) {
 
   return(
     <div className='post-creator'>
-      <label className='upload-button'>
+      <label className={buttonClassName}>
         {picture === null ? 'Create Post' : 'Rechoose picture'}
         <input
           id='choose-picture-input'
@@ -161,10 +166,10 @@ function AddPostForm(props) {
             {status.message}
           </div>
           <button
-            className='upload-button'
+            className={buttonClassName}
             onClick={handleUpload}
           >
-            Upload Picture
+            Upload Post
           </button>
         </>
         : null

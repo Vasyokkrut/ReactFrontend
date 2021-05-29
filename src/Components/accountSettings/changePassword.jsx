@@ -49,6 +49,11 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
     isDarkTheme ? 'change-form-input-dark' : 'change-form-input-light'
   )
 
+  const buttonClassName = classNames(
+    'primary-button',
+    isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
+  )
+
   function checkPassword() {
     const allowedSymbols = /^[A-Za-z0-9]+$/
 
@@ -176,7 +181,7 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
         {changingStatus.message}
       </div>
       <div>
-        <button className='primary-button' onClick={changePassword} >
+        <button className={buttonClassName} onClick={changePassword} >
           Change
         </button>
       </div>

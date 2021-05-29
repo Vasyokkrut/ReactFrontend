@@ -38,8 +38,8 @@ function AccountSettings({isDarkTheme, userName}) {
   }, [userName])
 
   const settingsButtonClassName = classnames(
-    'settings-button',
-    isDarkTheme ? 'settings-button-dark' : 'settings-button-light'
+    'primary-button',
+    isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
   )
 
   // if user didn't log in to website this message will be displayed
@@ -55,24 +55,18 @@ function AccountSettings({isDarkTheme, userName}) {
     <div className='account-settings' >
       <div className='account-name' >account settings</div>
       <div className='setting-item' >
-        <div
+        <button
           className={settingsButtonClassName}
           onClick={() => setSelectedOption('changeUserName')}
-        >
-          Change username
-        </div>
-        <div
+        >Change username</button>
+        <button
           className={settingsButtonClassName}
           onClick={() => setSelectedOption('changePassword')}
-        >
-          Change password
-        </div>
-        <div
+        >Change password</button>
+        <button
           className={settingsButtonClassName}
           onClick={() => setSelectedOption('deleteAccount')}
-        >
-          Delete account
-        </div>
+        >Delete account</button>
       </div>
       <SelectedOption selectedOption={selectedOption} />
     </div>
@@ -86,4 +80,4 @@ const mapStateToProps = store => {
   }
 }
 
-export default connect(mapStateToProps, null)(AccountSettings)
+export default connect(mapStateToProps)(AccountSettings)

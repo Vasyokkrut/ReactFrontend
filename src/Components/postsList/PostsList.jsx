@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import AddUserPost from './AddPost.jsx'
+import AddPostForm from './AddPostForm.jsx'
 import PostItems from './PostItems.jsx'
 
 function UserPostsList(props) {
@@ -15,7 +15,7 @@ function UserPostsList(props) {
           <div className='account-name'>
             {userName + ' posts'}
           </div>
-          <AddUserPost URLUserName={URLUserName} />
+          <AddPostForm URLUserName={URLUserName} />
         </>
         :
         null

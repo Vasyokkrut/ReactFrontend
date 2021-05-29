@@ -59,7 +59,7 @@ function RightList(props) {
               className={navItemClassName}
               to='/accountSettings'
             >
-              Account Settings
+              Account settings
             </Link>
             <span
               className={navItemClassName}

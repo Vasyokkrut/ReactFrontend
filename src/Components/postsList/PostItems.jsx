@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import Buttons from '../buttons/functionalButtons'
+import Buttons from './Buttons'
 import { userLogout } from '../../Store/account/actions.js'
 import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 import { deleteUserPost, setUserPosts } from '../../Store/posts/actions.js'
@@ -86,6 +86,15 @@ class PostItems extends React.Component {
       return (
         <div className='empty-post'>
           User doesn't exist
+        </div>
+      )
+    }
+
+    // if user has not any posts this message will be displayed
+    if(this.props.userPosts.length === 0 && this.props.userName !== this.props.URLUserName) {
+      return (
+        <div className='empty-post'>
+          This user has not posts yet
         </div>
       )
     }

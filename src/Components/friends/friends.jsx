@@ -69,4 +69,4 @@ const mapStateToProps = store => {
   }
 }
 
-export default connect(mapStateToProps, null)(Friends)
+export default connect(mapStateToProps)(Friends)

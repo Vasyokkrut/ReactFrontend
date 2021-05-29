@@ -8,6 +8,27 @@ $background-color-dark: #222;
 }
 
 .post {
+  &-button {
+    border-radius: 2rem;
+
+    &-light {
+      border: 1px solid #aaa;
+      background-color: white;
+  
+      &:hover {
+        background-color: #eee;
+      }
+    }
+
+    &-dark {
+      border: 1px solid #555;
+      background-color: #333;
+  
+      &:hover {
+        background-color: #555;
+      }
+    }
+  }
 
   &-item {
     margin-top: 2rem;
