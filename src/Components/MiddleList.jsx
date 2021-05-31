@@ -1,9 +1,9 @@
 import { Switch, Route } from 'react-router-dom'
 
-import MyMusic from './music/myMusic.jsx'
+import Music from './music/music.jsx'
 import Friends from './friends/friends.jsx'
 import WelcomePage from './WelcomePage.jsx'
-import PostsList from './postsList/PostsList.jsx'
+import PostsList from './postsList/postsList.jsx'
 import AccountSettings from './accountSettings/accountSettings.jsx'
 
 function MiddleList() {
@@ -11,9 +11,9 @@ function MiddleList() {
     <div className='middle-list' >
       <main>
         <Switch>
-          <Route path='/userPosts/:URLUserName' component={PostsList} />
+          <Route path='/userPosts/:username' component={PostsList} />
           <Route path='/accountSettings' component={AccountSettings} />
-          <Route path='/myMusic' component={MyMusic} />
+          <Route path='/music' component={Music} />
           <Route path='/friends' component={Friends} />
           <Route path='/' component={WelcomePage} />
         </Switch>

@@ -40,7 +40,7 @@ function LeftList(props) {
             >Posts</Link>
             <Link
               className={navItemClassName}
-              to={'/myMusic'}
+              to={'/music'}
             >Music</Link>
             <Link
               className={navItemClassName}
@@ -48,20 +48,10 @@ function LeftList(props) {
             >Friends</Link>
           </>
           :
-          <>
-            <span
-              className={navItemClassName}
-              onClick={props.changePopUpDisplay}
-            >Posts</span>
-            <span
-              className={navItemClassName}
-              onClick={props.changePopUpDisplay}
-            >Music</span>
-            <span
-              className={navItemClassName}
-              onClick={props.changePopUpDisplay}
-            >Friends</span>
-          </>
+          <span
+            className={navItemClassName}
+            onClick={props.changePopUpDisplay}
+          >Login</span>
         }
       </nav>
     </div>

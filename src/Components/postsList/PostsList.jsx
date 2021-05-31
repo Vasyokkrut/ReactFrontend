@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
-import AddPostForm from './AddPostForm.jsx'
-import PostItems from './PostItems.jsx'
+import AddPostForm from './addPostForm.jsx'
+import PostItems from './postItems.jsx'
 
-function UserPostsList(props) {
-  const URLUserName = props.match.params.URLUserName
+function PostsList(props) {
+  const userNameFromURL = props.match.params.username
   const [userName, setUserName] = useState(null)
+
   return(
     <div>
       {
@@ -15,14 +16,14 @@ function UserPostsList(props) {
           <div className='account-name'>
             {userName + ' posts'}
           </div>
-          <AddPostForm URLUserName={URLUserName} />
+          <AddPostForm userNameFromURL={userNameFromURL} />
         </>
         :
         null
       }
-      <PostItems URLUserName={URLUserName} setUserName={setUserName} />
+      <PostItems userNameFromURL={userNameFromURL} setUserName={setUserName} />
     </div>
   )
 }
 
-export default UserPostsList
+export default PostsList

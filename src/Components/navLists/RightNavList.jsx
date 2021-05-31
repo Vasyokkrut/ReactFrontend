@@ -48,9 +48,7 @@ function RightList(props) {
         <span
           className={navItemClassName}
           onClick={changeTheme}
-        >
-          Change theme
-        </span>
+        >Change theme</span>
         {
           props.userName
           ?
@@ -58,15 +56,11 @@ function RightList(props) {
             <Link
               className={navItemClassName}
               to='/accountSettings'
-            >
-              Account settings
-            </Link>
+            >Account settings</Link>
             <span
               className={navItemClassName}
               onClick={userLogout}
-            >
-              Logout
-            </span>
+            >Logout</span>
           </>
           :
           null

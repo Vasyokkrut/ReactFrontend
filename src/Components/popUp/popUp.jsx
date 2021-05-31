@@ -44,6 +44,11 @@ function PopUp(props) {
     setLoginStatus({message: '', successful: null})
   }, [props.isPopUpHidden])
 
+  const buttonClassName = classnames(
+    'primary-button',
+    props.isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
+  )
+
   const popUpInputClassName = classnames(
     'pop-up-input',
     props.isDarkTheme ? 'pop-up-input-dark' : 'pop-up-input-light'
@@ -51,7 +56,7 @@ function PopUp(props) {
 
   // depending on darktheme state we should choose background color for pop up
   const popUpStyle = {
-    backgroundColor: props.isDarkTheme ? '#222' : '#ddd'
+    backgroundColor: props.isDarkTheme ? '#222' : '#eee'
   }
 
   // styles for status message that is placed above the confirmation button
@@ -265,7 +270,7 @@ function PopUp(props) {
           {loginStatus.message}
         </div>
         <div className='flex-center'>
-          <button className='primary-button' onClick={confirmHandler}>Confirm</button>
+          <button className={buttonClassName} onClick={confirmHandler}>Confirm</button>
         </div>
       </div>
     </>

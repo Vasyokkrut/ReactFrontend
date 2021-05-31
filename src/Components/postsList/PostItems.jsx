@@ -1,10 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import Buttons from './Buttons'
+import PostItem from './postItem.jsx'
 import { userLogout } from '../../Store/account/actions.js'
 import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 import { deleteUserPost, setUserPosts } from '../../Store/posts/actions.js'
@@ -12,11 +11,11 @@ import { deleteUserPost, setUserPosts } from '../../Store/posts/actions.js'
 class PostItems extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {isDataLoaded: false, URLUserName: props.URLUserName}
+    this.state = {isDataLoaded: false, userNameFromURL: props.userNameFromURL}
   }
 
   componentDidMount() {
-    axios.get(`/api/posts/getUserInfo/${this.props.URLUserName}`)
+    axios.get(`/api/posts/getUserInfo/${this.props.userNameFromURL}`)
       .then(res => {
         const {userPosts, userName} = res.data
         this.props.setUserName(userName)
@@ -31,11 +30,11 @@ class PostItems extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.URLUserName !== this.props.URLUserName) {
+    if (prevProps.userNameFromURL !== this.props.userNameFromURL) {
       this.props.setUserName(null)
       this.setState({...this.state, isDataLoaded: false})
 
-      axios.get(`/api/posts/getUserInfo/${this.props.URLUserName}`)
+      axios.get(`/api/posts/getUserInfo/${this.props.userNameFromURL}`)
         .then(res => {
           const {userPosts, userName} = res.data
           this.props.setUserName(userName)
@@ -45,12 +44,12 @@ class PostItems extends React.Component {
           this.props.setUserPosts(null)
         })
         .finally(() => {
-          this.setState({isDataLoaded: true, URLUserName: this.props.URLUserName})
+          this.setState({isDataLoaded: true, userNameFromURL: this.props.userNameFromURL})
         })
     }
   }
 
-  handleDeleteClick(fileName) {
+  sendDeleteRequest(fileName) {
     const config = {
       data: {
         delete: fileName,
@@ -73,11 +72,6 @@ class PostItems extends React.Component {
   }
 
   render() {
-    const PostClassName = classNames(
-      'post-item',
-      this.props.isDarkTheme ? 'post-item-dark' : 'post-item-light'
-    )
-
     // show nothing unless data is loaded to prevent flicker
     if(this.state.isDataLoaded === false) return <div className='account-name'>loading...</div>
 
@@ -91,7 +85,7 @@ class PostItems extends React.Component {
     }
 
     // if user has not any posts this message will be displayed
-    if(this.props.userPosts.length === 0 && this.props.userName !== this.props.URLUserName) {
+    if(!this.props.userPosts.length && this.props.userName?.toLowerCase() !== this.props.userNameFromURL?.toLowerCase()) {
       return (
         <div className='empty-post'>
           This user has not posts yet
@@ -100,7 +94,7 @@ class PostItems extends React.Component {
     }
 
     // if user has not any posts this message will be displayed
-    if(this.props.userPosts.length === 0) {
+    if(!this.props.userPosts.length) {
       return (
         <div className='empty-post'>
           Upload your own picture<br />
@@ -112,25 +106,14 @@ class PostItems extends React.Component {
     // if user has posts they will be displayed
     return(
       this.props.userPosts.map(item => {
-        const pictureURL = `/api/posts/getPostPicture/${this.state.URLUserName}/${item._id}`
         return (
-          <div key={item._id} className={PostClassName}>
-            <div className='post-title'>
-              {item.title}
-            </div>
-            <div className='post-text' >
-              {item.text}
-            </div>
-            <div className='flex-center post-picture-container'>
-              <img src={pictureURL} alt='There is a beautiful car' className='post-picture' />
-            </div>
-            <Buttons
-              pictureURL={pictureURL}
-              item={item}
-              handleDeleteClick={this.handleDeleteClick.bind(this)}
-              isDeleteAvailable={this.props.URLUserName.toLowerCase() === this.props.userName?.toLowerCase()}
-            />
-          </div>
+          <PostItem
+            key={item._id}
+            item={item}
+            userNameFromURL={this.state.userNameFromURL}
+            sendDeleteRequest={this.sendDeleteRequest.bind(this)}
+            isDeleteAvailable={this.props.userNameFromURL.toLowerCase() === this.props.userName?.toLowerCase()}
+          />
         )
       })
     )
