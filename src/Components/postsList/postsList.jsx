@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import AddPostForm from './AddPostForm2.jsx'
-import PostItems from './PostItems2.jsx'
+import AddPostForm from './addPostForm.jsx'
+import PostItems from './postItems.jsx'
 
 function PostsList(props) {
   const userNameFromURL = props.match.params.username
