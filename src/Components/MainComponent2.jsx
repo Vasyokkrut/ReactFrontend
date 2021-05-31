@@ -6,9 +6,9 @@ import './navLists/styles.scss'
 import './postsList/styles.scss'
 import PopUp from './popUp/popUp.jsx'
 import Header from './header/header.jsx'
-import MiddleList from './middleList.jsx'
-import LeftList from './navLists/leftNavList.jsx'
-import RightList from './navLists/rightNavList.jsx'
+import ContentRouter from './contentRouter.jsx'
+import LeftList from './navLists/LeftNavList2.jsx'
+import RightList from './navLists/RightNavList2.jsx'
 import { userLogin } from '../Store/account/actions.js'
 import { changeTheme } from '../Store/appearance/actions.js'
 import NativeAudioElement from './music/nativeAudioElement.jsx'
@@ -40,7 +40,7 @@ class MainComponent extends React.Component {
         <PopUp />
         <div className='flex-center main-component'>
           <LeftList />
-          <MiddleList />
+          <ContentRouter />
           <RightList />
         </div>
       </>

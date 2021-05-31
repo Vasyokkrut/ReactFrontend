@@ -3,10 +3,10 @@ import { Switch, Route } from 'react-router-dom'
 import Music from './music/music.jsx'
 import Friends from './friends/friends.jsx'
 import WelcomePage from './WelcomePage.jsx'
-import PostsList from './postsList/postsList.jsx'
+import PostsList from './postsList/PostsList2.jsx'
 import AccountSettings from './accountSettings/accountSettings.jsx'
 
-function MiddleList() {
+function ContentRouter() {
   return(
     <div className='middle-list' >
       <main>
@@ -22,4 +22,4 @@ function MiddleList() {
   )
 }
 
-export default MiddleList
+export default ContentRouter

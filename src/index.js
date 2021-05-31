@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import './globalStyles.scss'
 import { rootReducer } from './Store/rootReducer.js'
-import MainComponent from './Components/mainComponent.jsx'
+import MainComponent from './Components/MainComponent2.jsx'
 
 const store = createStore(rootReducer)
 
