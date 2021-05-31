@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 
 function PostItem({
   item,
+  userName,
   isDarkTheme,
-  userNameFromURL,
   isDeleteAvailable,
   sendDeleteRequest
 }) {
   let downloadLink = `/api/posts/downloadPicture/${item.pictureName}`
-  let pictureURL = `/api/posts/getPostPicture/${userNameFromURL}/${item._id}`
+  let pictureURL = `/api/posts/getPostPicture/${userName}/${item._id}`
 
   if (process.env.NODE_ENV !== 'production') {
     pictureURL = 'http://localhost:5000' + pictureURL

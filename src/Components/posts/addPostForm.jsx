@@ -123,7 +123,7 @@ function AddPostForm(props) {
     color: status.successful ? 'green' : 'red'
   }
 
-  if (!props.userName || props.userName.toLowerCase() !== props.userNameFromURL.toLowerCase()) return null
+  if (props.userName !== props.requestedUserName) return null
 
   return(
     <div className='post-creator'>
