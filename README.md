@@ -6,6 +6,15 @@ This is the frontend part of fullstack mern application
 to run this application you also have to install the server from 
 [here](https://github.com/Vasyokkrut/ExpressServer)
 
+# Features
+
+- Posts upload
+- Music upload
+- Friends system
+- SPA application
+- Theme changing
+- Account settings
+
 # Starting up
 
 ## for development
