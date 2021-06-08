@@ -1,5 +1,5 @@
 .light-body {
-  background-color: #ebebeb;
+  background-color: #eee;
   color: black;
 }
 
@@ -16,7 +16,7 @@ body {
 
 .main-component {
   display: flex;
-  padding-top: 3rem;
+  padding-top: 4rem;
   align-items: flex-start;
   margin: 0 auto;
   width: calc(76rem + 6px);
@@ -36,35 +36,14 @@ header {
   justify-content: center;
 }
 
-.welcome-link {
-  width: 30rem;
-  padding: 2rem;
-  font-size: 4rem;
-  text-align: center;
-  text-decoration: none;
-
-  &-light {
-    color:white;
-  }
-
-  &-dark {
-    color:black;
-  }
-}
-
-.welcome-container {
-  border: solid rgb(63, 145, 145);
-  border-width: 3px;
-  border-radius: 20px;
-  margin: 2rem 45px;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, .2);
-  }
-}
-
 .middle-list {
   width: calc(40rem + 2px);
+}
+
+.hr-line {
+  height: 1px;
+  border: none;
+  margin: .5rem 0;
 }
 
 .primary-button {
@@ -76,7 +55,7 @@ header {
 	width: 10rem;
   text-align: center;
 	cursor: pointer;
-	font-size: 16px;
+	font-size: 1rem;
 	padding: 1rem;
   text-decoration: none;
   transition-duration: .1s;
@@ -95,7 +74,6 @@ header {
 
     &:hover {
       background-color: #555;
-      color: white;
     }
   }
 

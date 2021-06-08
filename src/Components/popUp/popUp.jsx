@@ -67,6 +67,11 @@ function PopUp(props) {
     color: loginStatus.successful ? 'green' : 'red'
   }
 
+  const lineClassName = classnames(
+    'flex-center',
+    props.isDarkTheme ? 'or-register-dark' : 'or-register-light'
+  )
+
   // this function switches class names for pop up and overlay
   // new class names trigger keyframes animations for closing pop up and overlay
   function closePopup() {
@@ -234,8 +239,8 @@ function PopUp(props) {
             value={loginState[1]}
           />
         </div>
-        <div className='or-register flex-center'>or</div>
-        <div style={{textAlign: 'center'}}>sign up</div>
+        <div className={lineClassName} >or</div>
+        <div style={{textAlign: 'center'}} >sign up</div>
         <div>
           <input
             disabled={isInputDisabled[1]}

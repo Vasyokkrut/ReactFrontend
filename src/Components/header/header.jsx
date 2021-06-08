@@ -9,18 +9,22 @@ function Header({isDarkTheme, userName, currentAudioTrack}) {
 
   const headerClassName = isDarkTheme ? 'header-dark' : 'header-light'
 
+  const linkStyle = {
+    textDecoration:'none',
+    outline: 'none',
+    color: 'inherit',
+    display: 'block'
+  }
+
   return(
     <header className={headerClassName} >
       <div className='navbar' >
-        <div>
-          <Link
-            className={headerClassName}
-            style={{textDecoration:'none', outline: 'none'}}
-            to='/'
-          >
-            Vasyokkrut
-          </Link>
-        </div>
+        <Link
+          style={linkStyle}
+          to='/'
+        >
+          Vasyokkrut
+        </Link>
         {
           currentAudioTrack !== null && userName
           ?

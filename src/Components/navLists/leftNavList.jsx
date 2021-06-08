@@ -18,17 +18,16 @@ function LeftList(props) {
     props.isDarkTheme ? 'nav-item-dark' : 'nav-item-light',
   )
 
-  const separateLineClassName = classnames(
-    'separate-line',
-    props.isDarkTheme ? 'separate-line-dark' : 'separate-line-light'
-  )
+  const hrStyle = {
+    backgroundColor: props.isDarkTheme ? '#555' : '#ccc'
+  }
 
   return(
-    <div className={sideBarClassName}>
+    <aside className={sideBarClassName}>
       <div style={{fontSize: '2rem'}} >
         Navigation:
       </div>
-      <hr className={separateLineClassName} />
+      <hr className='hr-line' style={hrStyle} />
       <nav style={{fontSize: '1.4rem'}} >
         {
           props.userName
@@ -54,7 +53,7 @@ function LeftList(props) {
           >Login</span>
         }
       </nav>
-    </div>
+    </aside>
   )
 }
 

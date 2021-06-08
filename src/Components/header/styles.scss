@@ -1,15 +1,17 @@
 .header-dark {
   background-color: #333;
+  border-bottom: 1px solid #222;
   color: inherit;
 }
 
 .header-light {
   background-color: whitesmoke;
+  border-bottom: 1px solid #ddd;
   color: inherit;
 }
 
 .navbar {
-  width: calc(74rem + 6px);
+  width: calc(72rem + 6px);
   display: flex;
   height: 100%;
   align-items: center;
@@ -53,7 +55,7 @@
     
     &-light {
       background-color: whitesmoke;
-      border: #e0e0e0 solid 1px;
+      border: 1px solid #ddd;
       box-shadow: 0 .5rem 1rem darkgray;
     }
     
@@ -76,7 +78,7 @@
   }
 
   &-light:hover {
-    background-color: #ebebeb;
+    background-color: #eee;
   }
 
   &-dark:hover {

@@ -16,7 +16,7 @@ function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
   })
 
   const changingStatusStyle = {
-    height: '1.375rem',
+    height: '1.5rem',
     fontSize: '1.5rem',
     color: deletingStatus.successful ? 'green' : 'red'
   }

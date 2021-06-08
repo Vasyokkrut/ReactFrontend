@@ -1,4 +1,4 @@
-$border-color-light: #e0e0e0;
+$border-color-light: #ddd;
 $border-color-dark: #333;
 $background-color-light: white;
 $background-color-dark: #222;
@@ -12,8 +12,8 @@ $background-color-dark: #222;
     border-radius: 2rem;
 
     &-light {
-      border: 1px solid #aaa;
-      background-color: white;
+      border: 1px solid #ddd;
+      background-color: whitesmoke;
   
       &:hover {
         background-color: #eee;
@@ -31,13 +31,13 @@ $background-color-dark: #222;
   }
 
   &-item {
-    margin-top: 2rem;
-    border-radius: 1rem;
+    margin-top: 1rem;
+    border-radius: .5rem;
     padding: 1.2rem;
 
     &-light {
       background-color: whitesmoke;
-      border: 1px solid #e0e0e0;
+      border: 1px solid $border-color-light;
     }
     
     &-dark {

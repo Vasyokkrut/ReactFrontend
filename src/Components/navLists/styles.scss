@@ -21,13 +21,12 @@
   position: sticky;
   padding: .5rem;
   width: 13rem;
-  margin-top: 1rem;
   top: 4rem;
   border-radius: .5rem;
 
   &-light {
     background-color:whitesmoke;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #ddd;
   }
 
   &-dark {
@@ -36,23 +35,10 @@
   }
 
   &-left {
-    margin-right: 3rem;
+    margin-right: 2rem;
   }
 
   &-right {
-    margin-left: 3rem;
-  }
-}
-
-.separate-line {
-  height: 2px;
-  border-style: none;
-
-  &-light {
-    background-color: #ccc;
-  }
-
-  &-dark {
-    background-color: #666;
+    margin-left: 2rem;
   }
 }

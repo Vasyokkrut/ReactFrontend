@@ -3,10 +3,11 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 
 import './styles.scss'
-import IncomingRequests from './incomingRequests.jsx'
-import OutgoingRequests from './outgoingRequests.jsx'
 import FriendsList from './friendsList.jsx'
 import SearchFriends from './searchFriends.jsx'
+import LoginPage from '../loginPage/loginPage.jsx'
+import IncomingRequests from './incomingRequests.jsx'
+import OutgoingRequests from './outgoingRequests.jsx'
 
 function SelectedOption({selectedOption}) {
   switch (selectedOption) {
@@ -26,7 +27,7 @@ function SelectedOption({selectedOption}) {
 function Friends({isDarkTheme, userName}) {
   const [selectedOption, setSelectedOption] = useState('friendsList')
 
-  if (!userName) return <div className='notification' >you aren't logged in</div>
+  if (!userName) return <LoginPage />
 
   const optionsItemClassName = classnames(
     'options-item',

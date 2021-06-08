@@ -6,6 +6,7 @@ import './styles.scss'
 import DeleteAccount from './deleteAccount.jsx'
 import ChangeUserName from './changeUserName.jsx'
 import ChangePassword from './changePassword.jsx'
+import LoginPage from '../loginPage/loginPage.jsx'
 
 // this component is part of AccountSettings component
 // and shows selected option by user
@@ -37,22 +38,15 @@ function AccountSettings({isDarkTheme, userName}) {
     }
   }, [userName])
 
+  if (!userName) return <LoginPage />
+
   const settingsButtonClassName = classnames(
     'primary-button',
     isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
   )
 
-  // if user didn't log in to website this message will be displayed
-  if (!userName) {
-    return (
-      <div style={{fontSize: '4rem', textAlign: 'center'}} >
-        You aren't logged in
-      </div>
-    )
-  }
-
   return(
-    <div className='account-settings' >
+    <>
       <div className='account-name' >account settings</div>
       <div className='setting-item' >
         <button
@@ -69,7 +63,7 @@ function AccountSettings({isDarkTheme, userName}) {
         >Delete account</button>
       </div>
       <SelectedOption selectedOption={selectedOption} />
-    </div>
+    </>
   )
 }
 

@@ -1,0 +1,57 @@
+.login-page {
+  &-container {
+    border-radius: .5rem;
+    padding: 1rem;
+    font-size: 2rem;
+
+    &>div {
+      text-align: center;
+    }
+
+    &-light {
+      background-color: whitesmoke;
+    }
+
+    &-dark {
+      background-color: #333;
+    }
+  }
+
+  &-feature {
+    width: 14rem;
+    cursor: default;
+    margin: .5rem 0;
+    padding-left: 1rem;
+    list-style-type: none;
+
+    &-light {
+      border-left: 4px solid #ddd;
+      background-color: #eee;
+    }
+
+    &-dark {
+      border-left: 4px solid #777;
+      background-color: #444;
+    }
+  }
+
+  &-button {
+    &-light {
+      background-color: whitesmoke;
+      border: 1px solid #ddd;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+
+    &-dark {
+      background-color: #333;
+      border: 1px solid #555;
+
+      &:hover {
+        background-color: #555;
+      }
+    }
+  }
+}

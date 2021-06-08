@@ -21,10 +21,9 @@ function RightList(props) {
     props.isDarkTheme ? 'nav-item-dark' : 'nav-item-light',
   )
 
-  const separateLineClassName = classnames(
-    'separate-line',
-    props.isDarkTheme ? 'separate-line-dark' : 'separate-line-light'
-  )
+  const hrStyle = {
+    backgroundColor: props.isDarkTheme ? '#555' : '#ccc'
+  }
 
   function changeTheme() {
     localStorage.setItem('isDarkTheme', props.isDarkTheme ? 'false' : 'true')
@@ -39,11 +38,11 @@ function RightList(props) {
   }
 
   return(
-    <div className={sideBarClassName}>
+    <aside className={sideBarClassName}>
       <div style={{fontSize: '2rem'}}>
         Settings:
       </div>
-      <hr className={separateLineClassName} />
+      <hr className='hr-line' style={hrStyle} />
       <nav style={{fontSize: '1.4rem'}} >
         <span
           className={navItemClassName}
@@ -66,7 +65,7 @@ function RightList(props) {
           null
         }
       </nav>
-    </div>
+    </aside>
   )
 }
 

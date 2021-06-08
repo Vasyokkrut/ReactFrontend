@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import './styles.scss'
 import AddTrack from './addTrack.jsx'
 import AudioTrack from './audioTrack.jsx'
+import LoginPage from '../loginPage/loginPage.jsx'
 import AudioPlayerControls from './audioPlayerControls.jsx'
 import { setUserAudioTracks } from '../../Store/music/actions.js'
 
@@ -26,13 +27,7 @@ function MyMusic({userName, userAudioTracks, setUserAudioTracks, isDarkTheme}) {
     }
   }, [userName, setUserAudioTracks])
 
-  if (!userName) {
-    return(
-      <div style={{fontSize: '4rem', textAlign: 'center'}} >
-        You aren't logged in
-      </div>
-    )
-  }
+  if (!userName) return <LoginPage />
 
   if (!isDataLoaded) {
     return(
