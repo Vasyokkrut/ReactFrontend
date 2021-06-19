@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -14,6 +14,7 @@ function AddPostForm(props) {
   const [text, setText] = useState('')
   const [preview, setPreview] = useState(null)
   const [status, setStatus] = useState({successful: true, message: ''})
+  const inputRef = useRef()
 
   const titleInputClassName = classNames(
     'title-input',
@@ -89,7 +90,6 @@ function AddPostForm(props) {
     })
     axios.put('/api/posts/uploadPost', data)
       .then(response => {
-        props.addUserPost(response.data)
         setPicture(null)
         setPreview(null)
         setTitle('')
@@ -98,7 +98,8 @@ function AddPostForm(props) {
           successful: true,
           message: ''
         })
-        document.getElementById('choose-picture-input').value = ''
+        inputRef.current.value = ''
+        props.addUserPost(response.data)
       })
       .catch(err => {
         const status = err.response.status
@@ -128,11 +129,12 @@ function AddPostForm(props) {
   return(
     <div className='post-creator'>
       <label className={buttonClassName}>
-        {picture === null ? 'Create Post' : 'Rechoose picture'}
+        {picture === null ? 'Choose picture' : 'Rechoose picture'}
         <input
           id='choose-picture-input'
           accept='image/*'
           type='file'
+          ref={inputRef}
           onInput={handlePictureInput}
         />
       </label>

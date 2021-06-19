@@ -1,7 +1,7 @@
 import axios from 'axios'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
-import React, { useState } from 'react'
+import { useState, useRef } from 'react'
 import { bindActionCreators } from 'redux'
 
 import { userLogout } from '../../Store/account/actions.js'
@@ -9,8 +9,10 @@ import { addAudioTrack } from '../../Store/music/actions.js'
 import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function AddTrack(props) {
+  const inputRef = useRef()
   const [title, setTitle] = useState('')
   const [track, setTrack] = useState(null)
+  const [uploadStatus, setUploadStatus] = useState({message: '', successful: true})
 
   const titleInputClassName = classNames(
     'audiotrack-title-input',
@@ -22,6 +24,12 @@ function AddTrack(props) {
     props.isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
   )
 
+  const statusStyle = {
+    height: '2rem',
+    fontSize: '1.5rem',
+    color: uploadStatus.successful ? 'green' : 'red'
+  }
+
   function handleTrackInput(event) {
     setTrack(event.target.files[0])
   }
@@ -31,6 +39,10 @@ function AddTrack(props) {
   }
 
   function uploadTrack() {
+    setUploadStatus({
+      successful: true,
+      message: 'your audiotrack is uploading...'
+    })
     if (track !== null) {
       const data = new FormData()
       data.append('title', title)
@@ -39,6 +51,8 @@ function AddTrack(props) {
         .then(res => {
           setTrack(null)
           setTitle('')
+          setUploadStatus({message: '', successful: true})
+          inputRef.current.value = ''
           props.addAudioTrack(res.data)
         })
         .catch(err => {
@@ -48,7 +62,10 @@ function AddTrack(props) {
             props.userLogout()
             props.changePopUpDisplay()
           } else {
-            alert('error happened :(')
+            setUploadStatus({
+              successful: false,
+              message: 'something went wrong :('
+            })
           }
         })
     }
@@ -66,6 +83,7 @@ function AddTrack(props) {
             {!track ? 'Add track' : 'Rechoose track'}
             <input
               id='choose-track-input'
+              ref={inputRef}
               type='file'
               accept='audio/*'
               onInput={handleTrackInput}
@@ -73,12 +91,9 @@ function AddTrack(props) {
           </label>
         </div>
         {
-          !track
-          ?
-          null
-          :
-          <>
-            <div style={{fontSize:'1.2rem', textAlign:'center', margin: '1rem'}}>
+          track ?
+          <div className='flex-center-column' >
+            <div style={{fontSize:'1.2rem'}}>
               Track is choosen!<br />
               You can upload it<br />
               using form below
@@ -91,13 +106,13 @@ function AddTrack(props) {
               value={title}
               onKeyDown={sendOnEnter}
             />
-            <div className='flex-center'>
-              <button
-                className={buttonClassName}
-                onClick={uploadTrack}
-              >Upload track</button>
-            </div>
-          </>
+            <div style={statusStyle} >{uploadStatus.message}</div>
+            <button
+              className={buttonClassName}
+              onClick={uploadTrack}
+            >Upload track</button>
+          </div>
+          : null
         }
       </div>
     </div>
