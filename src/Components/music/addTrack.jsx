@@ -39,6 +39,13 @@ function AddTrack(props) {
   }
 
   function uploadTrack() {
+    if (title === '') {
+      setUploadStatus({
+        successful: false,
+        message: 'title is empty'
+      })
+      return
+    }
     setUploadStatus({
       successful: true,
       message: 'your audiotrack is uploading...'

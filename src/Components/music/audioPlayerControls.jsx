@@ -74,6 +74,7 @@ function AudioPlayerControls(props) {
 
     nativeAudioElement.volume = newVolume
     props.setMusicVolume(newVolume)
+    localStorage.setItem('musicVolume', newVolume)
   }
 
   return(

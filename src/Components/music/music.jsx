@@ -9,7 +9,7 @@ import AudioTrack from './audioTrack.jsx'
 import LoginPage from '../loginPage/loginPage.jsx'
 import { setUserAudioTracks } from '../../Store/music/actions.js'
 
-function MyMusic({userName, userAudioTracks, setUserAudioTracks, isDarkTheme}) {
+function MyMusic({userName, userAudioTracks, setUserAudioTracks}) {
 
   const [isDataLoaded, setIsDataLoaded] = useState(false)
 
@@ -39,11 +39,11 @@ function MyMusic({userName, userAudioTracks, setUserAudioTracks, isDarkTheme}) {
   if (!userAudioTracks.length) {
     return(
       <>
+        <AddTrack />
         <div style={{fontSize: '3rem', textAlign: 'center'}} >
           you have no tracks :( <br />
-          fortunatly, you can add one!
+          use button above to add one!
         </div>
-        <AddTrack />
       </>
     )
   }

@@ -11,6 +11,7 @@ import RightList from './navLists/rightNavList.jsx'
 import { userLogin } from '../Store/account/actions.js'
 import { changeTheme } from '../Store/appearance/actions.js'
 import NativeAudioElement from './music/nativeAudioElement.jsx'
+import { setMusicVolume } from '../Store/music/actions.js'
 
 class MainComponent extends Component {
 
@@ -20,9 +21,10 @@ class MainComponent extends Component {
     if(localStorage.getItem('isDarkTheme') === 'false') props.changeTheme()
 
     const userName = localStorage.getItem('userName')
-    if (userName) {
-      this.props.userLogin({userName})
-    }
+    if (userName) this.props.userLogin({userName})
+
+    const musicVolume = localStorage.getItem('musicVolume')
+    if (musicVolume !== null && !isNaN(+musicVolume)) this.props.setMusicVolume(+musicVolume)
   }
 
   componentDidUpdate(prevProps) {
@@ -56,7 +58,8 @@ const mapStateToProps = store => {
 const mapActionsToProps = dispatch => {
   return {
     userLogin: bindActionCreators(userLogin, dispatch),
-    changeTheme: bindActionCreators(changeTheme, dispatch)
+    changeTheme: bindActionCreators(changeTheme, dispatch),
+    setMusicVolume: bindActionCreators(setMusicVolume, dispatch)
   }
 }
 
