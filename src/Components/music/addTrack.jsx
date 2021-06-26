@@ -93,10 +93,9 @@ function AddTrack(props) {
         {
           track ?
           <div className='flex-center-column' >
-            <div style={{fontSize:'1.2rem'}}>
+            <div style={{fontSize:'1.2rem', textAlign: 'center'}}>
               Track is choosen!<br />
-              You can upload it<br />
-              using form below
+              You can upload it using form below:
             </div>
             <input
               className={titleInputClassName}

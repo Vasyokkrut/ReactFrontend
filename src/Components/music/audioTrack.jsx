@@ -31,12 +31,12 @@ function AudioTrack({
 
   const buttonClassname = classnames(
     'audioplayer-button',
-    isDarkTheme ? 'audioplayer-button-dark' : 'audioplayer-button-light'
+    isDarkTheme ? 'trackitem-button-dark' : 'trackitem-button-light'
   )
 
   const trackitemClassName = classnames(
-    'audioplayer-trackitem',
-    isDarkTheme ? 'audioplayer-trackitem-dark' : 'audioplayer-trackitem-light'
+    'trackitem',
+    isDarkTheme ? 'trackitem-dark' : 'trackitem-light'
   )
 
   function deleteTrack() {
@@ -90,9 +90,8 @@ function AudioTrack({
   }
 
   const trackItemStyle = {}
-
   if (audioTrack._id === userAudioTracks[currentAudioTrack]?._id) {
-    trackItemStyle.backgroundColor = isDarkTheme ? '#555' : '#ccc'
+    trackItemStyle.backgroundColor = isDarkTheme ? '#3a3a3a' : '#e0e0e0'
   }
 
   return(
@@ -100,14 +99,14 @@ function AudioTrack({
       <button className={buttonClassname} onClick={playpause} >
         {(isMusicPlaying && audioTrack._id === userAudioTracks[currentAudioTrack]._id) ? 'pause' : 'play'}
       </button>
-      <div className='audioplayer-trackitem-title' >{audioTrack.title}</div>
+      <div className='trackitem-title' >{audioTrack.title}</div>
       {
         // if user listening this track then we cannot delete it
         // so we should check is this track the one user listening to
         // otherwise delete button won't appear
         currentAudioTrack !== index
         ?
-        <div className='audioplayer-trackitem-delete' onClick={deleteTrack} >&#10006;</div>
+        <div className='trackitem-delete' onClick={deleteTrack} >&#10006;</div>
         :
         null
       }

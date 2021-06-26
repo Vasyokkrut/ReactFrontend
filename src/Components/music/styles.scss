@@ -10,7 +10,7 @@ $background-color-dark: #222;
 .audiotrack-title-input {
   height: 2.5rem;
   width: 25rem;
-  border-radius: 1.25rem;
+  border-radius: .5rem;
   font-size: 1.5rem;
   margin: 1rem;
   padding-left: .5rem;
@@ -19,54 +19,68 @@ $background-color-dark: #222;
 
   &-light {
     background-color: $background-color-light;
-    border: 2px solid $border-color-light;
+    border: 1px solid $border-color-light;
   }
 
   &-dark {
     background-color: $background-color-dark;
-    border: 2px solid $border-color-dark;
+    border: 1px solid $border-color-dark;
+  }
+}
+
+.trackitem {
+  display: flex;
+  padding: .5rem;
+  margin-top: .5rem;
+  position: relative;
+  border-radius: .5rem;
+
+  &-button {
+    &-light {
+      background-color: whitesmoke;
+    }
+
+    &-dark {
+      background-color: #555;
+      color: inherit;
+
+      &:hover {
+        background-color: #777;
+      }
+    }
+  }
+
+  &-title {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  &-delete {
+    position: absolute;
+    right: 1rem;
+    padding: .2rem;
+    cursor: pointer;
+    opacity: .4;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  &-light {
+    &:hover {
+      background-color: #e6e6e6;
+    }
+  }
+
+  &-dark {
+    &:hover {
+      background-color: #2e2e2e;
+    }
   }
 }
 
 .audioplayer {
-
-  &-trackitem {
-    display: flex;
-    padding: .5rem;
-    margin-top: .5rem;
-    border-radius: .5rem;
-    position: relative;
-
-    &-title {
-      font-size: 1.5rem;
-      margin-left: 1rem;
-    }
-
-    &-delete {
-      position: absolute;
-      right: 1rem;
-      cursor: pointer;
-      opacity: .8;
-
-      &:hover {
-        opacity: .4;
-      }
-    }
-
-    &-light {
-      &:hover {
-        background-color: #ddd;
-      }
-    }
-
-    &-dark {
-      &:hover {
-        background-color: #444;
-      }
-    }
-
-  }
-
   &-title {
     margin-left: 1rem;
     font-size: 1rem;
@@ -75,6 +89,25 @@ $background-color-dark: #222;
   &-controls {
     margin-top: 1rem;
     display: flex;
+
+    &-button {
+      &-light {
+        background-color: #eee;
+  
+        &:hover {
+          background-color: #ddd;
+        }
+      }
+  
+      &-dark {
+        background-color: #555;
+        color: inherit;
+  
+        &:hover {
+          background-color: #777;
+        }
+      }
+    }
   }
 
   &-volume {
@@ -93,7 +126,7 @@ $background-color-dark: #222;
       width: 100%;
 
       &-light {
-        background-color: #ccc;
+        background-color: #ddd;
       }
 
       &-dark {
@@ -105,7 +138,7 @@ $background-color-dark: #222;
       height: 4px;
 
       &-light {
-        background-color: #999;
+        background-color: #c0c0c0;
       }
 
       &-dark {
@@ -130,7 +163,7 @@ $background-color-dark: #222;
       width: 100%;
       
       &-light {
-        background-color: #ccc;
+        background-color: #ddd;
       }
 
       &-dark {
@@ -142,7 +175,7 @@ $background-color-dark: #222;
       height: 4px;
       
       &-light {
-        background-color: #999;
+        background-color: #c0c0c0;
       }
 
       &-dark {
@@ -160,35 +193,5 @@ $background-color-dark: #222;
     border-style: none;
     border-radius: .2rem;
     transition-duration: .1s;
-
-    &-light {
-      background-color: whitesmoke;
-
-      &:hover {
-        background-color: #05359c;
-        color: white;
-      }
-
-      &:disabled {
-        background-color: #e2e2e2;
-        color: #a3a3a3;
-        cursor: default;
-      }
-    }
-
-    &-dark {
-      background-color: #333;
-      color: white;
-
-      &:hover {
-        background-color: #05359c;
-      }
-
-      &:disabled {
-        background-color: #6e6e6e;
-        color: #bdbdbd;
-        cursor: default;
-      }
-    }
   }
 }

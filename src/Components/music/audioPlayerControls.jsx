@@ -13,7 +13,7 @@ function AudioPlayerControls(props) {
 
   const buttonClassname = classnames(
     'audioplayer-button',
-    props.isDarkTheme ? 'audioplayer-button-dark' : 'audioplayer-button-light'
+    props.isDarkTheme ? 'audioplayer-controls-button-dark' : 'audioplayer-controls-button-light'
   )
 
   const progressBarClassName = classnames(

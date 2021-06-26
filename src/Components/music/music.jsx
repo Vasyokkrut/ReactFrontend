@@ -7,7 +7,6 @@ import './styles.scss'
 import AddTrack from './addTrack.jsx'
 import AudioTrack from './audioTrack.jsx'
 import LoginPage from '../loginPage/loginPage.jsx'
-import AudioPlayerControls from './audioPlayerControls.jsx'
 import { setUserAudioTracks } from '../../Store/music/actions.js'
 
 function MyMusic({userName, userAudioTracks, setUserAudioTracks, isDarkTheme}) {
@@ -49,18 +48,9 @@ function MyMusic({userName, userAudioTracks, setUserAudioTracks, isDarkTheme}) {
     )
   }
 
-  const hrStyle = {
-    height: '2px',
-    marginTop: '2rem',
-    borderStyle: 'none',
-    backgroundColor: isDarkTheme ? '#666' : '#ccc'
-  }
-
   return(
     <>
       <AddTrack />
-      <AudioPlayerControls />
-      <hr style={hrStyle} />
       {userAudioTracks.map((audioTrack, index) => {
         return(
           <AudioTrack
