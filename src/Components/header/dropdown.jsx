@@ -1,6 +1,7 @@
 import axios from 'axios'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
 import { userLogout } from '../../Store/account/actions.js'
@@ -40,6 +41,9 @@ function Dropdown(props) {
         <div className='username'>
           {props.userName}
         </div>
+        <Link className='username-link' to={`/userPosts/${props.userName}`} >
+          {props.userName}
+        </Link>
         <div className={dropdownContentClass}>
           <div
             className={dropdownOptionClass}
@@ -61,15 +65,13 @@ function Dropdown(props) {
   return (
     <div className={dropdownClassName} >
       <div className='login-container' >
-        <div>
-          You could&ensp;
-          <span
-            className='login-button'
-            onClick={props.changePopUpDisplay}
-          >
-            log in
-          </span>
-        </div>
+        <span>You could&ensp;</span>
+        <span
+          className='login-button'
+          onClick={props.changePopUpDisplay}
+        >
+          log in
+        </span>
       </div>
     </div>
   )

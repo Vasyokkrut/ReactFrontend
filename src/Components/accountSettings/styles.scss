@@ -1,6 +1,68 @@
-.setting-item {
-  display: flex;
-  justify-content: space-between;
+.settings {
+  &-container {
+    width: 100%;
+    position: relative;
+    min-height: 22rem;
+    overflow-x: hidden;
+  }
+  
+  &-options {
+    &>div:first-child {
+      font-size: 3rem;
+      text-align: center;
+    
+      @media (max-width: 1200px) {
+        display: none;
+      }
+    }
+  
+    button div {
+      display: none;
+    }
+  
+    @media (max-width: 1200px) {
+      button {
+        width: 100%;
+        margin: 2px 0;
+        justify-content: space-between;
+        border-radius: 0;
+        box-sizing: border-box;
+        border-width: 1px 0 1px 0;
+        div {
+          display: block;
+          font-size: 2.5rem;
+          margin-bottom: .4rem;
+        }
+      }
+    }
+  }
+  
+  &-content {
+    display: flex;
+    justify-content: space-between;
+  
+    &>button:last-child {
+      display: none;
+    }
+  
+    @media (max-width: 1200px) {
+      display: block;
+  
+      &>button:last-child {
+        display: flex;
+      }
+    }
+  }
+  
+  &-status {
+    height: 2rem;
+    font-size: 1.5rem;
+  
+    @media (max-width: 42rem) {
+      height: 4rem;
+      text-align: center;
+    }
+  }
 }
 
 .change-form > div {
@@ -12,7 +74,7 @@
   color: inherit;
   margin: .5rem 0;
   padding-left: .8rem;
-  width: 80%;
+  width: 70%;
   height: 2rem;
   font-size: 1.5rem;
   outline: none;
@@ -27,6 +89,10 @@
     background-color: #222;
     border: 1px solid #333;
   }
+
+  @media (max-width: 42rem) {
+    width: 90%;
+  }
 }
 
 .deleting-prompt {
@@ -35,4 +101,82 @@
   align-items: center;
   flex-direction: column;
   font-size: 2rem;
+  text-align: center;
+
+  @media (max-width: 42rem) {
+    font-size: 1.5rem;
+  }
+}
+
+.selected-option {
+  &>button {
+    display: none;
+  }
+  @media (max-width: 1200px) {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    transform: translateX(100%);
+
+    &>button {
+      display: block;
+      width: 100%;
+      margin: 2px 0;
+      text-align: left;
+      border-radius: 0;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.hide-left {
+  @media (max-width: 1200px) {
+    animation-duration: .2s;
+    animation-name: hideLeft;
+    animation-fill-mode: forwards;
+  }
+}
+
+.open-right {
+  @media (max-width: 1200px) {
+    animation-duration: .2s;
+    animation-name: openRight;
+    animation-fill-mode: forwards;
+  }
+}
+
+.open-left {
+  @media (max-width: 1200px) {
+    animation-duration: .2s;
+    animation-name: openLeft;
+    animation-fill-mode: forwards;
+  }
+}
+
+.hide-right {
+  @media (max-width: 1200px) {
+    animation-duration: .2s;
+    animation-name: hideRight;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes hideLeft {
+  from {transform: translateX(0);}
+  to {transform: translateX(-100%);}
+}
+
+@keyframes openRight {
+  from {transform: translateX(100%);}
+  to {transform: translateX(0);}
+}
+
+@keyframes openLeft {
+  from {transform: translateX(-100%);}
+  to {transform: translateX(0);}
+}
+
+@keyframes hideRight {
+  from {transform: translateX(0);}
+  to {transform: translateX(100%);}
 }

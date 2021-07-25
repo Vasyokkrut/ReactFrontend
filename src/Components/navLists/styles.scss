@@ -18,9 +18,10 @@
 }
 
 .side-bar {
+  box-sizing: border-box;
   position: sticky;
   padding: .5rem;
-  width: 13rem;
+  width: 14rem;
   top: 4rem;
   border-radius: .5rem;
 
@@ -40,5 +41,78 @@
 
   &-right {
     margin-left: 2rem;
+  }
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
+.bottom-nav-bar {
+  box-sizing: border-box;
+  position: fixed;
+  display: none;
+  bottom: 0;
+  width: 100%;
+
+  &-light {
+    background-color: white;
+    border-top: 1px solid #ccc;
+  }
+
+  &-dark {
+    background-color: #444;
+    border-top: 1px solid #555;
+  }
+  
+  &-links {
+    height: 3rem;
+    justify-content: space-around;
+    display: flex;
+
+    &>a {
+      display: block;
+      padding: 1rem;
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    display: block;
+  }
+
+  &-player {
+    box-sizing: border-box;
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 .5rem;
+
+    &-light {
+      border-bottom: 1px solid #ccc;
+
+      button {
+        background-color: #eee;
+      }
+    }
+
+    &-dark {
+      border-bottom: 1px solid #555;
+
+      button {
+        background-color: #555;
+      }
+    }
+
+    button {
+      cursor: pointer;
+      color: inherit;
+      border: none;
+      border-radius: .2rem;
+      width: 4rem;
+      font-size: 1rem;
+      margin: .1rem 0;
+    }
   }
 }

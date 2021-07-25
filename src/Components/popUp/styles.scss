@@ -7,11 +7,49 @@
   margin-left: -15rem;
   padding: 0 2rem;
   font-size: 3rem;
+  text-align: center;
   border: 1px solid #555;
   border-radius: 1rem;
   animation-fill-mode: forwards;
   animation-duration: .2s;
   z-index: 100;
+
+  @media (max-width: 42rem) {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    font-size: 2rem;
+    padding: 1rem;
+    padding-top: 2rem;
+  }
+
+  &-hide {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    font-size: 1.5rem;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    cursor: pointer;
+    display: none;
+
+    &-light {
+      text-shadow: 0 0 0 #bbb;
+    }
+
+    &-dark {
+      text-shadow: 0 0 0 #555;
+    }
+
+    @media (max-width: 42rem) {
+      display: block;
+    }
+  }
 
   &-input {
     height: 2rem;
@@ -23,6 +61,11 @@
     outline: none;
     margin: .5rem 1rem;
     color: inherit;
+
+    @media (max-width: 42rem) {
+      width: calc(100% - 1rem);
+      margin: .5rem 0;
+    }
 
     &-light {
       background-color: white;
@@ -60,20 +103,33 @@
   }
 }
 
-.or-register-light::before, .or-register-light::after {
+.or-register::before, .or-register::after {
   content: "";
-  background-color: #ccc;
   margin: 2rem 1rem;
   height: 1px;
   width: 10rem;
+
+  @media (max-width: 42rem) {
+    margin: 1.2rem;
+    width: calc(50% - 2rem);
+  }
+}
+
+@media (max-width: 42rem) {
+  .or-register::before {
+    margin-left: 0;
+  }
+  .or-register::after {
+    margin-right: 0;
+  }
+}
+
+.or-register-light::before, .or-register-light::after {
+  background-color: #ccc;
 }
 
 .or-register-dark::before, .or-register-dark::after {
-  content: "";
   background-color: #555;
-  margin: 2rem 1rem;
-  height: 1px;
-  width: 10rem;
 }
 
 .overlay {

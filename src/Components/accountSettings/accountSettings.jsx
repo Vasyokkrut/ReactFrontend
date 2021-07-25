@@ -1,12 +1,16 @@
+import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
-import React, { useEffect, useState } from 'react'
+import { bindActionCreators } from 'redux'
+import { useEffect, useState } from 'react'
 
 import './styles.scss'
 import DeleteAccount from './deleteAccount.jsx'
 import ChangeUserName from './changeUserName.jsx'
 import ChangePassword from './changePassword.jsx'
 import LoginPage from '../loginPage/loginPage.jsx'
+import { userLogout } from '../../Store/account/actions.js'
+import { resetAudioPlayer } from '../../Store/music/actions.js'
 
 // this component is part of AccountSettings component
 // and shows selected option by user
@@ -23,12 +27,19 @@ function SelectedOption({selectedOption}) {
   }
 }
 
-function AccountSettings({isDarkTheme, userName}) {
+function AccountSettings({isDarkTheme, userName, userLogout, resetAudioPlayer}) {
 
   // this useState is for define which option will be displayed
   // it will contain one of these options:
   // null, 'changeUserName', 'changePassword', 'deleteAccount'
   const [selectedOption, setSelectedOption] = useState(null)
+  const [optionClassName, setOptionClassName] = useState('selected-option')
+  const [optionsClassName, setOptionsClassName] = useState('settings-options')
+
+  const settingsButtonClassName = classnames(
+    'primary-button',
+    isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
+  )
 
   // when user relogins
   // component should display nothing as default option
@@ -38,32 +49,57 @@ function AccountSettings({isDarkTheme, userName}) {
     }
   }, [userName])
 
+  function chooseOption(option) {
+    setSelectedOption(option)
+    setOptionClassName('selected-option open-right')
+    setOptionsClassName('settings-options hide-left')
+  }
+
+  function returnBack() {
+    setTimeout(() => {
+      setSelectedOption(null)
+    }, 200)
+    setOptionClassName('selected-option hide-right')
+    setOptionsClassName('settings-options open-left')
+  }
+
+  function logout() {
+    axios.get('/api/account/logout')
+    localStorage.removeItem('userName')
+    userLogout()
+    resetAudioPlayer()
+  }
+
   if (!userName) return <LoginPage />
 
-  const settingsButtonClassName = classnames(
-    'primary-button',
-    isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
-  )
-
   return(
-    <>
-      <div className='account-name' >account settings</div>
-      <div className='setting-item' >
-        <button
-          className={settingsButtonClassName}
-          onClick={() => setSelectedOption('changeUserName')}
-        >Change username</button>
-        <button
-          className={settingsButtonClassName}
-          onClick={() => setSelectedOption('changePassword')}
-        >Change password</button>
-        <button
-          className={settingsButtonClassName}
-          onClick={() => setSelectedOption('deleteAccount')}
-        >Delete account</button>
+    <div className='settings-container' >
+      <div className={optionsClassName} >
+        <div>account settings</div>
+        <div className='settings-content' >
+          <button
+            className={settingsButtonClassName}
+            onClick={() => chooseOption('changeUserName')}
+          >Change username <div>&rsaquo;</div></button>
+          <button
+            className={settingsButtonClassName}
+            onClick={() => chooseOption('changePassword')}
+          >Change password <div>&rsaquo;</div></button>
+          <button
+            className={settingsButtonClassName}
+            onClick={() => chooseOption('deleteAccount')}
+          >Delete account <div>&rsaquo;</div></button>
+          <button
+            className={settingsButtonClassName}
+            onClick={logout}
+          >Exit from account</button>
+        </div>
       </div>
-      <SelectedOption selectedOption={selectedOption} />
-    </>
+      <div className={optionClassName} >
+        <button onClick={returnBack} className={settingsButtonClassName} >back</button>
+        <SelectedOption selectedOption={selectedOption} />
+      </div>
+    </div>
   )
 }
 
@@ -74,4 +110,11 @@ const mapStateToProps = store => {
   }
 }
 
-export default connect(mapStateToProps)(AccountSettings)
+const mapActionsToProps = dispatch => {
+  return {
+    userLogout: bindActionCreators(userLogout, dispatch),
+    resetAudioPlayer: bindActionCreators(resetAudioPlayer, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(AccountSettings)

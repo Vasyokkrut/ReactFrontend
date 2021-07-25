@@ -10,10 +10,21 @@
 
     &-light {
       background-color: whitesmoke;
+      border: 1px solid #ddd;
     }
 
     &-dark {
       background-color: #333;
+      border: 1px solid #333;
+    }
+
+    @media (max-width: 42rem) {
+      border-radius: 0;
+      font-size: 1.5rem;
+
+      &>ul {
+        padding-inline-start: 0;
+      }
     }
   }
 
@@ -43,6 +54,12 @@
       &:hover {
         background-color: #ddd;
       }
+
+      @media (max-width: 42rem) {
+        &:hover {
+          background-color: transparent;
+        }
+      }
     }
 
     &-dark {
@@ -51,6 +68,12 @@
 
       &:hover {
         background-color: #555;
+      }
+      
+      @media (max-width: 42rem) {
+        &:hover {
+          background-color: transparent;
+        }
       }
     }
   }

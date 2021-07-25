@@ -39,8 +39,6 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
   }
 
   const changingStatusStyle = {
-    height: '2rem',
-    fontSize: '1.5rem',
     color: changingStatus.successful ? 'green' : 'red'
   }
 
@@ -177,7 +175,7 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
           placeholder='repeat your new password'
         />
       </div>
-      <div style={changingStatusStyle}>
+      <div style={changingStatusStyle} className='settings-status' >
         {changingStatus.message}
       </div>
       <div>

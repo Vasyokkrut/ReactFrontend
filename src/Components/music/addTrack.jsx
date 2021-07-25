@@ -83,44 +83,42 @@ function AddTrack(props) {
   }
 
   return(
-    <div className='flex-center' >
-      <div>
-        <div className='flex-center'>
-          <label className={buttonClassName}>
-            {!track ? 'Add track' : 'Rechoose track'}
-            <input
-              id='choose-track-input'
-              ref={inputRef}
-              type='file'
-              accept='audio/*'
-              onInput={handleTrackInput}
-            />
-          </label>
-        </div>
-        {
-          track ?
-          <div className='flex-center-column' >
-            <div style={{fontSize:'1.2rem', textAlign: 'center'}}>
-              Track is choosen!<br />
-              You can upload it using form below:
-            </div>
-            <input
-              className={titleInputClassName}
-              type='text'
-              placeholder='Choose title'
-              onChange={handleTitleInput}
-              value={title}
-              onKeyDown={sendOnEnter}
-            />
-            <div style={statusStyle} >{uploadStatus.message}</div>
-            <button
-              className={buttonClassName}
-              onClick={uploadTrack}
-            >Upload track</button>
-          </div>
-          : null
-        }
+    <div className='flex-center-column' >
+      <div className='flex-center'>
+        <label className={buttonClassName}>
+          {!track ? 'Add track' : 'Rechoose track'}
+          <input
+            id='choose-track-input'
+            ref={inputRef}
+            type='file'
+            accept='audio/*'
+            onInput={handleTrackInput}
+          />
+        </label>
       </div>
+      {
+        track ?
+        <div className='flex-center-column' style={{width: '100%'}} >
+          <div style={{fontSize:'1.2rem', textAlign: 'center'}}>
+            Track is choosen!<br />
+            You can upload it using form below:
+          </div>
+          <input
+            className={titleInputClassName}
+            type='text'
+            placeholder='Choose title'
+            onChange={handleTitleInput}
+            value={title}
+            onKeyDown={sendOnEnter}
+          />
+          <div style={statusStyle} >{uploadStatus.message}</div>
+          <button
+            className={buttonClassName}
+            onClick={uploadTrack}
+          >Upload track</button>
+        </div>
+        : null
+      }
     </div>
   )
 }

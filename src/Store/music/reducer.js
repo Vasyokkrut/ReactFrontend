@@ -7,19 +7,27 @@ import {
   SET_NEXT_AUDIO_TRACK,
   DELETE_AUDIO_TRACK,
   RESET_AUDIO_PLAYER,
-  ADD_AUDIO_TRACK
+  ADD_AUDIO_TRACK,
+  STOP_MUSIC
 } from '../actionTypes.js'
 
 const initialState = {
   currentMusicTime: 0,
   isMusicPlaying: false,
   currentAudioTrack: null,
-  currentMusicVolume: .01,
+  currentMusicVolume: .1,
   userAudioTracks: []
 }
 
 export const musicReducer = (state = initialState, action) => {
   switch(action.type){
+    case STOP_MUSIC:
+      return {
+        ...state,
+        currentMusicTime: 0,
+        isMusicPlaying: false,
+        currentAudioTrack: null
+      }
     case SET_CURRENT_AUDIO_TRACK:
       return {
         ...state,

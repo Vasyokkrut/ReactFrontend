@@ -12,8 +12,8 @@ function PostItem({
   let pictureURL = `/api/posts/getPostPicture/${userName}/${item._id}`
 
   if (process.env.NODE_ENV !== 'production') {
-    pictureURL = 'http://localhost:5000' + pictureURL
-    downloadLink = 'http://localhost:5000' + downloadLink
+    pictureURL = `http://${window.location.hostname}:5000${pictureURL}`
+    downloadLink = `http://${window.location.hostname}:5000${downloadLink}`
   }
 
   const buttonClassName = classNames(
@@ -43,18 +43,18 @@ function PostItem({
           <button
             onClick={() => sendDeleteRequest(item._id)}
             className={buttonClassName}
-          >Delete this post</button>
+          >Delete</button>
         ) : null}
         <a
           className={buttonClassName}
           rel='noopener noreferrer'
           target='_blank'
           href={pictureURL}
-        >Open full picture</a>
+        >full picture</a>
         <a
           className={buttonClassName}
           href={downloadLink}
-        >Download picture</a>
+        >Download</a>
       </div>
     </div>
   )

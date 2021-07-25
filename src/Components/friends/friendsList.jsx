@@ -50,15 +50,15 @@ function FriendItem({isDarkTheme, friend, userLogout, changePopUpDisplay}) {
   )
 }
 
-function FriendsList({isDarkTheme, userName, userLogout, changePopUpDisplay}) {
+function FriendsList({isDarkTheme, userName, userLogout, changePopUpDisplay, setSelectedOption}) {
   const [friends, setFriends] = useState([])
   const [isDataLoaded, setIsDataLoaded] = useState(false)
 
   useEffect(() => {
     axios.get('/api/friends/getFriends')
       .then(res => {
-       setFriends(res.data)
-       setIsDataLoaded(true)
+        setFriends(res.data)
+        setIsDataLoaded(true)
       })
       .catch(err => {
         const status = err.response.status
@@ -70,9 +70,45 @@ function FriendsList({isDarkTheme, userName, userLogout, changePopUpDisplay}) {
       })
   }, [userName, userLogout, changePopUpDisplay])
 
-  if (!isDataLoaded) return <div className='notification' >loading...</div>
+  const hrStyle = {
+    backgroundColor: isDarkTheme ? '#333' : '#ccc',
+    marginTop: '0'
+  }
 
-  if (!friends.length) return <div className='notification' >you have no friends</div>
+  if (!isDataLoaded) return (
+    <div>
+      <hr className='hr-line' style={hrStyle} />
+      <div className='notification' >loading...</div>
+    </div>
+  )
+
+  const searchButtonClassName = classnames(
+    'search-button',
+    isDarkTheme ? 'search-button-dark' : 'search-button-light'
+  )
+
+  const buttonStyle = {
+    height: '2rem',
+    margin: '1rem 1rem .8rem 1rem'
+  }
+
+  if (!friends.length) return (
+    <div>
+      <hr className='hr-line' style={hrStyle} />
+      <div className='notification' >you have no friends :(</div>
+      <div className='flex-center' >
+        <div className='notification' style={{display: 'flex', alignItems: 'center'}} >
+          but you can
+          <button
+            onClick={() => setSelectedOption('search friends')}
+            style={buttonStyle}
+            className={searchButtonClassName}
+          >search</button>
+          them!
+        </div>
+      </div>
+    </div>
+  )
 
   return (
     <>

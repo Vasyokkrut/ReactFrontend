@@ -54,10 +54,14 @@ function PopUp(props) {
     props.isDarkTheme ? 'pop-up-input-dark' : 'pop-up-input-light'
   )
 
-  // depending on darktheme state we should choose background color for pop up
   const popUpStyle = {
     backgroundColor: props.isDarkTheme ? '#222' : '#eee'
   }
+
+  const popUpCloseClassName = classnames(
+    'pop-up-hide',
+    props.isDarkTheme ? 'pop-up-hide-dark' : 'pop-up-hide-light'
+  )
 
   // styles for status message that is placed above the confirmation button
   const loginStatusStyle = {
@@ -69,6 +73,7 @@ function PopUp(props) {
 
   const lineClassName = classnames(
     'flex-center',
+    'or-register',
     props.isDarkTheme ? 'or-register-dark' : 'or-register-light'
   )
 
@@ -218,12 +223,14 @@ function PopUp(props) {
     <>
       <div className={componentsClassNames.overlay} onClick={closePopup}></div>
       <div className={componentsClassNames.popUp} style={popUpStyle} >
-        <div style={{textAlign: 'center'}} >sign in</div>
+        <button className={popUpCloseClassName} onClick={closePopup} >&#10006;</button>
+        <div>sign in</div>
         <div>
           <input
             disabled={isInputDisabled[0]}
             placeholder='Login'
             className={popUpInputClassName}
+            onKeyDown={event => {if (event.key === 'Enter') confirmHandler()}}
             type='text'
             onChange={(e) => handleInput(e, 0)}
             value={loginState[0]}
@@ -236,6 +243,7 @@ function PopUp(props) {
             className={popUpInputClassName}
             type='password'
             onChange={(e) => handleInput(e, 1)}
+            onKeyDown={event => {if (event.key === 'Enter') confirmHandler()}}
             value={loginState[1]}
           />
         </div>
@@ -248,6 +256,7 @@ function PopUp(props) {
             className={popUpInputClassName}
             type='text'
             onChange={(e) => handleInput(e, 2)}
+            onKeyDown={event => {if (event.key === 'Enter') confirmHandler()}}
             value={loginState[2]}
           />
         </div>
@@ -258,6 +267,7 @@ function PopUp(props) {
             className={popUpInputClassName}
             type='password'
             onChange={(e) => handleInput(e, 3)}
+            onKeyDown={event => {if (event.key === 'Enter') confirmHandler()}}
             value={loginState[3]}
           />
         </div>
@@ -268,6 +278,7 @@ function PopUp(props) {
             className={popUpInputClassName}
             type='password'
             onChange={(e) => handleInput(e, 4)}
+            onKeyDown={event => {if (event.key === 'Enter') confirmHandler()}}
             value={loginState[4]}
           />
         </div>

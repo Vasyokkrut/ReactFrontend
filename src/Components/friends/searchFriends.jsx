@@ -138,8 +138,14 @@ function SearchFriends({isDarkTheme, userLogout, changePopUpDisplay}) {
       })
   }
 
+  const hrStyle = {
+    marginTop: '0',
+    backgroundColor: isDarkTheme ? '#333' : '#ccc'
+  }
+
   return (
     <>
+      <hr className='hr-line search-hr-line' style={hrStyle} />
       <div className='search-friends' >
         <input
           type='text'
@@ -151,8 +157,7 @@ function SearchFriends({isDarkTheme, userLogout, changePopUpDisplay}) {
           className={searchButtonClassName}
           onClick={sendSearchRequest}
           disabled={!requestedUser}
-        >search
-        </button>
+        >search</button>
       </div>
       {isDataLoaded && !foundUsers.length
         ? <div className='notification' >

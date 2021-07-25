@@ -1,14 +1,15 @@
 .friend-item {
   height: 5rem;
   display: flex;
+  padding: 0 .5rem;
   justify-content: space-between;
 
   &-light {
-    border-top: 2px solid #ccc;
+    border-top: 1px solid #ccc;
   }
 
   &-dark {
-    border-top: 2px solid #333;
+    border-top: 1px solid #333;
   }
 
   &-name {
@@ -17,19 +18,35 @@
     font-size: 2rem;
     text-decoration: none;
     color: inherit;
+    
+    @media (max-width: 42rem) {
+      font-size: 1.5rem;
+      padding-left: .5rem;
+    }
   }
 }
 
 .search {
+  &-hr-line {
+    display: none;
+
+    @media (max-width: 42rem) {
+      display: block;
+    }
+  }
+
   &-friends {
     display: flex;
     justify-content: space-between;
-    margin: 1rem;
-    margin-left: 0;
+    margin: 1rem 0;
+    
+    @media (max-width: 42rem) {
+      padding: 0 1rem;
+    }
   }
 
   &-input {
-    width: 30rem;
+    width: 32rem;
     height: 2rem;
     padding-left: .5rem;
     border-radius: .3rem;
@@ -44,7 +61,11 @@
 
     &-light {
       background-color: white;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
+    }
+
+    @media (max-width: 42rem) {
+      width: calc(100% - 8rem);
     }
   }
 
@@ -52,7 +73,7 @@
     border-style: none;
     border-radius: .3rem;
     cursor: pointer;
-    width: 5rem;
+    padding: 0 1rem;
     color: white;
     font-size: 1rem;
     outline: none;
@@ -63,6 +84,12 @@
 
       &:hover {
         background-color: #ddd;
+      }
+      
+      @media (max-width: 1200px) {
+        &:hover {
+          background-color: white;
+        }
       }
 
       &:disabled {
@@ -79,6 +106,12 @@
         background-color: #777;
       }
 
+      @media (max-width: 1200px) {
+        &:hover {
+          background-color: #555;
+        }
+      }
+
       &:disabled {
         color: #777;
         background-color: #333;
@@ -91,37 +124,96 @@
     display: flex;
     justify-content: space-between;
     height: 4rem;
+    padding: 0 .5rem;
+    box-sizing: border-box;
 
     &-light {
       border-top: 1px solid #ccc;
     }
 
     &-dark {
-      border-top: 1px solid #555;
+      border-top: 1px solid #333;
     }
 
     &>div {
-      padding-right: .5rem;
       font-size: 1.6rem;
     }
   }
 }
 
 .options {
+  box-sizing: border-box;
   width: 100%;
   height: 3rem;
   display: flex;
-  margin-bottom: 1rem 0;
+  margin-bottom: 1rem;
+
+  @media (max-width: 42rem) {
+    padding: .5rem;
+    position: absolute;
+    flex-direction: column;
+    height: 12rem;
+    display: none;
+    top: 3.5rem;
+    left: 1rem;
+    width: 12rem;
+    border-radius: .5rem;
+
+    &-light {
+      background-color: white;
+      border: 1px solid #ddd;
+    }
+
+    &-dark {
+      background-color: #333;
+    }
+  }
+
+
+  &-selector {
+    display: none;
+    &-button {
+      display: block;
+      cursor: pointer;
+      font-size: 1.5rem;
+      width: 80%;
+      text-align: left;
+      padding-left: 1rem;
+      height: 3rem;
+      background-color: transparent;
+      border: none;
+      color: inherit;
+  
+      div {
+        display: inline-block;
+        margin-left: .5rem;
+        transform: rotate(90deg);
+        font-size: 1.5rem;
+      }
+  
+    }
+
+    @media (max-width: 42rem) {
+      display: block;
+    }
+  }
 
   &-item {
     outline: none;
     cursor: pointer;
     width: 25%;
+    height: 3rem;
     font-size: 1rem;
     background-color: transparent;
     border: none;
     color: inherit;
     border-radius: 0;
+
+    @media (max-width: 42rem) {
+      width: 100%;
+      text-align: left;
+      font-size: 1.2rem;
+    }
 
     &:first-child {
       border-left: none;
@@ -131,7 +223,7 @@
       border-left: 1px solid #333;
 
       &:hover {
-        background-color: #555;
+        background-color: #333;
       }
     }
 
@@ -142,25 +234,42 @@
         background-color: #ddd;
       }
     }
+
+    &-light, &-dark {
+      @media (max-width: 1200px) {
+        &:hover {
+          background-color: transparent;
+        }
+      }
+
+      @media (max-width: 42rem) {
+        border: none;
+      }
+    }
   }
 }
 
 .notification {
   font-size: 2rem;
   text-align: center;
+
+  @media (max-width: 42rem) {
+    font-size: 1.5rem;
+  }
 }
 
 .request-item {
   display: flex;
   justify-content: space-between;
   height: 5rem;
+  padding: 0 .5rem;
 
   &-light {
-    border-top: 2px solid #ccc;
+    border-top: 1px solid #ccc;
   }
 
   &-dark {
-    border-top: 2px solid #333;
+    border-top: 1px solid #333;
   }
 }
 
@@ -225,6 +334,14 @@
     &:nth-child(2):hover {
       color: white;
       background-color: #600;
+    }
+  }
+
+  &-light, &-dark {
+    @media (max-width: 1200px) {
+      &:hover, &:nth-child(2):hover {
+        background-color: transparent;
+      }
     }
   }
 }

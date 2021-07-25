@@ -95,9 +95,24 @@ function IncomingRequests({isDarkTheme, userLogout, changePopUpDisplay}) {
       })
   }, [userLogout, changePopUpDisplay])
 
-  if (!isDataLoaded) return <div className='notification' >loading...</div>
+  const hrStyle = {
+    marginTop: '0',
+    backgroundColor: isDarkTheme ? '#333' : '#ccc'
+  }
 
-  if (!requesters.length) return <div className='notification' >you have no incoming friend requests</div>
+  if (!isDataLoaded) return (
+    <div>
+      <hr className='hr-line' style={hrStyle} />
+      <div className='notification' >loading...</div>
+    </div>
+  )
+
+  if (!requesters.length) return (
+    <div>
+      <hr className='hr-line' style={hrStyle} />
+      <div className='notification' >you have no incoming friend requests</div>
+    </div>
+  )
 
   return (
     <>

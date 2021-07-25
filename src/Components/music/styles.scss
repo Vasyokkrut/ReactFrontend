@@ -9,13 +9,19 @@ $background-color-dark: #222;
 
 .audiotrack-title-input {
   height: 2.5rem;
-  width: 25rem;
-  border-radius: .5rem;
+  width: 30rem;
+  border-radius: 1.25rem;
   font-size: 1.5rem;
   margin: 1rem;
   padding-left: .5rem;
   outline: none;
   color: inherit;
+  box-sizing: border-box;
+
+  @media (max-width: 42rem) {
+    width: 95%;
+    max-width: 30rem;
+  }
 
   &-light {
     background-color: $background-color-light;
@@ -28,58 +34,6 @@ $background-color-dark: #222;
   }
 }
 
-.trackitem {
-  display: flex;
-  padding: .5rem;
-  margin-top: .5rem;
-  position: relative;
-  border-radius: .5rem;
-
-  &-button {
-    &-light {
-      background-color: whitesmoke;
-    }
-
-    &-dark {
-      background-color: #555;
-      color: inherit;
-
-      &:hover {
-        background-color: #777;
-      }
-    }
-  }
-
-  &-title {
-    font-size: 1.5rem;
-    margin-left: 1rem;
-  }
-
-  &-delete {
-    position: absolute;
-    right: 1rem;
-    padding: .2rem;
-    cursor: pointer;
-    opacity: .4;
-
-    &:hover {
-      opacity: .8;
-    }
-  }
-
-  &-light {
-    &:hover {
-      background-color: #e6e6e6;
-    }
-  }
-
-  &-dark {
-    &:hover {
-      background-color: #2e2e2e;
-    }
-  }
-}
-
 .audioplayer {
   &-title {
     margin-left: 1rem;
@@ -87,8 +41,10 @@ $background-color-dark: #222;
   }
 
   &-controls {
-    margin-top: 1rem;
+    margin-top: .2rem;
     display: flex;
+    position: absolute;
+    left: 16.5rem;
 
     &-button {
       &-light {
@@ -108,13 +64,17 @@ $background-color-dark: #222;
         }
       }
     }
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
   }
 
   &-volume {
 
     &-wrapper {
       margin-left: 1rem;
-      padding: .5rem 0;
+      padding: .3rem 0;
       display: inline-block;
       cursor: pointer;
       height: 4px;
@@ -148,11 +108,9 @@ $background-color-dark: #222;
   }
 
   &-progress {
-
     &-wrapper {
       margin-left: 1rem;
-      padding: .5rem 0;
-      display: inline-block;
+      padding: .3rem 0;
       cursor: pointer;
       height: 4px;
       width: 400px;
@@ -193,5 +151,128 @@ $background-color-dark: #222;
     border-style: none;
     border-radius: .2rem;
     transition-duration: .1s;
+  }
+}
+
+.trackitem {
+  display: flex;
+  padding: .5rem;
+  margin-top: .5rem;
+  position: relative;
+  border-radius: .5rem;
+  box-sizing: border-box;
+  width: 100%;
+
+  @media (max-width: 1200px) {
+    width: 40rem;
+  }
+
+  @media (max-width: 42rem) {
+    width: 100%;
+  }
+
+  &-button {
+    &-light {
+      background-color: white;
+      border: 1px solid #ddd;
+    }
+
+    &-dark {
+      background-color: #555;
+      color: inherit;
+
+      &:hover {
+        background-color: #777;
+      }
+      
+      @media (max-width: 42rem) {
+        &:hover {
+          background-color: #555;
+        }
+      }
+    }
+  }
+
+  &-delete {
+    position: absolute;
+    right: 1rem;
+    font-size: 1rem;
+    padding: .2rem;
+    cursor: pointer;
+    color: transparent;
+    background-color: transparent;
+    border: none;
+
+    &-light {
+      text-shadow: 0 0 0 #bbb;
+    }
+
+    &-dark {
+      text-shadow: 0 0 0 #777;
+    }
+
+    &:hover {
+      text-shadow: 0 0 0 #999;
+    }
+  }
+
+  &-progress {
+
+    &-wrapper {
+      margin-left: 1rem;
+      padding: .3rem 0 .1rem 0;
+      cursor: pointer;
+      height: 4px;
+      width: calc(100% - 4rem);
+    }
+
+    &-bar {
+      height: 4px;
+      width: 100%;
+      
+      &-light {
+        background-color: #ccc;
+      }
+
+      &-dark {
+        background-color: #777;
+      }
+    }
+
+    &-time {
+      height: 4px;
+      
+      &-light {
+        background-color: #aaa;
+      }
+
+      &-dark {
+        background-color: #aaa;
+      }
+    }
+  }
+
+  &-light {
+    &:hover {
+      background-color: #e6e6e6;
+    }
+
+    @media (max-width: 1200px) {
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  &-dark {
+    &:hover {
+      background-color: #2e2e2e;
+    }
+
+    @media (max-width: 1200px) {
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 }

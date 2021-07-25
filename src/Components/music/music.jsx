@@ -30,7 +30,7 @@ function MyMusic({userName, userAudioTracks, setUserAudioTracks}) {
 
   if (!isDataLoaded) {
     return(
-      <div style={{fontSize: '4rem', textAlign: 'center'}} >
+      <div style={{fontSize: '2rem', textAlign: 'center'}} >
         loading...
       </div>
     )

@@ -43,7 +43,7 @@ function WelcomePage({isDarkTheme, userName}) {
       <hr className='hr-line' style={hrStyle} />
       <div>
         Anyway, you always can find any
-        feature just by using aside navigation lists
+        feature just by using navigation
       </div>
       <hr className='hr-line' style={hrStyle} />
       <div>Enjoy!</div>

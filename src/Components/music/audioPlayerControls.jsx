@@ -38,6 +38,7 @@ function AudioPlayerControls(props) {
 
   const nativeAudioElement = document.getElementById('native-audio-element')
 
+  const audioplayerRef = useRef()
   const volumeWrapperRef = useRef()
   const progressWrapperRef = useRef()
 
@@ -52,14 +53,15 @@ function AudioPlayerControls(props) {
   }
 
   function changeCurrentMusicTime(event) {
-    if (props.currentAudioTrack === null) return
-
     const audioDuration = nativeAudioElement.duration
-    const progressOffsetLeft = progressWrapperRef.current.offsetLeft
+
+    const audioplayerOffsetLeft = audioplayerRef.current.offsetLeft
+    const progressWrapperOffsetLeft = progressWrapperRef.current.offsetLeft
+    const headerOffsetLeft = document.getElementById('header-content').offsetLeft
+    const progressOffsetLeft = audioplayerOffsetLeft + progressWrapperOffsetLeft + headerOffsetLeft
     const progressOffsetWidth = progressWrapperRef.current.offsetWidth
 
     const newPosition = (event.pageX - progressOffsetLeft) * audioDuration / progressOffsetWidth
-
     nativeAudioElement.currentTime = newPosition
 
     const newWidth = 100 * nativeAudioElement.currentTime / nativeAudioElement.duration
@@ -67,7 +69,10 @@ function AudioPlayerControls(props) {
   }
 
   function changeMusicVolume(event) {
-    const volumeOffsetLeft = volumeWrapperRef.current.offsetLeft
+    const audioplayerOffsetLeft = audioplayerRef.current.offsetLeft
+    const volumeWrapperOffsetLeft = volumeWrapperRef.current.offsetLeft
+    const headerOffsetLeft = document.getElementById('header-content').offsetLeft
+    const volumeOffsetLeft = audioplayerOffsetLeft + volumeWrapperOffsetLeft + headerOffsetLeft
     const volumeOffsetWidth = volumeWrapperRef.current.offsetWidth
     
     const newVolume = (event.pageX - volumeOffsetLeft) / volumeOffsetWidth
@@ -78,7 +83,7 @@ function AudioPlayerControls(props) {
   }
 
   return(
-    <div className='audioplayer-controls' >
+    <div ref={audioplayerRef} className='audioplayer-controls' >
 
       <button className={buttonClassname} onClick={playpause} disabled={props.currentAudioTrack === null} >
         {props.isMusicPlaying ? 'pause' : 'play'}
@@ -86,15 +91,9 @@ function AudioPlayerControls(props) {
       
       <div>
         <div className='audioplayer-title' >
-          {
-            props.currentAudioTrack !== null
-            ?
-            props.userAudioTracks[props.currentAudioTrack].title
-            :
-            'please, choose audio track'
-          }
+          {props.userAudioTracks[props.currentAudioTrack].title}
         </div>
-        <div>
+        <div style={{display: 'flex'}} >
           <div
             ref={progressWrapperRef}
             onClick={changeCurrentMusicTime}

@@ -8,7 +8,7 @@ import AccountSettings from './accountSettings/accountSettings.jsx'
 
 function ContentRouter() {
   return(
-    <main className='middle-list' >
+    <main className='content' >
       <Switch>
         <Route path='/accountSettings' component={AccountSettings} />
         <Route path='/userPosts/:username' component={Posts} />

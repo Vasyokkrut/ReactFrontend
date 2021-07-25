@@ -23,8 +23,7 @@ function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
 
   const deleteButtonClassName = classNames(
     'primary-button',
-    'primary-button-danger',
-    isDarkTheme ? 'primary-button-dark' : 'primary-button-light'
+    isDarkTheme ? 'primary-button-danger-dark' : 'primary-button-danger-light'
   )
 
   const inputClassName = classNames(
@@ -76,36 +75,39 @@ function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
   if (isWarning) {
     return (
       <div className='deleting-prompt' >
-        <div>are you sure you want to delete your account?</div>
-        <div>this action is irreversible!</div>
-        <div
+        <div style={{height: '5rem'}} >
+          <div>are you sure you want to delete your account? this action is irreversible!</div>
+        </div>
+        <button
           className={deleteButtonClassName}
           onClick={() => setIsWarning(false)}
         >
           Delete
-        </div>
+        </button>
       </div>
     )
   }
 
   return (
     <div className='deleting-prompt' >
-      <input
-        type='password'
-        value={password}
-        className={inputClassName}
-        placeholder='confirm your password'
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <div style={changingStatusStyle}>
-        {deletingStatus.message}
+      <div style={{height: '5rem', width: '100%'}} >
+        <input
+          type='password'
+          value={password}
+          className={inputClassName}
+          placeholder='confirm your password'
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <div style={changingStatusStyle}>
+          {deletingStatus.message}
+        </div>
       </div>
-      <div
+      <button
         onClick={deleteHandler}
         className={deleteButtonClassName}
       >
         Delete
-      </div>
+      </button>
     </div>
   )
 }

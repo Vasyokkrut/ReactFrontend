@@ -7,8 +7,15 @@ import {
   SET_NEXT_AUDIO_TRACK,
   DELETE_AUDIO_TRACK,
   RESET_AUDIO_PLAYER,
-  ADD_AUDIO_TRACK
+  ADD_AUDIO_TRACK,
+  STOP_MUSIC
 } from '../actionTypes.js'
+
+export const stopMusic = () => {
+  return {
+    type: STOP_MUSIC
+  }
+}
 
 export const deleteAudioTrack = data => {
   return {

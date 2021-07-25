@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useRef } from 'react'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -21,6 +22,7 @@ function AudioTrack({
   isMusicPlaying,
   userAudioTracks,
   deleteAudioTrack,
+  currentMusicTime,
   currentAudioTrack,
   setIsMusicPlaying,
   currentMusicVolume,
@@ -28,6 +30,8 @@ function AudioTrack({
   setProgressBarWidth,
   setCurrentAudioTrack,
 }) {
+  const trackitemRef = useRef()
+  const progressWrapperRef = useRef()
 
   const buttonClassname = classnames(
     'audioplayer-button',
@@ -37,6 +41,21 @@ function AudioTrack({
   const trackitemClassName = classnames(
     'trackitem',
     isDarkTheme ? 'trackitem-dark' : 'trackitem-light'
+  )
+
+  const trackitemBarClassName = classnames(
+    'trackitem-progress-bar',
+    isDarkTheme ? 'trackitem-progress-bar-dark' : 'trackitem-progress-bar-light'
+  )
+
+  const trackitemTimeClassName = classnames(
+    'trackitem-progress-time',
+    isDarkTheme ? 'trackitem-progress-time-dark' : 'trackitem-progress-time-light'
+  )
+
+  const deleteSignClassName = classnames(
+    'trackitem-delete',
+    isDarkTheme ? 'trackitem-delete-dark' : 'trackitem-delete-light'
   )
 
   function deleteTrack() {
@@ -89,24 +108,56 @@ function AudioTrack({
     }
   }
 
+  function changeCurrentMusicTime(event) {
+    const nativeAudioElement = document.getElementById('native-audio-element')
+
+    const audioDuration = nativeAudioElement.duration
+    const progressOffsetWidth = progressWrapperRef.current.offsetWidth
+    const progressOffsetLeft = progressWrapperRef.current.offsetLeft + trackitemRef.current.offsetLeft
+
+    const newPosition = (event.pageX - progressOffsetLeft) * audioDuration / progressOffsetWidth
+    nativeAudioElement.currentTime = newPosition
+
+    const newWidth = 100 * nativeAudioElement.currentTime / nativeAudioElement.duration
+    setProgressBarWidth(newWidth)
+  }
+
   const trackItemStyle = {}
   if (audioTrack._id === userAudioTracks[currentAudioTrack]?._id) {
     trackItemStyle.backgroundColor = isDarkTheme ? '#3a3a3a' : '#e0e0e0'
   }
 
   return(
-    <div className={trackitemClassName} style={trackItemStyle} >
+    <div ref={trackitemRef} className={trackitemClassName} style={trackItemStyle} >
       <button className={buttonClassname} onClick={playpause} >
         {(isMusicPlaying && audioTrack._id === userAudioTracks[currentAudioTrack]._id) ? 'pause' : 'play'}
       </button>
-      <div className='trackitem-title' >{audioTrack.title}</div>
+      {
+        currentAudioTrack !== null && audioTrack._id === userAudioTracks[currentAudioTrack]._id
+        ?
+        <div style={{width: 'calc(100% - 4rem)'}} >
+          <div style={{fontSize: '1rem', marginLeft: '1rem'}} >{audioTrack.title}</div>
+          <div
+            ref={progressWrapperRef}
+            onClick={changeCurrentMusicTime}
+            className='trackitem-progress-wrapper'
+          >
+            <div className={trackitemBarClassName} >
+              <div
+                className={trackitemTimeClassName}
+                style={{width: currentMusicTime + '%'}}
+              />
+            </div>
+          </div>
+        </div>
+        :
+        <div style={{fontSize: '1.5rem', marginLeft: '1rem'}} >{audioTrack.title}</div>
+      }
       {
         // if user listening this track then we cannot delete it
-        // so we should check is this track the one user listening to
-        // otherwise delete button won't appear
         currentAudioTrack !== index
         ?
-        <div className='trackitem-delete' onClick={deleteTrack} >&#10006;</div>
+        <button className={deleteSignClassName} onClick={deleteTrack} >&#10006;</button>
         :
         null
       }
@@ -120,6 +171,7 @@ const mapStateToProps = store => {
     isDarkTheme: store.appearance.isDarkTheme,
     isMusicPlaying: store.music.isMusicPlaying,
     userAudioTracks: store.music.userAudioTracks,
+    currentMusicTime: store.music.currentMusicTime,
     currentAudioTrack: store.music.currentAudioTrack,
     currentMusicVolume: store.music.currentMusicVolume
   }

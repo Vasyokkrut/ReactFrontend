@@ -1,5 +1,5 @@
 .header-dark {
-  background-color: #333;
+  background-color: #3c3c3c;
   border-bottom: 1px solid #222;
   color: inherit;
 }
@@ -10,19 +10,30 @@
   color: inherit;
 }
 
-.navbar {
-  width: calc(72rem + 6px);
+#header-content {
+  width: 72rem;
+  position: relative;
   display: flex;
   height: 100%;
   align-items: center;
   justify-content: space-between;
   font-size: 1.5rem;
+
+  @media (max-width: 1200px) {
+    padding: 0 1rem;
+  }
 }
 
 .login-container {
   height: 3rem;
   display: flex;
   align-items: center;
+
+  &>span:first-child {
+    @media (max-width: 42rem) {
+      display: none;
+    }
+  }
 }
 
 .login-button{
@@ -39,6 +50,21 @@
   flex-direction: column;
   justify-content: center;
   padding: 0 1rem;
+
+  &-link {
+    color: inherit;
+    text-decoration: none;
+    display: none;
+
+    @media (max-width: 1200px) {
+      display: block;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    padding: 0;
+    display: none;
+  }
 }
 
 .dropdown {
@@ -79,13 +105,92 @@
 
   &-light:hover {
     background-color: #eee;
+
+    @media (max-width: 1200px) {
+      background-color: transparent;
+    }
   }
 
   &-dark:hover {
     background-color: #555;
+
+    @media (max-width: 1200px) {
+      background-color: transparent;
+    }
   }
 
   &:hover .dropdown-content {
     display: block;
+  }
+  
+  @media (max-width: 1200px) {
+    &:hover .dropdown-content {
+      display: none;
+    }
+  }
+}
+
+.home-link {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
+.slider {
+  &-container {
+    display: none;
+
+    @media (max-width: 1200px) {
+      display: inline-block;
+    }
+  }
+
+  &-label {
+    width: 4rem;
+    height: 2rem;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+  }
+  
+  &-checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  &-switch {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 1rem;
+    background-color: #ddd;
+  }
+  
+  &-switch::before {
+    position: absolute;
+    left: 4px;
+    bottom: 4px;
+    content: '';
+    transition: .2s;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: white;
+    border-radius: 50%;
+  }
+  
+  &-checkbox:checked + &-switch {
+    background-color: #555;
+  }
+  
+  &-checkbox:checked + &-switch::before {
+    transform: translateX(2rem);
   }
 }

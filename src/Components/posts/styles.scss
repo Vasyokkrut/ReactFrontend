@@ -14,7 +14,7 @@ $background-color-dark: #222;
     &-light {
       border: 1px solid #ddd;
       background-color: whitesmoke;
-  
+
       &:hover {
         background-color: #eee;
       }
@@ -23,17 +23,30 @@ $background-color-dark: #222;
     &-dark {
       border: 1px solid #555;
       background-color: #333;
-  
+
       &:hover {
         background-color: #555;
       }
+    }
+    
+    &-light, &-dark {
+      @media (max-width: 1200px) {
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+
+    @media (max-width: 42rem) {
+      border-radius: .5rem;
+      height: 2rem;
+      padding: 0;
     }
   }
 
   &-item {
     margin-top: 1rem;
     border-radius: .5rem;
-    padding: 1.2rem;
 
     &-light {
       background-color: whitesmoke;
@@ -44,20 +57,25 @@ $background-color-dark: #222;
       background-color: #333;
       border: 1px solid #333;
     }
+
+    @media (max-width: 42rem) {
+      border-radius: 0;
+      border: none;
+      width: 100%;
+    }
   }
 
   &-title {
     font-size: 2rem;
     text-align: center;
     overflow: hidden;
-    width: 600px;
+    padding: 1rem;
   }
   
   &-text {
-    width: 600px;
-    white-space: pre-wrap;
-    padding: 1rem 0;
+    padding: 1rem;
     word-wrap: break-word;
+    white-space: pre-wrap;
   }
 
   &-picture {
@@ -67,7 +85,19 @@ $background-color-dark: #222;
     &-container {
       height: 400px;
       align-items: center;
+
+      @media (max-width: 42rem) {
+        max-width: 100%;
+      }
     }
+
+    @media (max-width: 42rem) {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 42rem) {
+    width: 100%;
   }
 }
 
@@ -76,38 +106,63 @@ $background-color-dark: #222;
   overflow: hidden;
   font-size: 4rem;
   height: 5rem;
+
+  @media (max-width: 42rem) {
+    font-size: 2.5rem;
+    height: 3rem;
+  }
 }
 
 .empty-post {
   text-align: center;
-  padding-top: 1rem;
   font-size: 3rem;
+
+  @media (max-width: 42rem) {
+    font-size: 1.8rem;
+  }
 }
 
 .title {
   &-input {
+    box-sizing: border-box;
     height: 2.5rem;
-    width: 25rem;
+    width: 70%;
     border-radius: .5rem .5rem 0 0rem;
     font-size: 1.5rem;
     padding: .25rem;
     outline:none;
     color: inherit;
+    align-self: flex-start;
+
+    @media (max-width: 42rem) {
+      width: 100%;
+      border-radius: 0;
+    }
 
     &-wrapper {
-      width: 35.75rem;
+      width: 35rem;
+
+      @media (max-width: 42rem) {
+        width: 100%;
+      }
     }
 
     &-light {
       background-color: $background-color-light;
       border: 2px solid $border-color-light;
-      border-bottom: none;
     }
   
     &-dark {
       background-color: $background-color-dark;
       border: 2px solid $border-color-dark;
+    }
+    
+    &-light, &-dark {
       border-bottom: none;
+
+      @media (max-width: 42rem) {
+        border-width: 2px 0 0 0;
+      }
     }
   }
 }
@@ -136,6 +191,7 @@ $background-color-dark: #222;
 }
 
 .textinput {
+  box-sizing: border-box;
   border-style: solid;
   border-radius: 0rem .5rem .5rem .5rem;
   display: block;
@@ -155,6 +211,17 @@ $background-color-dark: #222;
   &-dark {
     background-color: $background-color-dark;
     border: 2px solid $border-color-dark;
+  }
+
+  &-light, &-dark {
+    @media (max-width: 42rem) {
+      border-width: 2px 0;
+    }
+  }
+
+  @media (max-width: 42rem) {
+    width: 100%;
+    border-radius: 0;
   }
 }
 

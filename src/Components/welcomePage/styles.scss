@@ -14,12 +14,7 @@
       border: 1px solid #333;
     }
 
-    &>div:first-child {
-      font-size: 3rem;
-      text-align: center;
-    }
-
-    &>div:last-child {
+    &>div:first-child, &>div:last-child  {
       font-size: 3rem;
       text-align: center;
     }
@@ -28,6 +23,21 @@
       padding-inline-start: 1rem;
       margin-block-start: 1rem;
       margin-block-end: 1rem;
+
+      @media (max-width: 42rem)  {
+        padding-inline-start: 0;
+      }
+    }
+
+    
+    @media (max-width: 42rem) {
+      font-size: 1.5rem;
+      border-radius: 0;
+      padding: 1rem;
+
+      &>div:first-child, &>div:last-child {
+        font-size: 2.5rem;
+      }
     }
   }
 
@@ -43,6 +53,12 @@
         &:hover {
           background-color: #eee;
         }
+
+        @media (max-width: 42rem) {
+          &:hover {
+            background-color: transparent;
+          }
+        }
       }
 
       &-dark {
@@ -50,6 +66,12 @@
 
         &:hover {
           background-color: #555;
+        }
+
+        @media (max-width: 42rem) {
+          &:hover {
+            background-color: transparent;
+          }
         }
       }
   

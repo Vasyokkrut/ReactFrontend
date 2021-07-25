@@ -14,8 +14,6 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
   const [changingStatus, setChangingStatus] = useState({message: '', successful: null})
 
   const changingStatusStyle = {
-    height: '2rem',
-    fontSize: '1.5rem',
     color: changingStatus.successful ? 'green' : 'red'
   }
 
@@ -128,7 +126,7 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
           placeholder='confirm your password'
         />
       </div>
-      <div style={changingStatusStyle}>
+      <div style={changingStatusStyle} className='settings-status' >
         {changingStatus.message}
       </div>
       <div>

@@ -3,26 +3,18 @@ import { Link } from 'react-router-dom'
 
 import './styles.scss'
 import Dropdown from './dropdown.jsx'
+import ThemeToggleSwitch from './themeToggleSwitch.jsx'
 import AudioPlayerControls from '../music/audioPlayerControls.jsx'
 
 function Header({isDarkTheme, userName, currentAudioTrack}) {
 
   const headerClassName = isDarkTheme ? 'header-dark' : 'header-light'
 
-  const linkStyle = {
-    textDecoration:'none',
-    outline: 'none',
-    color: 'inherit',
-    display: 'block'
-  }
-
   return(
     <header className={headerClassName} >
-      <div className='navbar' >
-        <Link
-          style={linkStyle}
-          to='/'
-        >
+      <div id='header-content' >
+        <ThemeToggleSwitch />
+        <Link className='home-link' to='/' >
           Vasyokkrut
         </Link>
         {

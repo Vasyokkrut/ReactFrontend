@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, StrictMode } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -9,9 +9,10 @@ import ContentRouter from './contentRouter.jsx'
 import LeftList from './navLists/leftNavList.jsx'
 import RightList from './navLists/rightNavList.jsx'
 import { userLogin } from '../Store/account/actions.js'
+import BottomNavList from './navLists/bottomNavList.jsx'
+import { setMusicVolume } from '../Store/music/actions.js'
 import { changeTheme } from '../Store/appearance/actions.js'
 import NativeAudioElement from './music/nativeAudioElement.jsx'
-import { setMusicVolume } from '../Store/music/actions.js'
 
 class MainComponent extends Component {
 
@@ -23,8 +24,28 @@ class MainComponent extends Component {
     const userName = localStorage.getItem('userName')
     if (userName) this.props.userLogin({userName})
 
-    const musicVolume = localStorage.getItem('musicVolume')
-    if (musicVolume !== null && !isNaN(+musicVolume)) this.props.setMusicVolume(+musicVolume)
+    const mobileDeviceNames = [
+      /android/i,
+      /iphone/i,
+      /ipad/i,
+      /ipod/i,
+      /windows phone/i,
+      /blackberry/i,
+      /tablet/i,
+      /touch/i
+    ]
+    const isMobileDevice = mobileDeviceNames.some(item => {
+      return navigator.userAgent.match(item)
+    })
+
+    // if user have mobile device, native audio element should use maximum volume
+    // otherwise native audio element will use value from localstorage
+    if (isMobileDevice) {
+      this.props.setMusicVolume(1)
+    } else {
+      const musicVolume = localStorage.getItem('musicVolume')
+      if (musicVolume !== null) this.props.setMusicVolume(+musicVolume)
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -35,16 +56,17 @@ class MainComponent extends Component {
 
   render(){
     return(
-      <>
+      <StrictMode>
         <Header />
         <NativeAudioElement />
         <PopUp />
-        <div className='flex-center main-component'>
+        <div className='main-component'>
           <LeftList />
           <ContentRouter />
           <RightList />
         </div>
-      </>
+        <BottomNavList />
+      </StrictMode>
     )
   }
 }
