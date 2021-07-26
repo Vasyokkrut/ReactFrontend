@@ -1,14 +1,11 @@
 import axios from 'axios'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import './globalStyles.scss'
-import { rootReducer } from './Store/rootReducer.js'
+import store from './Store/store.js'
 import MainComponent from './Components/mainComponent.jsx'
-
-const store = createStore(rootReducer)
 
 axios.interceptors.response.use(
   res => res,
