@@ -2,12 +2,10 @@ import axios from 'axios'
 import { useState } from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
-import { userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { softLogout } from '../../utilities.js'
 
-function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
+function DeleteAccount({isDarkTheme}) {
   const [isWarning, setIsWarning] = useState(true)
   const [password, setPassword] = useState('')
   const [deletingStatus, setDeletingStatus] = useState({
@@ -51,23 +49,19 @@ function DeleteAccount({isDarkTheme, userLogout, changePopUpDisplay}) {
       }
     }
     axios.delete('/api/account/settings/deleteAccount', config)
-      .then(() => {
-        localStorage.removeItem('userName')
-        userLogout()
-      })
+      .then((res) => softLogout())
       .catch(err => {
         const status = err.response.status
-        if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
-        } else if(status === 400) {
+        if(status === 400) {
           setDeletingStatus({
             successful: false,
             message: 'wrong password'
           })
         } else {
-          alert('error happened :(')
+          setDeletingStatus({
+            successful: false,
+            message: 'sorry, something went wrong, try again later'
+          })
         }
       })
   }
@@ -118,11 +112,4 @@ const mapStateToProps = store => {
   }
 }
 
-const mapActionsToProps = dispatch => {
-  return {
-    userLogout: bindActionCreators(userLogout, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(DeleteAccount)
+export default connect(mapStateToProps)(DeleteAccount)

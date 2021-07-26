@@ -1,12 +1,10 @@
-import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
-import { userLogout } from '../../Store/account/actions.js'
-import { resetAudioPlayer } from '../../Store/music/actions.js'
-import { changeTheme, changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { softLogout } from '../../utilities.js'
+import { changeTheme } from '../../Store/appearance/actions.js'
 
 function RightList(props) {
 
@@ -30,13 +28,6 @@ function RightList(props) {
     props.changeTheme()
   }
 
-  function userLogout() {
-    axios.get('/api/account/logout')
-    localStorage.removeItem('userName')
-    props.userLogout()
-    props.resetAudioPlayer()
-  }
-
   return(
     <aside className={sideBarClassName}>
       <div style={{fontSize: '2rem'}}>
@@ -58,7 +49,7 @@ function RightList(props) {
             >Account settings</Link>
             <span
               className={navItemClassName}
-              onClick={userLogout}
+              onClick={softLogout}
             >Logout</span>
           </>
           :
@@ -78,10 +69,7 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = dispatch => {
   return {
-    userLogout: bindActionCreators(userLogout, dispatch),
-    changeTheme: bindActionCreators(changeTheme, dispatch),
-    resetAudioPlayer: bindActionCreators(resetAudioPlayer, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
+    changeTheme: bindActionCreators(changeTheme, dispatch)
   }
 }
 

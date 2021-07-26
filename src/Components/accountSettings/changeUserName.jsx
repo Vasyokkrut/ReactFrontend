@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import React, { useState } from 'react'
 import { bindActionCreators } from 'redux'
 
-import { userLogin, userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { hardLogout } from '../../utilities.js'
+import { userLogin } from '../../Store/account/actions.js'
 
-function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, changePopUpDisplay }) {
+function ChangeUserName({isDarkTheme, userLogin, currentUserName}) {
 
   const [newUserName, setNewUserName] = useState('')
   const [password, setPassword] = useState('')
@@ -89,9 +89,7 @@ function ChangeUserName({isDarkTheme, userLogin, userLogout, currentUserName, ch
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         } else if (status === 400) {
           setChangingStatus({
             successful: false,
@@ -147,9 +145,7 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = dispatch => {
   return {
-    userLogin: bindActionCreators(userLogin, dispatch),
-    userLogout: bindActionCreators(userLogout, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
+    userLogin: bindActionCreators(userLogin, dispatch)
   }
 }
 

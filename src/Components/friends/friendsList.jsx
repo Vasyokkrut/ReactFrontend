@@ -2,13 +2,11 @@ import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
 import { useEffect, useState } from 'react'
 
-import { userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { hardLogout } from '../../utilities.js'
 
-function FriendItem({isDarkTheme, friend, userLogout, changePopUpDisplay}) {
+function FriendItem({isDarkTheme, friend}) {
   const [isDeleted, setIsDeleted] = useState(false)
 
   const friendItemClassName = classnames(
@@ -30,9 +28,7 @@ function FriendItem({isDarkTheme, friend, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         }
       })
   }
@@ -50,7 +46,7 @@ function FriendItem({isDarkTheme, friend, userLogout, changePopUpDisplay}) {
   )
 }
 
-function FriendsList({isDarkTheme, userName, userLogout, changePopUpDisplay, setSelectedOption}) {
+function FriendsList({isDarkTheme, userName, setSelectedOption}) {
   const [friends, setFriends] = useState([])
   const [isDataLoaded, setIsDataLoaded] = useState(false)
 
@@ -63,12 +59,10 @@ function FriendsList({isDarkTheme, userName, userLogout, changePopUpDisplay, set
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         }
       })
-  }, [userName, userLogout, changePopUpDisplay])
+  }, [userName])
 
   const hrStyle = {
     backgroundColor: isDarkTheme ? '#333' : '#ccc',
@@ -118,8 +112,6 @@ function FriendsList({isDarkTheme, userName, userLogout, changePopUpDisplay, set
             key={friend._id}
             friend={friend}
             isDarkTheme={isDarkTheme}
-            userLogout={userLogout}
-            changePopUpDisplay={changePopUpDisplay}
           />
         )
       })}
@@ -134,11 +126,4 @@ const mapStateToProps = store => {
   }
 }
 
-const mapActionsToProps = dispatch => {
-  return {
-    userLogout: bindActionCreators(userLogout, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(FriendsList)
+export default connect(mapStateToProps)(FriendsList)

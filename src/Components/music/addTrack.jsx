@@ -4,9 +4,8 @@ import { connect } from 'react-redux'
 import { useState, useRef } from 'react'
 import { bindActionCreators } from 'redux'
 
-import { userLogout } from '../../Store/account/actions.js'
+import { hardLogout } from '../../utilities.js'
 import { addAudioTrack } from '../../Store/music/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function AddTrack(props) {
   const inputRef = useRef()
@@ -65,9 +64,7 @@ function AddTrack(props) {
         .catch(err => {
           const status = err.response.status
           if (status === 401 || status === 403) {
-            localStorage.removeItem('userName')
-            props.userLogout()
-            props.changePopUpDisplay()
+            hardLogout()
           } else {
             setUploadStatus({
               successful: false,
@@ -131,9 +128,7 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = dispatch => {
   return {
-    userLogout: bindActionCreators(userLogout, dispatch),
-    addAudioTrack: bindActionCreators(addAudioTrack, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
+    addAudioTrack: bindActionCreators(addAudioTrack, dispatch)
   }
 }
 

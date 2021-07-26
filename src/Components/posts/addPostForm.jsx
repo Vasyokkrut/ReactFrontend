@@ -4,9 +4,8 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import { hardLogout } from '../../utilities.js'
 import { addUserPost } from '../../Store/posts/actions.js'
-import { userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
 
 function AddPostForm(props) {
   const [picture, setPicture] = useState(null)
@@ -104,13 +103,7 @@ function AddPostForm(props) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          props.userLogout()
-          props.changePopUpDisplay()
-          setStatus({
-            successful: false,
-            message: ''
-          })
+          hardLogout()
         } else {
           setStatus({
             successful: false,
@@ -189,9 +182,7 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = dispatch => {
   return {
-    userLogout: bindActionCreators(userLogout, dispatch),
     addUserPost: bindActionCreators(addUserPost, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
   }
 }
 

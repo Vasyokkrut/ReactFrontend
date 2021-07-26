@@ -2,13 +2,11 @@ import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
 import { useEffect, useState } from 'react'
 
-import { userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { hardLogout } from '../../utilities.js'
 
-function RequestItem({isDarkTheme, user, userLogout, changePopUpDisplay}) {
+function RequestItem({isDarkTheme, user}) {
   const [isDeleted, setIsDeleted] = useState(false)
 
   const requestItemClassName = classnames(
@@ -30,9 +28,7 @@ function RequestItem({isDarkTheme, user, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         }
       })
   }
@@ -50,7 +46,7 @@ function RequestItem({isDarkTheme, user, userLogout, changePopUpDisplay}) {
   )
 }
 
-function OutgoingRequests({isDarkTheme, userLogout, changePopUpDisplay}) {
+function OutgoingRequests({isDarkTheme}) {
   const [requests, setRequests] = useState([])
   const [isDataLoaded, setIsDataLoaded] = useState(false)
 
@@ -63,12 +59,10 @@ function OutgoingRequests({isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         }
       })
-  }, [userLogout, changePopUpDisplay])
+  }, [])
 
   const hrStyle = {
     marginTop: '0',
@@ -97,8 +91,6 @@ function OutgoingRequests({isDarkTheme, userLogout, changePopUpDisplay}) {
             isDarkTheme={isDarkTheme}
             key={request._id}
             user={request}
-            userLogout={userLogout}
-            changePopUpDisplay={changePopUpDisplay}
           />
         )
       })}
@@ -112,11 +104,4 @@ const mapStateToProps = store => {
   }
 }
 
-const mapActionsToProps = dispatch => {
-  return {
-    userLogout: bindActionCreators(userLogout, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(OutgoingRequests)
+export default connect(mapStateToProps)(OutgoingRequests)

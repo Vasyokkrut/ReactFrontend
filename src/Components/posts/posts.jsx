@@ -6,18 +6,15 @@ import { useState, useEffect } from 'react'
 import './styles.scss'
 import PostItem from './postItem.jsx'
 import AddPostForm from './addPostForm.jsx'
-import { userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { hardLogout } from '../../utilities.js'
 import { deleteUserPost, setUserPosts } from '../../Store/posts/actions.js'
 
 function Posts({
   match,
   userName,
   userPosts,
-  userLogout,
   setUserPosts,
-  deleteUserPost,
-  changePopUpDisplay
+  deleteUserPost
 }) {
   const [isDataLoaded, setIsDataLoaded] = useState(false)
   const [requestedUserName, setRequestedUserName] = useState(false)
@@ -50,11 +47,7 @@ function Posts({
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
-        } else {
-          alert('error happened :(')
+          hardLogout()
         }
       })
   }
@@ -145,10 +138,8 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = dispatch => {
   return {
-    userLogout: bindActionCreators(userLogout, dispatch),
     setUserPosts: bindActionCreators(setUserPosts, dispatch),
-    deleteUserPost: bindActionCreators(deleteUserPost, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
+    deleteUserPost: bindActionCreators(deleteUserPost, dispatch)
   }
 }
 

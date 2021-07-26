@@ -2,12 +2,10 @@ import axios from 'axios'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import React, { useState } from 'react'
-import { bindActionCreators } from 'redux'
 
-import { userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { hardLogout } from '../../utilities.js'
 
-function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
+function ChangePassword({isDarkTheme}) {
 
   const [password, setPassword] = useState({
     oldPassword: '',
@@ -129,9 +127,7 @@ function ChangePassword({isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         } else if (status === 400) {
           setChangingStatus({
             successful: false,
@@ -193,11 +189,4 @@ const mapStateToProps = store => {
   }
 }
 
-const mapActionsToProps = dispatch => {
-  return {
-    userLogout: bindActionCreators(userLogout, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(ChangePassword)
+export default connect(mapStateToProps)(ChangePassword)

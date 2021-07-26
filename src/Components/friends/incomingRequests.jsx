@@ -2,13 +2,11 @@ import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
 import { useEffect, useState } from 'react'
 
-import { userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { hardLogout } from '../../utilities.js'
 
-function RequestItem({requester, isDarkTheme, userLogout, changePopUpDisplay}) {
+function RequestItem({requester, isDarkTheme}) {
   const [isAccepted, setIsAccepted] = useState(false)
   const [isDeclined, setIsDeclined] = useState(false)
 
@@ -28,9 +26,7 @@ function RequestItem({requester, isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         }
       })
   }
@@ -41,9 +37,7 @@ function RequestItem({requester, isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         }
       })
   }
@@ -75,7 +69,7 @@ function RequestItem({requester, isDarkTheme, userLogout, changePopUpDisplay}) {
   )
 }
 
-function IncomingRequests({isDarkTheme, userLogout, changePopUpDisplay}) {
+function IncomingRequests({isDarkTheme}) {
   const [requesters, setRequesters] = useState([])
   const [isDataLoaded, setIsDataLoaded] = useState(false)
 
@@ -88,12 +82,10 @@ function IncomingRequests({isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         }
       })
-  }, [userLogout, changePopUpDisplay])
+  }, [])
 
   const hrStyle = {
     marginTop: '0',
@@ -122,8 +114,6 @@ function IncomingRequests({isDarkTheme, userLogout, changePopUpDisplay}) {
             isDarkTheme={isDarkTheme}
             key={requester._id}
             requester={requester}
-            userLogout={userLogout}
-            changePopUpDisplay={changePopUpDisplay}
           />
         )
       })}
@@ -137,11 +127,4 @@ const mapStateToProps = store => {
   }
 }
 
-const mapActionsToProps = dispatch => {
-  return {
-    userLogout: bindActionCreators(userLogout, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(IncomingRequests)
+export default connect(mapStateToProps)(IncomingRequests)

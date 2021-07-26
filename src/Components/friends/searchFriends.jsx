@@ -3,12 +3,10 @@ import { useState } from 'react'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
 
-import { userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { hardLogout } from '../../utilities.js'
 
-function FoundUser({isDarkTheme, user, userLogout, changePopUpDisplay}) {
+function FoundUser({isDarkTheme, user}) {
   const [isRequestSent, setIsRequestSent] = useState(false)
   const [isRequestAccepted, setIsRequestAccepted] = useState(false)
 
@@ -28,9 +26,7 @@ function FoundUser({isDarkTheme, user, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         }
       })
   }
@@ -41,9 +37,7 @@ function FoundUser({isDarkTheme, user, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         }
       })
   }
@@ -94,7 +88,7 @@ function FoundUser({isDarkTheme, user, userLogout, changePopUpDisplay}) {
   )
 }
 
-function SearchFriends({isDarkTheme, userLogout, changePopUpDisplay}) {
+function SearchFriends({isDarkTheme}) {
   const [requestedUser, setRequestedUser] = useState('')
   const [foundUsers, setFoundUsers] = useState([])
   const [isDataLoaded, setIsDataLoaded] = useState(false)
@@ -128,9 +122,7 @@ function SearchFriends({isDarkTheme, userLogout, changePopUpDisplay}) {
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
+          hardLogout()
         } else {
           setFoundUsers([])
           setIsDataLoaded(true)
@@ -171,8 +163,6 @@ function SearchFriends({isDarkTheme, userLogout, changePopUpDisplay}) {
             key={user._id}
             user={user}
             isDarkTheme={isDarkTheme}
-            userLogout={userLogout}
-            changePopUpDisplay={changePopUpDisplay}
           />
         )
       })}
@@ -186,11 +176,4 @@ const mapStateToProps = store => {
   }
 }
 
-const mapActionsToProps = dispatch => {
-  return {
-    userLogout: bindActionCreators(userLogout, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(SearchFriends)
+export default connect(mapStateToProps)(SearchFriends)

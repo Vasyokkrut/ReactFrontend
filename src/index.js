@@ -6,21 +6,11 @@ import { BrowserRouter } from 'react-router-dom'
 import './globalStyles.scss'
 import store from './Store/store.js'
 import MainComponent from './Components/mainComponent.jsx'
+import { authenticationInterceptor } from './utilities.js'
 
 axios.interceptors.response.use(
   res => res,
-  async err => {
-    const status = err.response.status
-    const url = err.config.url
-    const config = err.config
-
-    if (status === 401 || status === 403) {
-      if (url === '/api/account/getNewAccessToken') return Promise.reject(err)
-      await axios.get('/api/account/getNewAccessToken')
-      return await axios.request(config)
-    }
-    return Promise.reject(err)
-  }
+  authenticationInterceptor
 )
 
 function MainApp() {

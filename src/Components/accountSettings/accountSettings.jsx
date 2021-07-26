@@ -1,7 +1,5 @@
-import axios from 'axios'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { useEffect, useState } from 'react'
 
 import './styles.scss'
@@ -9,8 +7,7 @@ import DeleteAccount from './deleteAccount.jsx'
 import ChangeUserName from './changeUserName.jsx'
 import ChangePassword from './changePassword.jsx'
 import LoginPage from '../loginPage/loginPage.jsx'
-import { userLogout } from '../../Store/account/actions.js'
-import { resetAudioPlayer } from '../../Store/music/actions.js'
+import { softLogout } from '../../utilities.js'
 
 // this component is part of AccountSettings component
 // and shows selected option by user
@@ -27,7 +24,7 @@ function SelectedOption({selectedOption}) {
   }
 }
 
-function AccountSettings({isDarkTheme, userName, userLogout, resetAudioPlayer}) {
+function AccountSettings({isDarkTheme, userName}) {
 
   // this useState is for define which option will be displayed
   // it will contain one of these options:
@@ -63,13 +60,6 @@ function AccountSettings({isDarkTheme, userName, userLogout, resetAudioPlayer}) 
     setOptionsClassName('settings-options open-left')
   }
 
-  function logout() {
-    axios.get('/api/account/logout')
-    localStorage.removeItem('userName')
-    userLogout()
-    resetAudioPlayer()
-  }
-
   if (!userName) return <LoginPage />
 
   return(
@@ -91,7 +81,7 @@ function AccountSettings({isDarkTheme, userName, userLogout, resetAudioPlayer}) 
           >Delete account <div>&rsaquo;</div></button>
           <button
             className={settingsButtonClassName}
-            onClick={logout}
+            onClick={softLogout}
           >Exit from account</button>
         </div>
       </div>
@@ -110,11 +100,4 @@ const mapStateToProps = store => {
   }
 }
 
-const mapActionsToProps = dispatch => {
-  return {
-    userLogout: bindActionCreators(userLogout, dispatch),
-    resetAudioPlayer: bindActionCreators(resetAudioPlayer, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(AccountSettings)
+export default connect(mapStateToProps)(AccountSettings)

@@ -4,8 +4,7 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { userLogout } from '../../Store/account/actions.js'
-import { changePopUpDisplay } from '../../Store/appearance/actions.js'
+import { hardLogout } from '../../utilities.js'
 import {
   deleteAudioTrack,
   setIsMusicPlaying,
@@ -16,7 +15,6 @@ import {
 function AudioTrack({
   index,
   userName,
-  userLogout,
   audioTrack,
   isDarkTheme,
   isMusicPlaying,
@@ -26,7 +24,6 @@ function AudioTrack({
   currentAudioTrack,
   setIsMusicPlaying,
   currentMusicVolume,
-  changePopUpDisplay,
   setProgressBarWidth,
   setCurrentAudioTrack,
 }) {
@@ -70,11 +67,7 @@ function AudioTrack({
       .catch(err => {
         const status = err.response.status
         if (status === 401 || status === 403) {
-          localStorage.removeItem('userName')
-          userLogout()
-          changePopUpDisplay()
-        } else {
-          alert('error happened :(')
+          hardLogout()
         }
       })
   }
@@ -179,10 +172,8 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = dispatch => {
   return {
-    userLogout: bindActionCreators(userLogout, dispatch),
     deleteAudioTrack: bindActionCreators(deleteAudioTrack, dispatch),
     setIsMusicPlaying: bindActionCreators(setIsMusicPlaying, dispatch),
-    changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch),
     setProgressBarWidth: bindActionCreators(setProgressBarWidth, dispatch),
     setCurrentAudioTrack: bindActionCreators(setCurrentAudioTrack, dispatch)
   }

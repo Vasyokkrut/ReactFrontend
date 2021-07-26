@@ -1,24 +1,15 @@
-import axios from 'axios'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
-import { userLogout } from '../../Store/account/actions.js'
-import { resetAudioPlayer } from '../../Store/music/actions.js'
+import { softLogout } from '../../utilities.js'
 import { changePopUpDisplay, changeTheme } from '../../Store/appearance/actions.js'
 
 function Dropdown(props) {
   function changeTheme() {
     localStorage.setItem('isDarkTheme', props.isDarkTheme ? 'false' : 'true')
     props.changeTheme()
-  }
-
-  function logout() {
-    axios.get('/api/account/logout')
-    localStorage.removeItem('userName')
-    props.userLogout()
-    props.resetAudioPlayer()
   }
 
   const dropdownOptionClass = classNames(
@@ -53,7 +44,7 @@ function Dropdown(props) {
           </div>
           <div
             className={dropdownOptionClass}
-            onClick={logout}
+            onClick={softLogout}
           >
             exit&nbsp;from&nbsp;account
           </div>
@@ -83,12 +74,10 @@ const mapStateToProps = store => {
     isDarkTheme: store.appearance.isDarkTheme
   }
 }
-  
+
 const mapActionsToProps = dispatch => {
   return {
-    userLogout: bindActionCreators(userLogout, dispatch),
     changeTheme: bindActionCreators(changeTheme, dispatch),
-    resetAudioPlayer: bindActionCreators(resetAudioPlayer, dispatch),
     changePopUpDisplay: bindActionCreators(changePopUpDisplay, dispatch)
   }
 }
