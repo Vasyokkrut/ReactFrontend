@@ -276,13 +276,14 @@
   text-align: center;
   height: 1.3rem;
   outline: none;
+  padding-top: .4rem;
   display: block;
   margin: .5rem;
   border-radius: .3rem;
-  width: 7rem;
-  padding: .2rem .5rem;
+  width: 8rem;
+  height: 1.8rem;
   font-size: 1rem;
-  box-sizing: content-box;
+  box-sizing: border-box;
   cursor: pointer;
   border-style: none;
   text-decoration: none;
@@ -290,7 +291,25 @@
 
   &-light {
     background-color: white;
-    border: 1px solid transparent;
+
+    &-danger {
+      background-color: white;
+      border: 1px solid #d00;
+
+      @media (min-width: 1200px) {
+        &:hover {
+          color: white;
+          background-color: #d00;
+        }
+      }
+
+      &:disabled {
+        color: #888;
+        background-color: #ddd;
+        border-color: #b55;
+        cursor: default;
+      }
+    }
 
     &:disabled {
       color: #888;
@@ -298,18 +317,9 @@
       cursor: default;
     }
 
-    &:nth-child(2) {
-      border-color: #d00;
-    }
-
     @media (min-width: 1200px) {
       &:hover {
         background-color: #ddd;
-      }
-
-      &:nth-child(2):hover {
-        color: white;
-        background-color: #d00;
       }
     }
   }
@@ -318,25 +328,35 @@
     background-color: #222;
     border: 1px solid #444;
 
-    &:disabled {
-      color: #777;
-      background-color: #333;
-      cursor: default;
-    }
+    &-danger {
+      background-color: #222;
+      border: 1px solid #600;
 
-    &:nth-child(2) {
-      border-color: #600;
+      @media (min-width: 1200px) {
+        &:hover {
+          color: white;
+          background-color: #600;
+        }
+      }
+
+      &:disabled {
+        color: #777;
+        background-color: #333;
+        border-color: #400;
+        cursor: default;
+      }
     }
 
     @media (min-width: 1200px) {
       &:hover {
         background-color: #444;
       }
+    }
 
-      &:nth-child(2):hover {
-        color: white;
-        background-color: #600;
-      }
+    &:disabled {
+      color: #777;
+      background-color: #333;
+      cursor: default;
     }
   }
 }

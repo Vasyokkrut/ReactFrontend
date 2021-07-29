@@ -14,9 +14,14 @@ function RequestItem({isDarkTheme, user}) {
     isDarkTheme ? 'request-item-dark' : 'request-item-light'
   )
 
-  const clickableItemClassName = classnames(
+  const accountLinkClassName = classnames(
     'clickable-item',
     isDarkTheme ? 'clickable-item-dark' : 'clickable-item-light'
+  )
+
+  const deleteRequestButtonClassName = classnames(
+    'clickable-item',
+    isDarkTheme ? 'clickable-item-dark-danger' : 'clickable-item-light-danger'
   )
 
   function removeRequest() {
@@ -33,14 +38,14 @@ function RequestItem({isDarkTheme, user}) {
       })
   }
 
-  if (isDeleted) return null
-
   return (
     <div className={requestItemClassName} >
       <Link to={`/userPosts/${user.name}`} className='friend-item-name' >{user.name}</Link>
       <div>
-        <Link to={`/userPosts/${user.name}`} className={clickableItemClassName} >view profile</Link>
-        <button className={clickableItemClassName} onClick={removeRequest} >delete request</button>
+        <Link to={`/userPosts/${user.name}`} className={accountLinkClassName} >view profile</Link>
+        <button className={deleteRequestButtonClassName} onClick={removeRequest} disabled={isDeleted} >
+          {isDeleted ? 'request deleted' : 'delete request'}
+        </button>
       </div>
     </div>
   )

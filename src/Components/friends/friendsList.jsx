@@ -14,9 +14,14 @@ function FriendItem({isDarkTheme, friend}) {
     isDarkTheme ? 'friend-item-dark' : 'friend-item-light'
   )
 
-  const clickableItemClassName = classnames(
+  const accountLinkClassName = classnames(
     'clickable-item',
     isDarkTheme ? 'clickable-item-dark' : 'clickable-item-light'
+  )
+
+  const deleteFriendButtonClassName = classnames(
+    'clickable-item',
+    isDarkTheme ? 'clickable-item-dark-danger' : 'clickable-item-light-danger'
   )
 
   function deleteFriend() {
@@ -33,14 +38,14 @@ function FriendItem({isDarkTheme, friend}) {
       })
   }
 
-  if (isDeleted) return null
-
   return (
     <div className={friendItemClassName} >
       <Link to={`/userPosts/${friend.name}`} className='friend-item-name' >{friend.name}</Link>
       <div className='friend-item-options' >
-        <Link to={`/userPosts/${friend.name}`} className={clickableItemClassName} >view profile</Link>
-        <button className={clickableItemClassName} onClick={deleteFriend} >delete friend</button>
+        <Link to={`/userPosts/${friend.name}`} className={accountLinkClassName} >view profile</Link>
+        <button className={deleteFriendButtonClassName} onClick={deleteFriend} disabled={isDeleted} >
+          {isDeleted ? 'friend deleted' : 'delete friend'}
+        </button>
       </div>
     </div>
   )

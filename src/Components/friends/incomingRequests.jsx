@@ -10,9 +10,14 @@ function RequestItem({requester, isDarkTheme}) {
   const [isAccepted, setIsAccepted] = useState(false)
   const [isDeclined, setIsDeclined] = useState(false)
 
-  const clickableItemClassName = classnames(
+  const acceptRequestClassName = classnames(
     'clickable-item',
     isDarkTheme ? 'clickable-item-dark' : 'clickable-item-light'
+  )
+
+  const declineRequestClassName = classnames(
+    'clickable-item',
+    isDarkTheme ? 'clickable-item-dark-danger' : 'clickable-item-light-danger'
   )
 
   const requestItemClassName = classnames(
@@ -42,28 +47,16 @@ function RequestItem({requester, isDarkTheme}) {
       })
   }
 
-  if (isAccepted) {
-    return (
-      <div className={requestItemClassName} >
-        <span className='notification' >request from {requester.name} accepted</span>
-      </div>
-    )
-  }
-
-  if (isDeclined) {
-    return (
-      <div className={requestItemClassName} >
-        <span className='notification' >request from {requester.name} declined</span>
-      </div>
-    )
-  }
-
   return (
     <div className={requestItemClassName} >
       <Link className='friend-item-name' to={`/userPosts/${requester.name}`} >{requester.name}</Link>
       <div>
-        <button className={clickableItemClassName} onClick={acceptRequest} >accept</button>
-        <button className={clickableItemClassName} onClick={declineRequest} >decline</button>
+        <button className={acceptRequestClassName} onClick={acceptRequest} disabled={isDeclined || isAccepted} >
+          {isAccepted ? 'accepted' : 'accept'}
+        </button>
+        <button className={declineRequestClassName} onClick={declineRequest} disabled={isDeclined || isAccepted} >
+          {isDeclined ? 'declined' : 'decline'}
+        </button>
       </div>
     </div>
   )
