@@ -1,8 +1,8 @@
 .login-page {
   &-container {
-    border-radius: .5rem;
+    border-radius: 0;
     padding: 1rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
 
     &>div {
       text-align: center;
@@ -18,12 +18,16 @@
       border: 1px solid #333;
     }
 
-    @media (max-width: 42rem) {
-      border-radius: 0;
-      font-size: 1.5rem;
+    &>ul {
+      padding-inline-start: 0;
+    }
+
+    @media (min-width: 42rem) {
+      border-radius: .5rem;
+      font-size: 2rem;
 
       &>ul {
-        padding-inline-start: 0;
+        padding-inline-start: 2rem;
       }
     }
   }
@@ -51,13 +55,9 @@
       background-color: whitesmoke;
       border: 1px solid #ddd;
 
-      &:hover {
-        background-color: #ddd;
-      }
-
-      @media (max-width: 42rem) {
+      @media (min-width: 42rem) {
         &:hover {
-          background-color: transparent;
+          background-color: #ddd;
         }
       }
     }
@@ -66,13 +66,9 @@
       background-color: #333;
       border: 1px solid #555;
 
-      &:hover {
-        background-color: #555;
-      }
-      
-      @media (max-width: 42rem) {
+      @media (min-width: 42rem) {
         &:hover {
-          background-color: transparent;
+          background-color: #555;
         }
       }
     }

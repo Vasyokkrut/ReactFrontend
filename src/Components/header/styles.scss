@@ -18,9 +18,10 @@
   align-items: center;
   justify-content: space-between;
   font-size: 1.5rem;
+  padding: 0 1rem;
 
-  @media (max-width: 1200px) {
-    padding: 0 1rem;
+  @media (min-width: 1200px) {
+    padding: 0;
   }
 }
 
@@ -30,8 +31,12 @@
   align-items: center;
 
   &>span:first-child {
-    @media (max-width: 42rem) {
-      display: none;
+    display: none;
+  }
+
+  &>span:first-child {
+    @media (min-width: 42rem) {
+      display: inline;
     }
   }
 }
@@ -46,24 +51,24 @@
 
 .username {
   height: 3rem;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
-  padding: 0 1rem;
+  padding: 0;
 
   &-link {
     color: inherit;
     text-decoration: none;
-    display: none;
+    display: block;
 
-    @media (max-width: 1200px) {
-      display: block;
+    @media (min-width: 1200px) {
+      display: none;
     }
   }
 
-  @media (max-width: 1200px) {
-    padding: 0;
-    display: none;
+  @media (min-width: 1200px) {
+    padding: 0 1rem;
+    display: flex;
   }
 }
 
@@ -103,29 +108,25 @@
     }
   }
 
-  &-light:hover {
-    background-color: #eee;
-
-    @media (max-width: 1200px) {
-      background-color: transparent;
+  @media (min-width: 1200px) {
+    &-light:hover {
+      background-color: #eee;
     }
   }
 
-  &-dark:hover {
-    background-color: #555;
-
-    @media (max-width: 1200px) {
-      background-color: transparent;
+  @media (min-width: 1200px) {
+    &-dark:hover {
+      background-color: #555;
     }
   }
 
   &:hover .dropdown-content {
-    display: block;
+    display: none;
   }
   
-  @media (max-width: 1200px) {
+  @media (min-width: 1200px) {
     &:hover .dropdown-content {
-      display: none;
+      display: block;
     }
   }
 }
@@ -134,19 +135,19 @@
   outline: none;
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: none;
 
-  @media (max-width: 1200px) {
-    display: none;
+  @media (min-width: 1200px) {
+    display: block;
   }
 }
 
 .slider {
   &-container {
-    display: none;
+    display: inline-block;
 
-    @media (max-width: 1200px) {
-      display: inline-block;
+    @media (min-width: 1200px) {
+      display: none;
     }
   }
 

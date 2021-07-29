@@ -15,23 +15,24 @@
   &-name {
     display: block;
     height: 2rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-decoration: none;
     color: inherit;
+    padding-left: .5rem;
     
-    @media (max-width: 42rem) {
-      font-size: 1.5rem;
-      padding-left: .5rem;
+    @media (min-width: 42rem) {
+      font-size: 2rem;
+      padding: 0;
     }
   }
 }
 
 .search {
   &-hr-line {
-    display: none;
+    display: block;
 
-    @media (max-width: 42rem) {
-      display: block;
+    @media (min-width: 42rem) {
+      display: none;
     }
   }
 
@@ -39,14 +40,15 @@
     display: flex;
     justify-content: space-between;
     margin: 1rem 0;
+    padding: 0 1rem;
     
-    @media (max-width: 42rem) {
-      padding: 0 1rem;
+    @media (min-width: 42rem) {
+      padding: 0;
     }
   }
 
   &-input {
-    width: 32rem;
+    width: calc(100% - 8rem);
     height: 2rem;
     padding-left: .5rem;
     border-radius: .3rem;
@@ -64,8 +66,8 @@
       border: 1px solid #ddd;
     }
 
-    @media (max-width: 42rem) {
-      width: calc(100% - 8rem);
+    @media (min-width: 42rem) {
+      width: 32rem;
     }
   }
 
@@ -82,13 +84,9 @@
     &-light {
       background-color: white;
 
-      &:hover {
-        background-color: #ddd;
-      }
-      
-      @media (max-width: 1200px) {
+      @media (min-width: 1200px) {
         &:hover {
-          background-color: white;
+          background-color: #ddd;
         }
       }
 
@@ -102,13 +100,9 @@
     &-dark {
       background-color: #555;
 
-      &:hover {
-        background-color: #777;
-      }
-
-      @media (max-width: 1200px) {
+      @media (min-width: 1200px) {
         &:hover {
-          background-color: #555;
+          background-color: #777;
         }
       }
 
@@ -143,35 +137,43 @@
 
 .options {
   box-sizing: border-box;
-  width: 100%;
-  height: 3rem;
-  display: flex;
+  width: 12rem;
+  height: 12rem;
+  display: none;
   margin-bottom: 1rem;
+  padding: .5rem;
+  position: absolute;
+  top: 3.5rem;
+  left: 1rem;
+  border-radius: .5rem;
+  flex-direction: column;
 
-  @media (max-width: 42rem) {
-    padding: .5rem;
-    position: absolute;
-    flex-direction: column;
-    height: 12rem;
-    display: none;
-    top: 3.5rem;
-    left: 1rem;
-    width: 12rem;
-    border-radius: .5rem;
+  &-light {
+    background-color: white;
+    border: 1px solid #ddd;
+  }
 
-    &-light {
-      background-color: white;
-      border: 1px solid #ddd;
-    }
+  &-dark {
+    background-color: #333;
+  }
 
-    &-dark {
-      background-color: #333;
+  @media (min-width: 42rem) {
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+    height: 3rem;
+    padding: 0;
+    position: static;
+
+    &-light, &-dark {
+      background-color: transparent;
+      border: none;
     }
   }
 
-
   &-selector {
-    display: none;
+    display: block;
+
     &-button {
       display: block;
       cursor: pointer;
@@ -193,68 +195,65 @@
   
     }
 
-    @media (max-width: 42rem) {
-      display: block;
+    @media (min-width: 42rem) {
+      display: none;
     }
   }
 
   &-item {
     outline: none;
     cursor: pointer;
-    width: 25%;
+    width: 100%;
     height: 3rem;
-    font-size: 1rem;
+    text-align: left;
+    font-size: 1.2rem;
     background-color: transparent;
     border: none;
     color: inherit;
     border-radius: 0;
 
-    @media (max-width: 42rem) {
-      width: 100%;
-      text-align: left;
-      font-size: 1.2rem;
+    @media (min-width: 42rem) {
+      width: 25%;
+      text-align: center;
+      font-size: 1rem;
     }
 
     &:first-child {
       border-left: none;
     }
-    
-    &-dark {
-      border-left: 1px solid #333;
-
-      &:hover {
-        background-color: #333;
-      }
-    }
 
     &-light {
-      border-left: 1px solid #ccc;
+      @media (min-width: 42rem) {
+        border-left: 1px solid #ccc;
+      }
 
-      &:hover {
-        background-color: #ddd;
+      @media (min-width: 1200px) {
+        &:hover {
+          background-color: #ddd;
+        }
       }
     }
 
-    &-light, &-dark {
-      @media (max-width: 1200px) {
-        &:hover {
-          background-color: transparent;
-        }
+    &-dark {
+      @media (min-width: 42rem) {
+        border-left: 1px solid #333;
       }
 
-      @media (max-width: 42rem) {
-        border: none;
+      @media (min-width: 1200px) {
+        &:hover {
+          background-color: #333;
+        }
       }
     }
   }
 }
 
 .notification {
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: center;
 
-  @media (max-width: 42rem) {
-    font-size: 1.5rem;
+  @media (min-width: 42rem) {
+    font-size: 2rem;
   }
 }
 
@@ -293,10 +292,6 @@
     background-color: white;
     border: 1px solid transparent;
 
-    &:hover {
-      background-color: #ddd;
-    }
-
     &:disabled {
       color: #888;
       background-color: #ddd;
@@ -307,19 +302,21 @@
       border-color: #d00;
     }
 
-    &:nth-child(2):hover {
-      color: white;
-      background-color: #d00;
+    @media (min-width: 1200px) {
+      &:hover {
+        background-color: #ddd;
+      }
+
+      &:nth-child(2):hover {
+        color: white;
+        background-color: #d00;
+      }
     }
   }
 
   &-dark {
     background-color: #222;
     border: 1px solid #444;
-
-    &:hover {
-      background-color: #444;
-    }
 
     &:disabled {
       color: #777;
@@ -331,16 +328,14 @@
       border-color: #600;
     }
 
-    &:nth-child(2):hover {
-      color: white;
-      background-color: #600;
-    }
-  }
+    @media (min-width: 1200px) {
+      &:hover {
+        background-color: #444;
+      }
 
-  &-light, &-dark {
-    @media (max-width: 1200px) {
-      &:hover, &:nth-child(2):hover {
-        background-color: transparent;
+      &:nth-child(2):hover {
+        color: white;
+        background-color: #600;
       }
     }
   }

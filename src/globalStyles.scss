@@ -16,20 +16,20 @@ body {
 
 .main-component {
   display: flex;
-  padding-top: 4rem;
-  padding-bottom: 1rem;
+  padding-top: 3rem;
+  padding-bottom: 6rem;
   align-items: flex-start;
   margin: 0 auto;
-  width: 72rem;
+  width: 100%;
 
-  @media (max-width: 1200px) {
-    padding-bottom: 6rem;
-    padding-top: 3rem;
+  @media (min-width: 42rem) {
     width: 40rem;
   }
 
-  @media (max-width: 42rem) {
-    width: 100%;
+  @media (min-width: 1200px) {
+    padding-bottom: 1rem;
+    padding-top: 4rem;
+    width: 72rem;
   }
 }
 
@@ -55,10 +55,10 @@ header {
 }
 
 .content {
-  width: 40rem;
+  width: 100%;
 
-  @media (max-width: 42rem) {
-    width: 100%;
+  @media (min-width: 42rem) {
+    width: 40rem;
   }
 }
 
@@ -90,13 +90,9 @@ header {
     background-color: whitesmoke;
     border: 1px solid #ddd;
 
-    &:hover {
-      background-color: #ddd;
-    }
-
-    @media (max-width: 1200px) {
+    @media (min-width: 1200px) {
       &:hover {
-        background-color: whitesmoke;
+        background-color: #ddd;
       }
     }
   }
@@ -104,13 +100,9 @@ header {
   &-dark {
     background-color: #333;
 
-    &:hover {
-      background-color: #555;
-    }
-
-    @media (max-width: 1200px) {
+    @media (min-width: 1200px) {
       &:hover {
-        background-color: #333;
+        background-color: #555;
       }
     }
   }
@@ -121,13 +113,9 @@ header {
       color: white;
       background-color: #910000;
 
-      &:hover {
-        background-color: #c00000;
-      }
-
-      @media (max-width: 42rem) {
+      @media (min-width: 42rem) {
         &:hover {
-          background-color: #910000;
+          background-color: #c00000;
         }
       }
     }
@@ -136,13 +124,9 @@ header {
       color: white;
       background-color: #da0000;
 
-      &:hover {
-        background-color: #ff0000;
-      }
-
-      @media (max-width: 42rem) {
+      @media (min-width: 42rem) {
         &:hover {
-          background-color: #da0000;
+          background-color: #ff0000;
         }
       }
     }

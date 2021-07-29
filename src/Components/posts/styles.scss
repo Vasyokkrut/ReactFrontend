@@ -9,14 +9,18 @@ $background-color-dark: #222;
 
 .post {
   &-button {
-    border-radius: 2rem;
+    border-radius: .5rem;
+    height: 2rem;
+    padding: 0;
 
     &-light {
       border: 1px solid #ddd;
       background-color: whitesmoke;
 
-      &:hover {
-        background-color: #eee;
+      @media (min-width: 1200px) {
+        &:hover {
+          background-color: #eee;
+        }
       }
     }
 
@@ -24,44 +28,39 @@ $background-color-dark: #222;
       border: 1px solid #555;
       background-color: #333;
 
-      &:hover {
-        background-color: #555;
-      }
-    }
-    
-    &-light, &-dark {
-      @media (max-width: 1200px) {
+      @media (min-width: 1200px) {
         &:hover {
-          background-color: transparent;
+          background-color: #555;
         }
       }
     }
 
-    @media (max-width: 42rem) {
-      border-radius: .5rem;
-      height: 2rem;
-      padding: 0;
+    @media (min-width: 42rem) {
+      border-radius: 2rem;
+      height: 3rem;
+      padding: 0 1rem;
     }
   }
 
   &-item {
+    border-width: 0;
     margin-top: 1rem;
-    border-radius: .5rem;
+    border-radius: 0;
+    border-style: solid;
 
     &-light {
       background-color: whitesmoke;
-      border: 1px solid $border-color-light;
+      border-color: $border-color-light;
     }
     
     &-dark {
       background-color: #333;
-      border: 1px solid #333;
+      border-color: $border-color-dark;
     }
 
-    @media (max-width: 42rem) {
-      border-radius: 0;
-      border: none;
-      width: 100%;
+    @media (min-width: 42rem) {
+      border-radius: .5rem;
+      border-width: 1px;
     }
   }
 
@@ -80,89 +79,79 @@ $background-color-dark: #222;
 
   &-picture {
     max-height: 400px;
-    max-width: 600px;
+    max-width: 100%;
 
     &-container {
       height: 400px;
       align-items: center;
-
-      @media (max-width: 42rem) {
-        max-width: 100%;
-      }
     }
 
-    @media (max-width: 42rem) {
-      max-width: 100%;
+    @media (min-width: 42rem) {
+      max-width: 600px;
     }
-  }
-
-  @media (max-width: 42rem) {
-    width: 100%;
   }
 }
 
 .account-name {
   text-align: center;
   overflow: hidden;
-  font-size: 4rem;
-  height: 5rem;
+  font-size: 2.5rem;
+  height: 3rem;
 
-  @media (max-width: 42rem) {
-    font-size: 2.5rem;
-    height: 3rem;
+  @media (min-width: 42rem) {
+    font-size: 4rem;
+    height: 5rem;
   }
 }
 
 .empty-post {
   text-align: center;
-  font-size: 3rem;
+  font-size: 1.8rem;
 
-  @media (max-width: 42rem) {
-    font-size: 1.8rem;
+  @media (min-width: 42rem) {
+    font-size: 3rem;
   }
 }
 
-.title {
-  &-input {
-    box-sizing: border-box;
-    height: 2.5rem;
+.title-input {
+  box-sizing: border-box;
+  height: 2.5rem;
+  width: 100%;
+  border-radius: 0;
+  font-size: 1.5rem;
+  padding: .25rem;
+  outline:none;
+  color: inherit;
+  align-self: flex-start;
+
+  @media (min-width: 42rem) {
     width: 70%;
-    border-radius: .5rem .5rem 0 0rem;
-    font-size: 1.5rem;
-    padding: .25rem;
-    outline:none;
-    color: inherit;
-    align-self: flex-start;
+    border-radius: .5rem .5rem 0 0;
+  }
 
-    @media (max-width: 42rem) {
-      width: 100%;
-      border-radius: 0;
-    }
+  &-wrapper {
+    width: 100%;
 
-    &-wrapper {
+    @media (min-width: 42rem) {
       width: 35rem;
-
-      @media (max-width: 42rem) {
-        width: 100%;
-      }
     }
+  }
 
-    &-light {
-      background-color: $background-color-light;
-      border: 2px solid $border-color-light;
-    }
+  &-light {
+    background-color: $background-color-light;
+    border: 2px solid $border-color-light;
+  }
+
+  &-dark {
+    background-color: $background-color-dark;
+    border: 2px solid $border-color-dark;
+  }
   
-    &-dark {
-      background-color: $background-color-dark;
-      border: 2px solid $border-color-dark;
-    }
-    
-    &-light, &-dark {
-      border-bottom: none;
+  &-light, &-dark {
+    border-width: 2px 0 0 0;
 
-      @media (max-width: 42rem) {
-        border-width: 2px 0 0 0;
-      }
+    @media (min-width: 42rem) {
+      border-width: 2px 2px 0 2px;
     }
   }
 }
@@ -193,10 +182,10 @@ $background-color-dark: #222;
 .textinput {
   box-sizing: border-box;
   border-style: solid;
-  border-radius: 0rem .5rem .5rem .5rem;
+  border-radius: 0;
   display: block;
   padding: .25rem;
-  width: 35rem;
+  width: 100%;
   min-height: 7rem;
   resize: none;
   font-size: 1.2rem;
@@ -214,14 +203,16 @@ $background-color-dark: #222;
   }
 
   &-light, &-dark {
-    @media (max-width: 42rem) {
-      border-width: 2px 0;
+    border-width: 2px 0;
+
+    @media (min-width: 42rem) {
+      border-width: 2px;
     }
   }
 
-  @media (max-width: 42rem) {
-    width: 100%;
-    border-radius: 0;
+  @media (min-width: 42rem) {
+    width: 35rem;
+    border-radius: 0rem .5rem .5rem .5rem;
   }
 }
 

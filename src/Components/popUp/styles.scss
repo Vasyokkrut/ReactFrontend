@@ -1,30 +1,32 @@
 .pop-up {
   position: fixed;
-  top: 3rem;
-  left: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
-  width: 30rem;
-  margin-left: -15rem;
-  padding: 0 2rem;
-  font-size: 3rem;
+  margin: 0;
+  padding: 1rem;
+  padding-top: 2rem;
+  font-size: 2rem;
   text-align: center;
   border: 1px solid #555;
-  border-radius: 1rem;
+  border-radius: 0;
+  border: none;
   animation-fill-mode: forwards;
   animation-duration: .2s;
   z-index: 100;
 
-  @media (max-width: 42rem) {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    border-radius: 0;
-    border: none;
-    font-size: 2rem;
-    padding: 1rem;
-    padding-top: 2rem;
+  @media (min-width: 42rem) {
+    top: 3rem;
+    left: 50%;
+    width: 30rem;
+    height: 39rem;
+    margin-left: -15rem;
+    border-radius: 1rem;
+    border: 1px solid #555;
+    font-size: 3rem;
+    padding: 0 1rem;
   }
 
   &-hide {
@@ -36,7 +38,7 @@
     border: none;
     color: transparent;
     cursor: pointer;
-    display: none;
+    display: block;
 
     &-light {
       text-shadow: 0 0 0 #bbb;
@@ -46,24 +48,24 @@
       text-shadow: 0 0 0 #555;
     }
 
-    @media (max-width: 42rem) {
-      display: block;
+    @media (min-width: 42rem) {
+      display: none;
     }
   }
 
   &-input {
     height: 2rem;
-    width: 23rem;
+    width: calc(100% - 1rem);
     border-radius: 1rem;
     font-size: 1.2rem;
     padding: 0;
     padding-left: 1rem;
     outline: none;
-    margin: .5rem 1rem;
+    margin: .5rem 0;
     color: inherit;
 
-    @media (max-width: 42rem) {
-      width: calc(100% - 1rem);
+    @media (min-width: 42rem) {
+      width: 25rem;
       margin: .5rem 0;
     }
 
@@ -105,23 +107,21 @@
 
 .or-register::before, .or-register::after {
   content: "";
-  margin: 2rem 1rem;
+  margin: 1.2rem;
   height: 1px;
-  width: 10rem;
+  width: calc(50% - 2rem);
 
-  @media (max-width: 42rem) {
-    margin: 1.2rem;
-    width: calc(50% - 2rem);
+  @media (min-width: 42rem) {
+    margin: 2rem 1rem;
+    width: 11rem;
   }
 }
 
-@media (max-width: 42rem) {
-  .or-register::before {
-    margin-left: 0;
-  }
-  .or-register::after {
-    margin-right: 0;
-  }
+.or-register::before {
+  margin-left: 0;
+}
+.or-register::after {
+  margin-right: 0;
 }
 
 .or-register-light::before, .or-register-light::after {

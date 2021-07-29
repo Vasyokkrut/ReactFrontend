@@ -40,7 +40,7 @@ function Friends({isDarkTheme, userName}) {
   )
 
   const overlayStyle = {
-    position: 'absolute',
+    position: 'fixed',
     width: '100%',
     height: '100%',
     top: 0,
@@ -52,7 +52,7 @@ function Friends({isDarkTheme, userName}) {
 
   return (
     <>
-      <div style={overlayStyle} onClick={() => setIsInSelectorMode(false)} ></div>
+      <span style={overlayStyle} onClick={() => setIsInSelectorMode(false)} />
       <div className='options-selector' >
         <button className='options-selector-button' onClick={() => setIsInSelectorMode(true)} >
           {selectedOption} <div>&rsaquo;</div>

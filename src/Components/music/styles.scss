@@ -9,7 +9,6 @@ $background-color-dark: #222;
 
 .audiotrack-title-input {
   height: 2.5rem;
-  width: 30rem;
   border-radius: 1.25rem;
   font-size: 1.5rem;
   margin: 1rem;
@@ -17,10 +16,11 @@ $background-color-dark: #222;
   outline: none;
   color: inherit;
   box-sizing: border-box;
+  width: 95%;
+  max-width: 30rem;
 
-  @media (max-width: 42rem) {
-    width: 95%;
-    max-width: 30rem;
+  @media (min-width: 42rem) {
+    width: 30rem;
   }
 
   &-light {
@@ -42,7 +42,7 @@ $background-color-dark: #222;
 
   &-controls {
     margin-top: .2rem;
-    display: flex;
+    display: none;
     position: absolute;
     left: 16.5rem;
 
@@ -65,8 +65,8 @@ $background-color-dark: #222;
       }
     }
 
-    @media (max-width: 1200px) {
-      display: none;
+    @media (min-width: 1200px) {
+      display: flex;
     }
   }
 
@@ -155,21 +155,13 @@ $background-color-dark: #222;
 }
 
 .trackitem {
+  width: 100%;
   display: flex;
   padding: .5rem;
   margin-top: .5rem;
   position: relative;
   border-radius: .5rem;
   box-sizing: border-box;
-  width: 100%;
-
-  @media (max-width: 1200px) {
-    width: 40rem;
-  }
-
-  @media (max-width: 42rem) {
-    width: 100%;
-  }
 
   &-button {
     &-light {
@@ -181,13 +173,9 @@ $background-color-dark: #222;
       background-color: #555;
       color: inherit;
 
-      &:hover {
-        background-color: #777;
-      }
-      
-      @media (max-width: 42rem) {
+      @media (min-width: 42rem) {
         &:hover {
-          background-color: #555;
+          background-color: #777;
         }
       }
     }
@@ -252,27 +240,15 @@ $background-color-dark: #222;
     }
   }
 
-  &-light {
-    &:hover {
+  @media (min-width: 1200px) {
+    &-light:hover {
       background-color: #e6e6e6;
-    }
-
-    @media (max-width: 1200px) {
-      &:hover {
-        background-color: transparent;
-      }
     }
   }
 
-  &-dark {
-    &:hover {
+  @media (min-width: 1200px) {
+    &-dark:hover {
       background-color: #2e2e2e;
-    }
-
-    @media (max-width: 1200px) {
-      &:hover {
-        background-color: transparent;
-      }
     }
   }
 }
