@@ -14,6 +14,7 @@ to run this application you also have to install the server from
 - SPA application
 - Theme changing
 - Account settings
+- Responsive design
 
 # Starting up
 
