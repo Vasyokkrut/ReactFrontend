@@ -58,7 +58,7 @@ function AddPostForm(props) {
       })
       return false
     }
-    if (title.length > 22) {
+    if (title.length > 20) {
       setStatus({
         successful: false,
         message: 'your title is too large, please, keep it simple'
@@ -75,7 +75,7 @@ function AddPostForm(props) {
     return true
   }
 
-  function handleUpload() {
+  function uploadPost() {
     if (!checkInput()) return
 
     const data = new FormData()
@@ -87,6 +87,7 @@ function AddPostForm(props) {
       successful: true,
       message: 'your post is uploading...'
     })
+
     axios.put('/api/posts/uploadPost', data)
       .then(response => {
         setPicture(null)
@@ -111,6 +112,37 @@ function AddPostForm(props) {
           })
         }
       })
+  }
+
+  function checkImageSize() {
+    const i = new Image()
+
+    i.onload = () => {
+      if (i.width < 300 && i.height < 200) {
+        setStatus({
+          successful: false,
+          message: 'picture is too small'
+        })
+        return
+      }
+      if (i.width < 300) {
+        setStatus({
+          successful: false,
+          message: 'picture width is too small'
+        })
+        return
+      }
+      if (i.height < 200) {
+        setStatus({
+          successful: false,
+          message: 'picture height is too small'
+        })
+        return
+      }
+      uploadPost()
+    }
+
+    i.src = preview
   }
 
   const messageStyle = {
@@ -148,7 +180,7 @@ function AddPostForm(props) {
               placeholder='Choose title'
               onChange={handleTitleInput}
               value={title}
-              onKeyDown={event => {if (event.key === 'Enter') handleUpload()}}
+              onKeyDown={event => {if (event.key === 'Enter') checkImageSize()}}
             />
           </div>
           <textarea
@@ -162,7 +194,7 @@ function AddPostForm(props) {
           </div>
           <button
             className={buttonClassName}
-            onClick={handleUpload}
+            onClick={checkImageSize}
           >
             Upload Post
           </button>

@@ -9,6 +9,20 @@ import AddPostForm from './addPostForm.jsx'
 import { hardLogout } from '../../utilities.js'
 import { deleteUserPost, setUserPosts } from '../../Store/posts/actions.js'
 
+function useWindowWidth() {
+  const [width, setWidth] = useState(document.body.offsetWidth)
+
+  useEffect(() => {
+    function updateWidth() {
+      setWidth(document.body.offsetWidth)
+    }
+    window.addEventListener('resize', updateWidth)
+    return () => window.removeEventListener('resize', updateWidth)
+  }, [])
+
+  return width
+}
+
 function Posts({
   match,
   userName,
@@ -18,6 +32,7 @@ function Posts({
 }) {
   const [isDataLoaded, setIsDataLoaded] = useState(false)
   const [requestedUserName, setRequestedUserName] = useState(false)
+  const windowWidth = useWindowWidth()
 
   useEffect(() => {
     setIsDataLoaded(false)
@@ -119,6 +134,7 @@ function Posts({
           <PostItem
             key={item._id}
             item={item}
+            windowWidth={windowWidth}
             userName={requestedUserName}
             sendDeleteRequest={sendDeleteRequest}
             isDeleteAvailable={requestedUserName === userName}

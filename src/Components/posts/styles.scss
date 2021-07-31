@@ -8,18 +8,35 @@ $background-color-dark: #222;
 }
 
 .post {
+  &-buttons-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+
+    @media (min-width: 42rem) {
+      padding: 0 1rem;
+    }
+  }
+
   &-button {
     border-radius: .5rem;
     height: 2rem;
+    width: 6rem;
     padding: 0;
+    margin-left: 0;
+
+    @media (min-width: 42rem) {
+      margin-left: .5rem;
+    }
 
     &-light {
       border: 1px solid #ddd;
-      background-color: whitesmoke;
+      background-color: white;
 
       @media (min-width: 1200px) {
         &:hover {
-          background-color: #eee;
+          // background-color: #eee;
+          box-shadow: 0 0 8px 2px #eee;
         }
       }
     }
@@ -35,10 +52,36 @@ $background-color-dark: #222;
       }
     }
 
-    @media (min-width: 42rem) {
-      border-radius: 2rem;
-      height: 3rem;
-      padding: 0 1rem;
+    &-delete {
+      position: absolute;
+      left: .5rem;
+      width: 5rem;
+
+      @media (min-width: 42rem) {
+        left: 1rem;
+      }
+
+      &-light {
+        border: 1px solid red;
+
+        @media (min-width: 1200px) {
+          &:hover {
+            color: white;
+            background-color: red;
+            box-shadow: none;
+          }
+        }
+      }
+
+      &-dark {
+        border: 1px solid #900;
+
+        @media (min-width: 1200px) {
+          &:hover {
+            background-color: #900;
+          }
+        }
+      }
     }
   }
 
@@ -49,7 +92,7 @@ $background-color-dark: #222;
     border-style: solid;
 
     &-light {
-      background-color: whitesmoke;
+      background-color: white;
       border-color: $border-color-light;
     }
     
@@ -78,16 +121,23 @@ $background-color-dark: #222;
   }
 
   &-picture {
-    max-height: 400px;
-    max-width: 100%;
-
-    &-container {
-      height: 400px;
-      align-items: center;
-    }
+    background-size: contain;
+    background-repeat: no-repeat;
 
     @media (min-width: 42rem) {
       max-width: 600px;
+      max-height: 400px;
+    }
+
+    &-container {
+      width: 100%;
+      max-height: 400px;
+    }
+
+    img {
+      opacity: 0;
+      max-width: 100%;
+      max-height: 400px;
     }
   }
 }
@@ -109,7 +159,7 @@ $background-color-dark: #222;
   font-size: 1.8rem;
 
   @media (min-width: 42rem) {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 }
 
@@ -217,6 +267,11 @@ $background-color-dark: #222;
 }
 
 .upload-status {
+  text-align: center;
   font-size: 1.5rem;
-  height: 2rem;
+  height: 3rem;
+
+  @media (min-width: 42rem) {
+    height: 2rem;
+  }
 }
