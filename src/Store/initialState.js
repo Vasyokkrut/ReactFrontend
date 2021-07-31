@@ -4,7 +4,7 @@ const initialState = {
     isMusicPlaying: false,
     currentAudioTrack: null,
     currentMusicVolume: .1,
-    userAudioTracks: []
+    userAudioTracks: null
   },
   posts: {
     userPosts: []

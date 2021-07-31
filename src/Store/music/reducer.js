@@ -16,7 +16,7 @@ const initialState = {
   isMusicPlaying: false,
   currentAudioTrack: null,
   currentMusicVolume: .1,
-  userAudioTracks: []
+  userAudioTracks: null
 }
 
 export const musicReducer = (state = initialState, action) => {
@@ -90,7 +90,7 @@ export const musicReducer = (state = initialState, action) => {
     case RESET_AUDIO_PLAYER:
       return {
         ...state,
-        userAudioTracks: [],
+        userAudioTracks: null,
         currentMusicTime: 0,
         isMusicPlaying: false,
         currentAudioTrack: null

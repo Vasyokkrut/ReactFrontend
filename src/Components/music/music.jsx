@@ -1,7 +1,7 @@
 import axios from 'axios'
+import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import React, { useEffect, useState } from 'react'
 
 import './styles.scss'
 import AddTrack from './addTrack.jsx'
@@ -10,25 +10,16 @@ import LoginPage from '../loginPage/loginPage.jsx'
 import { setUserAudioTracks } from '../../Store/music/actions.js'
 
 function MyMusic({userName, userAudioTracks, setUserAudioTracks}) {
-
-  const [isDataLoaded, setIsDataLoaded] = useState(false)
-
   useEffect(() => {
     if (userName) {
       axios.get('/api/music/getMusic/' + userName)
-        .then(res => {
-          setUserAudioTracks(res.data.userMusic)
-          setIsDataLoaded(true)
-        })
-    }
-    return () => {
-      setIsDataLoaded(false)
+        .then(res => setUserAudioTracks(res.data.userMusic))
     }
   }, [userName, setUserAudioTracks])
 
   if (!userName) return <LoginPage />
 
-  if (!isDataLoaded) {
+  if (!userAudioTracks) {
     return(
       <div style={{fontSize: '2rem', textAlign: 'center'}} >
         loading...
