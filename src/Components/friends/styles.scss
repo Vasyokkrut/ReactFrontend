@@ -273,12 +273,12 @@
 }
 
 .clickable-item {
-  text-align: center;
   height: 1.3rem;
   outline: none;
-  padding-top: .3rem;
-  display: block;
+  display: flex;
   margin: .5rem;
+  align-items: center;
+  justify-content: center;
   border-radius: .3rem;
   width: 8rem;
   height: 1.8rem;

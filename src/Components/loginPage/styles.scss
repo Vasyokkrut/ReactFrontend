@@ -9,7 +9,7 @@
     }
 
     &-light {
-      background-color: whitesmoke;
+      background-color: white;
       border: 1px solid #ddd;
     }
 
@@ -52,7 +52,7 @@
 
   &-button {
     &-light {
-      background-color: whitesmoke;
+      background-color: white;
       border: 1px solid #ddd;
 
       @media (min-width: 42rem) {

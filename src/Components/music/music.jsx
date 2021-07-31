@@ -40,7 +40,7 @@ function MyMusic({userName, userAudioTracks, setUserAudioTracks}) {
     return(
       <>
         <AddTrack />
-        <div style={{fontSize: '3rem', textAlign: 'center'}} >
+        <div className='notification' >
           you have no tracks :( <br />
           use button above to add one!
         </div>

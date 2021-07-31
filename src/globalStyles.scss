@@ -1,5 +1,5 @@
 .light-body {
-  background-color: #eee;
+  background-color: whitesmoke;
   color: black;
 }
 
@@ -87,7 +87,7 @@ header {
   outline: none;
 
   &-light {
-    background-color: whitesmoke;
+    background-color: white;
     border: 1px solid #ddd;
 
     @media (min-width: 1200px) {
