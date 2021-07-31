@@ -35,7 +35,7 @@ const mobileDeviceNames = [
   /tablet/i,
   /touch/i
 ]
-const isMobileDevice = mobileDeviceNames.some(item => {
+const isMobileDevice = navigator.userAgentData?.mobile ?? mobileDeviceNames.some(item => {
   return navigator.userAgent.match(item)
 })
 // if user have mobile device, native audio element should use maximum volume
