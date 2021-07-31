@@ -29,9 +29,6 @@ function Dropdown(props) {
   if (props.userName) {
     return(
       <div className={dropdownClassName} >
-        <div className='username'>
-          {props.userName}
-        </div>
         <Link className='username-link' to={`/userPosts/${props.userName}`} >
           {props.userName}
         </Link>
