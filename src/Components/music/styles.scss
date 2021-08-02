@@ -160,7 +160,6 @@ $background-color-dark: #222;
   padding: .5rem;
   margin-top: .5rem;
   position: relative;
-  border-radius: .5rem;
   box-sizing: border-box;
 
   &-button {
@@ -244,11 +243,12 @@ $background-color-dark: #222;
     &-light:hover {
       background-color: #e6e6e6;
     }
-  }
-
-  @media (min-width: 1200px) {
     &-dark:hover {
       background-color: #2e2e2e;
     }
+  }
+
+  @media (min-width: 42rem) {
+    border-radius: .5rem;
   }
 }
