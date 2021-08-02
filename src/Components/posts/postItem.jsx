@@ -3,17 +3,16 @@ import { connect } from 'react-redux'
 
 function PostItem({
   item,
-  userName,
   isDarkTheme,
   windowWidth,
   isDeleteAvailable,
   sendDeleteRequest
 }) {
+  let pictureLink = `/api/posts/getPostPicture/${item.pictureName}`
   let downloadLink = `/api/posts/downloadPicture/${item.pictureName}`
-  let pictureURL = `/api/posts/getPostPicture/${userName}/${item._id}`
 
   if (process.env.NODE_ENV !== 'production') {
-    pictureURL = `http://${window.location.hostname}:5000${pictureURL}`
+    pictureLink = `http://${window.location.hostname}:5000${pictureLink}`
     downloadLink = `http://${window.location.hostname}:5000${downloadLink}`
   }
 
@@ -82,8 +81,8 @@ function PostItem({
         {item.text}
       </div>
       <div style={{height: imageContainerHeight}} className='flex-center post-picture-container'>
-        <div className='post-picture' style={{backgroundImage: `url(${pictureURL})`}} >
-          <img src={pictureURL} alt='Sorry, we cant load this file' />
+        <div className='post-picture' style={{backgroundImage: `url(${pictureLink})`}} >
+          <img src={pictureLink} alt='Sorry, we cant load this file' />
         </div>
       </div>
       <div className='post-buttons-container' >
@@ -99,7 +98,7 @@ function PostItem({
           className={buttonClassName}
           rel='noopener noreferrer'
           target='_blank'
-          href={pictureURL}
+          href={pictureLink}
         >full picture</a>
         <a
           className={buttonClassName}

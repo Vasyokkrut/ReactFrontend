@@ -135,7 +135,6 @@ function Posts({
             key={item._id}
             item={item}
             windowWidth={windowWidth}
-            userName={requestedUserName}
             sendDeleteRequest={sendDeleteRequest}
             isDeleteAvailable={requestedUserName === userName}
           />
