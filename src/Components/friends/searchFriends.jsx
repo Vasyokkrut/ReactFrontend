@@ -89,9 +89,11 @@ function FoundUser({isDarkTheme, user}) {
 }
 
 function SearchFriends({isDarkTheme}) {
-  const [requestedUser, setRequestedUser] = useState('')
   const [foundUsers, setFoundUsers] = useState([])
+  const [requestedUser, setRequestedUser] = useState('')
   const [isDataLoaded, setIsDataLoaded] = useState(false)
+  const [isSuccessful, setIsSuccessful] = useState(true)
+  const [statusMessage, setStatusMessage] = useState('')
 
   const searchInputClassName = classnames(
     'search-input',
@@ -103,17 +105,19 @@ function SearchFriends({isDarkTheme}) {
     isDarkTheme ? 'search-button-dark' : 'search-button-light'
   )
 
-  function checkRequestedUsername() {
-    const allowedSymbols = /^[A-Za-z0-9]+$/
-
-    if (!allowedSymbols.test(requestedUser)) return false
-    return true
-  }
-
   function sendSearchRequest() {
-    if (!checkRequestedUsername()) return
-
     setIsDataLoaded(false)
+    setFoundUsers([])
+    setIsSuccessful(true)
+  
+    const allowedSymbols = /^[A-Za-z0-9]+$/
+    if (!allowedSymbols.test(requestedUser)) {
+      setIsDataLoaded(true)
+      setIsSuccessful(false)
+      setStatusMessage('only letters and numbers are allowed')
+      return
+    }
+
     axios.get('/api/friends/searchFriends?username=' + requestedUser)
       .then(res => {
         setFoundUsers(res.data)
@@ -151,9 +155,15 @@ function SearchFriends({isDarkTheme}) {
           disabled={!requestedUser}
         >search</button>
       </div>
-      {isDataLoaded && !foundUsers.length
+      {isDataLoaded && !foundUsers.length && isSuccessful
         ? <div className='notification' >
           sorry, users with this name were not found
+        </div>
+        : null
+      }
+      {isDataLoaded && !foundUsers.length && !isSuccessful
+        ? <div className='notification' >
+          {statusMessage}
         </div>
         : null
       }
